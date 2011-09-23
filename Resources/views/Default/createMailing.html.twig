@@ -1,5 +1,15 @@
 <h1>{% trans %}Create mailing{% endtrans %}</h1>
 <form action="" method="post">
-  <textarea name="mailingBody"></textarea><br/>
+  <fieldset>
+    <legend>{% trans %}Mail template{% endtrans %}</legend>
+    <label>{% trans %}Title{% endtrans %} <input type="text" name="title"/></label><br/>
+    <label>{% trans %}E-mail body {% endtrans %} <textarea name="body"></textarea></label><br/>
+  </fieldset>
+  <fieldset>
+    <legend>{% trans %}Contacts{% endtrans %}</legend>
+    {% for contact in contacts %}
+      <label><input type="checkbox" name="contact[{{ contact.id }}]" /> {{ contact }}</label><br/>
+    {% endfor %}
+  </fieldset>
   <input type="submit" value="{% trans %}Send mailing{% endtrans %}" />
 </form>

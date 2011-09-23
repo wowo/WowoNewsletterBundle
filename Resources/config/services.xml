@@ -4,17 +4,16 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
-        <parameter key="wowo_newsletter.example.class">Wowo\Bundle\NewsletterBundle\Example</parameter>
+        <parameter key="wowo_newsletter.model.contact.class">Wowo\Bundle\NewsletterBundle\Entity\Contact</parameter>
     </parameters>
 
     <services>
-        <service id="wowo_newsletter.example" class="%wowo_newsletter.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="wowo_newsletter.contact_manager" class="Wowo\Bundle\NewsletterBundle\Model\ContactManager">
+            <argument type="service" id="wowo_newsletter.document_manager" />
+            <argument>%wowo_newsletter.model.contact.class%</argument>
         </service>
+
+        <service id="wowo_newsletter.document_manager" alias="doctrine.orm.entity_manager" />
     </services>
-    -->
 </container>

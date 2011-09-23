@@ -42,6 +42,10 @@ class Contact
      */
     private $email;
 
+    public function __toString()
+    {
+        return sprintf("%s %s (%s)", $this->name, $this->surname, $this->email);
+    }
 
     /**
      * Get id

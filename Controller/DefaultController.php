@@ -14,6 +14,8 @@ class DefaultController extends Controller
      */
     public function createMailingAction()
     {
-        return array();
+      $contactManager = $this->get("wowo_newsletter.contact_manager");
+      var_dump($this->getRequest()->request->get("contact"));
+      return array("contacts" => $contactManager->findContactToChooseForMailing());
     }
 }
