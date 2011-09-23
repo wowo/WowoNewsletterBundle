@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Wowo\Bundle\NewsletterBundle\Entity\MailingRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Mailing
 {
@@ -103,11 +104,12 @@ class Mailing
     /**
      * Set createdAt
      *
+     * @ORM\PrePersist()
      * @param datetime $createdAt
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt()
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new \DateTime("now");
     }
 
     /**
@@ -123,11 +125,13 @@ class Mailing
     /**
      * Set updatedAt
      *
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
      * @param datetime $updatedAt
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt()
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new \DateTime("now");
     }
 
     /**
