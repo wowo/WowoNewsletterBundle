@@ -9,11 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/hello/{name}")
+     * @Route("/mailing")
      * @Template()
      */
-    public function indexAction($name)
+    public function createMailingAction()
     {
-        return array('name' => $name);
+        return array();
     }
 }
