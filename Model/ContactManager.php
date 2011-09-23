@@ -10,14 +10,23 @@ class ContactManager extends AbstractManager implements ContactManagerInterface
    * findContactToChooseForMailing 
    * 
    * @access public
-   * @return void
+   * @return Contact[]
    */
   public function findContactToChooseForMailing()
   {
     return $this->em->getRepository($this->class)->findAll();
   }
 
-  public function findContactForMailingFromRequest()
+  /**
+   * findContactForMailingFromRequest 
+   * 
+   * @access public
+   * @return array
+   */
+  public function findContactIdForMailingFromRequest()
   {
+    $ids = array_keys($this->request->request->get("contact"));
+    //TODO check if ids are in contacts returned by findContactToChooseForMailing
+    return $ids;
   }
 }

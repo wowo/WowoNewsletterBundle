@@ -18,8 +18,8 @@ class DefaultController extends Controller
       $mailingManager = $this->get("wowo_newsletter.mailing_manager");
       if ('POST' == $this->get('request')->getMethod()) {
         $mailing  = $mailingManager->createMailingFromRequest();
-        var_dump($mailing);
-        $contacts = $contactManager->findContactForMailingFromRequest();
+        $contactIds = $contactManager->findContactIdForMailingFromRequest();
+        var_dump($contactIds, $mailing);
       }
       return array("contacts" => $contactManager->findContactToChooseForMailing());
     }
