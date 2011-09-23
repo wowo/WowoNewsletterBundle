@@ -10,17 +10,22 @@
 
     <services>
         <service id="wowo_newsletter.contact_manager" class="Wowo\Bundle\NewsletterBundle\Model\ContactManager">
-            <argument type="service" id="wowo_newsletter.document_manager" />
+            <argument type="service" id="wowo_newsletter.entity_manager" />
             <argument type="service" id="service_container" />
             <argument>%wowo_newsletter.model.contact.class%</argument>
         </service>
 
         <service id="wowo_newsletter.mailing_manager" class="Wowo\Bundle\NewsletterBundle\Model\MailingManager">
-            <argument type="service" id="wowo_newsletter.document_manager" />
+            <argument type="service" id="wowo_newsletter.entity_manager" />
             <argument type="service" id="service_container" />
             <argument>%wowo_newsletter.model.contact.class%</argument>
         </service>
 
-        <service id="wowo_newsletter.document_manager" alias="doctrine.orm.entity_manager" />
+        <service id="wowo_newsletter.newsletter_manager" class="Wowo\Bundle\NewsletterBundle\Newsletter\NewsletterManager">
+            <argument type="service" id="wowo_newsletter.entity_manager" />
+            <argument>%wowo_newsletter.model.contact.class%</argument>
+        </service>
+
+        <service id="wowo_newsletter.entity_manager" alias="doctrine.orm.entity_manager" />
     </services>
 </container>
