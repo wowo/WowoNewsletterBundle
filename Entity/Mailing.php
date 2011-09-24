@@ -3,6 +3,7 @@
 namespace Wowo\Bundle\NewsletterBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Wowo\Bundle\NewsletterBundle\Entity\Mailing
@@ -25,6 +26,7 @@ class Mailing
     /**
      * @var string $title
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
@@ -32,9 +34,35 @@ class Mailing
     /**
      * @var text $body
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="body", type="text")
      */
     private $body;
+
+    /**
+     * @var string $senderEmail
+     *
+     * @Assert\NotBlank()
+     * @Assert\Email()
+     * @ORM\Column(name="senderEmail", type="string", length=255)
+     */
+    private $senderEmail;
+
+    /**
+     * @var string $senderName
+     *
+     * @Assert\NotBlank()
+     * @ORM\Column(name="senderName", type="string", length=255)
+     */
+    private $senderName;
+
+    /**
+     * @var datetime $sendDate
+     *
+     * @Assert\NotBlank()
+     * @ORM\Column(name="sendDate", type="datetime")
+     */
+    private $sendDate;
 
     /**
      * @var datetime $createdAt
@@ -50,7 +78,26 @@ class Mailing
      */
     private $updatedAt;
 
+    /**
+     * @var integer $totalCount
+     * 
+     * @ORM\Column(name="totalCount", type="integer")
+     */
+    private $totalCount;
 
+    /**
+     * @var integer $sentCount
+     * 
+     * @ORM\Column(name="sentCount", type="integer")
+     */
+    private $sentCount;
+
+    /**
+     * @var integer $errorsCount
+     * 
+     * @ORM\Column(name="errorsCount", type="integer")
+     */
+    private $errorsCount;
     /**
      * Get id
      *
@@ -142,5 +189,65 @@ class Mailing
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    public function getSenderEmail()
+    {
+        return $this->senderEmail;
+    }
+
+    public function setSenderEmail($value)
+    {
+        $this->senderEmail = $value;
+    }
+
+    public function getSenderName()
+    {
+        return $this->senderName;
+    }
+
+    public function setSenderName($value)
+    {
+        $this->senderName = $value;
+    }
+
+    public function getSendDate()
+    {
+        return (null != $this->sendDate) ? $this->sendDate : new \DateTime("now");
+    }
+
+    public function setSendDate($value)
+    {
+        $this->sendDate = $value;
+    }
+
+    public function setTotalCount($value)
+    {
+        $this->totalCount = $value;
+    }
+
+    public function getTotalCount()
+    {
+        return $this->totalCount;
+    }
+
+    public function setErrorsCount($value)
+    {
+        $this->errorsCount = $value;
+    }
+
+    public function getErrorsCount()
+    {
+        return $this->errorsCount;
+    }
+
+    public function setSentCount($value)
+    {
+        $this->sentCount = $value;
+    }
+
+    public function getSentCount()
+    {
+        return $this->sentCount;
     }
 }

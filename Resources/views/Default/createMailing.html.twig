@@ -2,11 +2,10 @@
 
 {% block body %}
 <h1>{% trans %}Create mailing{% endtrans %}</h1>
-<form action="" method="post">
+<form action="" method="post" {{ form_enctype(form) }} >
   <fieldset>
     <legend>{% trans %}Mail template{% endtrans %}</legend>
-    <label>{% trans %}Title{% endtrans %} <input type="text" name="title"/></label><br/>
-    <label>{% trans %}E-mail body {% endtrans %} <textarea name="body"></textarea></label><br/>
+    {{ form_widget(form) }}
   </fieldset>
   <fieldset>
     <legend>{% trans %}Contacts{% endtrans %}</legend>

@@ -7,6 +7,6 @@ interface MailingManagerInterface
   /**
    * Creates mailing object based on form sent by user (basically title and e-mail body
    */
-  public function createMailingFromRequest();
+  public function createMailingBasedOnForm($form, $contactCount);
 }
 
