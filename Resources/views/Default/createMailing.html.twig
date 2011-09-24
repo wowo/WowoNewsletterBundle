@@ -1,3 +1,6 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
 <h1>{% trans %}Create mailing{% endtrans %}</h1>
 <form action="" method="post">
   <fieldset>
@@ -13,3 +16,4 @@
   </fieldset>
   <input type="submit" value="{% trans %}Send mailing{% endtrans %}" />
 </form>
+{% endblock %}
