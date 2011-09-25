@@ -8,19 +8,23 @@ class NewsletterManager implements NewsletterManagerInterface
 {
     protected $class;
     protected $pheanstalk;
-    protected $preparationTube = "newsletter_preparation_tube";
-    protected $sendingTube     = "newsletter_sending_tube";
+    protected $preparationTube;
+    protected $sendingTube;
 
-    public function __construct(EntityManager $em, $class)
+    public function __construct(EntityManager $em,$pheanstalk, $class, $preparationTube)
     {
         $metadata = $em->getClassMetadata($class);
         $this->class = $metadata->name;
 
-        $this->pheanstalk = new \Pheanstalk('127.0.0.1:11300');
+        $this->pheanstalk = $pheanstalk;
+        $this->preparationTube = $preparationTube;
     }
 
     public function putMailingInPreparationQueue($mailingId, array $contactIds)
     {
+        if (null == $this->preparationTube) {
+            throw new \InvalidArgumentException("Preparation tube unkonwn!");
+        }
         if (count($contactIds) == 0) {
             throw new \InvalidArgumentException('No contacs selected, it need to be at least one contact to send mailing');
         }
