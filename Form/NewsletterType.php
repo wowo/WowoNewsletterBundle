@@ -16,13 +16,20 @@ class NewsletterType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'required' => true,
-                'choices'  => $options['data']['availableContacts']))
-        ;
+                'choices'  => $options['data']->getContacts(),
+            ));
     }
 
     public function getName()
     {
         return 'wowo_bundle_newsletterbundle_newslettertype';
+    }
+
+    public function getDefaultOptions(array $options)
+    {
+        return array(
+            'data_class' => 'Wowo\Bundle\NewsletterBundle\Model\Newsletter',
+        );
     }
 }
 

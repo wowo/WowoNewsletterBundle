@@ -9,8 +9,7 @@ class MailingManager extends AbstractManager implements MailingManagerInterface
 {
     public function createMailingBasedOnForm($form, $contactCount)
     {
-        $data = $form->getData();
-        $mailing = $data['mailing'];
+        $mailing = $form->getData()->mailing;
         $mailing->setTotalCount($contactCount);
         $mailing->setSentCount(0);
         $mailing->setErrorsCount(0);

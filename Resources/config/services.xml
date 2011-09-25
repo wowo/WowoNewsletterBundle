@@ -26,6 +26,10 @@
             <argument>%wowo_newsletter.model.contact.class%</argument>
         </service>
 
+        <service id="wowo_newsletter.newsletter" class="Wowo\Bundle\NewsletterBundle\Model\Newsletter">
+            <argument type="service" id="wowo_newsletter.contact_manager" />
+        </service>
+
         <service id="wowo_newsletter.entity_manager" alias="doctrine.orm.entity_manager" />
     </services>
 </container>

@@ -30,7 +30,6 @@ class ContactManager extends AbstractManager implements ContactManagerInterface
     */
     public function findChoosenContactIdForMailing($form)
     {
-        $data = $form->getData();
-        return $data['contacts'];
+        return $form->getData()->getContacts();
     }
 }
