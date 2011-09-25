@@ -1,18 +1,14 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-<h1>{% trans %}Create mailing{% endtrans %}</h1>
-<form action="" method="post" {{ form_enctype(form) }} >
-  <fieldset>
-    <legend>{% trans %}Mail template{% endtrans %}</legend>
-    {{ form_widget(form) }}
-  </fieldset>
-  <fieldset>
-    <legend>{% trans %}Contacts{% endtrans %}</legend>
-    {% for contact in contacts %}
-      <label><input type="checkbox" name="contact[{{ contact.id }}]" /> {{ contact }}</label><br/>
-    {% endfor %}
-  </fieldset>
-  <input type="submit" value="{% trans %}Send mailing{% endtrans %}" />
-</form>
+    {% if app.session.hasFlash('notice') %}
+        <div class="flash-notice">
+            {{ app.session.flash('notice') }}
+        </div>
+    {% endif %}
+    <h1>{% trans %}Create mailing{% endtrans %}</h1>
+    <form action="" method="post" {{ form_enctype(form) }} >
+        {{ form_widget(form) }}
+        <input type="submit" value="{% trans %}Send mailing{% endtrans %}"/>
+    </form>
 {% endblock %}

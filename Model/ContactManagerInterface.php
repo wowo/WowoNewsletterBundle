@@ -12,5 +12,5 @@ interface ContactManagerInterface
   /**
    * Finds contacts that user has choosen for recieve the mailing
    */
-  public function findContactIdForMailingFromRequest();
+  public function findChoosenContactIdForMailing($source);
 }
