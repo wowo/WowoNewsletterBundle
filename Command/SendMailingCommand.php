@@ -14,16 +14,12 @@ class SendMailingCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->addOption('jobs', null, InputOption::VALUE_OPTIONAL, 'Number of jobs to process at one time', 50)
             ->setDescription('Fetches jobs from queue, process them and send as an email')
             ->setHelp(<<<EOT
 The <info>newsletter:send</info> fetches jobs from queue, replaces placeholders 
 and sends emails to recipients.
 
-<info>php app/console newsletter:send [--jobs]</info>
-
-To determine jobs count use 
-<info>--jobs</info> option (by default: 50).
+<info>php app/console newsletter:send</info>
 
 EOT
             )
@@ -38,15 +34,22 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if ((int)$input->getOption('jobs') <= 0) {
-            throw new \InvalidArgumentException('<info>Jobs</info> parameter need to be greater than 0');
-        }
         $pheanstalk = $this->getContainer()->get('wowo_newsletter.pheanstalk');
         $tube = $this->getContainer()->getParameter('wowo_newsletter.queue.preparation');
-        for ($i = 0; $i < $input->getOption('jobs'); $i++) {
-            $job = $pheanstalk->watch($tube)->ignore('default')->reserve();
-            $job = json_decode($job->getData(), false);
-            var_dump($job);
+        while (1) {
+            $rawJob = $pheanstalk->watch($tube)->ignore('default')->reserve();
+            $job = json_decode($rawJob->getData(), false);
+            $time = new \DateTime("now");
+            $output->writeLn(sprintf("<info>[%s]</info> Processing job with contact id <info>%d</info> "
+                . " and mailing id <info>%d</info>", $time->format("Y-m-d h:i:s"), $job->contactId, $job->mailingId));
+            
+            $message = $this->getContainer()->get('wowo_newsletter.newsletter_manager')->sendMailing($job->mailingId,
+                $job->contactId, $job->contactClass);
+            if ($input->getOption('verbose')) {
+                $output->writeLn(sprintf("Sent message:\n%s", $message->toString()));
+            }
+            $pheanstalk->delete($rawJob);
+            usleep(10);
         }
     }
 }

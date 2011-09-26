@@ -27,6 +27,7 @@
         <service id="wowo_newsletter.newsletter_manager" class="Wowo\Bundle\NewsletterBundle\Newsletter\NewsletterManager">
             <argument type="service" id="wowo_newsletter.entity_manager" />
             <argument type="service" id="wowo_newsletter.pheanstalk" />
+            <argument type="service" id="mailer" />
             <argument>%wowo_newsletter.model.contact.class%</argument>
             <argument>%wowo_newsletter.queue.preparation%</argument>
         </service>

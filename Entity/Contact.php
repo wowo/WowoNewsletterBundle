@@ -116,4 +116,14 @@ class Contact
     {
         return $this->email;
     }
+
+    /**
+     * Get full name
+     * 
+     * @return string
+     */
+    public function getFullName()
+    {
+        return sprintf("%s %s", $this->name, $this->surname);
+    }
 }

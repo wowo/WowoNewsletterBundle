@@ -3,26 +3,31 @@
 namespace Wowo\Bundle\NewsletterBundle\Newsletter;
 
 use Doctrine\ORM\EntityManager;
+use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
 
 class NewsletterManager implements NewsletterManagerInterface
 {
+    protected $em;
     protected $class;
+    protected $mailer;
     protected $pheanstalk;
-    protected $preparationTube;
+    protected $tube;
     protected $sendingTube;
 
-    public function __construct(EntityManager $em,$pheanstalk, $class, $preparationTube)
+    public function __construct(EntityManager $em, \Pheanstalk $pheanstalk, \Swift_Mailer $mailer, $class, $tube)
     {
-        $metadata = $em->getClassMetadata($class);
+        $this->em = $em;
+        $metadata = $this->em->getClassMetadata($class);
         $this->class = $metadata->name;
+        $this->mailer = $mailer;
 
         $this->pheanstalk = $pheanstalk;
-        $this->preparationTube = $preparationTube;
+        $this->tube = $tube;
     }
 
     public function putMailingInPreparationQueue($mailingId, array $contactIds)
     {
-        if (null == $this->preparationTube) {
+        if (null == $this->tube) {
             throw new \InvalidArgumentException("Preparation tube unkonwn!");
         }
         if (count($contactIds) == 0) {
@@ -33,7 +38,36 @@ class NewsletterManager implements NewsletterManagerInterface
               $job->contactId = $contactId;
               $job->mailingId = $mailingId;
               $job->contactClass = $this->class;
-              $this->pheanstalk->useTube($this->preparationTube)->put(json_encode($job));
+              $this->pheanstalk->useTube($this->tube)->put(json_encode($job));
         }
+    }
+
+    protected function buildMessage($mailingId, $contactId, $contactClass)
+    {
+        $contact = $this->em
+            ->getRepository($contactClass)
+            ->find($contactId);
+        $mailing = $this->em
+            ->getRepository('WowoNewsletterBundle:Mailing')
+            ->find($mailingId);
+        $body = $this->buildMessageBody($contact, $mailing);
+        $message = \Swift_Message::newInstance()
+            ->setSubject($mailing->getTitle())
+            ->setFrom(array($mailing->getSenderEmail() => $mailing->getSenderName() ?: $mailing->getSenderEmail()))
+            ->setTo(array($contact->getEmail() => method_exists($contact, "getFullName") ? $contact->getFullName() : $contact->getEmail()))
+            ->setBody($body);
+        return $message;
+    }
+
+    protected function buildMessageBody($contact, Mailing $mailing)
+    {
+        return $mailing->getBody();
+    }
+
+    public function sendMailing($mailingId, $contactId, $contactClass)
+    {
+        $message = $this->buildMessage($mailingId, $contactId, $contactClass);
+        $this->mailer->send($message);
+        return $message;
     }
 }
