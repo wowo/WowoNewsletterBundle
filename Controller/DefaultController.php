@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Wowo\Bundle\NewsletterBundle\Form\NewsletterType;
-use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
 use Wowo\Bundle\NewsletterBundle\Model\Newsletter;
 
 class DefaultController extends Controller
@@ -26,7 +25,7 @@ class DefaultController extends Controller
             if ($form->isValid()) {
                 $contactIds = $contactManager->findChoosenContactIdForMailing($form);
                 $mailing    = $mailingManager->createMailingBasedOnForm($form, count((array)$contactIds));
-                $this->get("wowo_newsletter.newsletter_manager")->putMailingInPreparationQueue($mailing->getId(), $contactIds);
+                $this->get("wowo_newsletter.newsletter_manager")->putMailingInPreparationQueue($mailing, $contactIds);
 
                 $this->get('session')->setFlash('notice',
                     sprintf('Mailing to %d recipients has been enqueued for sending', count($contactIds)));

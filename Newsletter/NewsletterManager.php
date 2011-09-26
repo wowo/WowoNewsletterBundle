@@ -25,7 +25,7 @@ class NewsletterManager implements NewsletterManagerInterface
         $this->tube = $tube;
     }
 
-    public function putMailingInPreparationQueue($mailingId, array $contactIds)
+    public function putMailingInPreparationQueue(Mailing $mailing, array $contactIds)
     {
         if (null == $this->tube) {
             throw new \InvalidArgumentException("Preparation tube unkonwn!");
@@ -33,13 +33,20 @@ class NewsletterManager implements NewsletterManagerInterface
         if (count($contactIds) == 0) {
             throw new \InvalidArgumentException('No contacs selected, it need to be at least one contact to send mailing');
         }
+        $interval = $mailing->getSendDate()->diff(new \DateTime("now"));
         foreach($contactIds as $contactId) {
               $job = new \StdClass();
               $job->contactId = $contactId;
-              $job->mailingId = $mailingId;
+              $job->mailingId = $mailing->getId();
               $job->contactClass = $this->class;
-              $this->pheanstalk->useTube($this->tube)->put(json_encode($job));
+              $this->pheanstalk->useTube($this->tube)->put(json_encode($job), \Pheanstalk::DEFAULT_PRIORITY,
+                  $this->convertDataIntervalToSeconds($interval));
         }
+    }
+
+    protected function convertDataIntervalToSeconds(\DateInterval $interval)
+    {
+        return $interval->format("%days") * 24 * 60 * 60 + $interval->format("%h") * 60 * 60 + $interval->format("%i") * 60 + $interval->format("%s");
     }
 
     protected function buildMessage($mailingId, $contactId, $contactClass)
@@ -69,5 +76,22 @@ class NewsletterManager implements NewsletterManagerInterface
         $message = $this->buildMessage($mailingId, $contactId, $contactClass);
         $this->mailer->send($message);
         return $message;
+    }
+
+    public function getJobFromQueueAndSendMailing(\Closure $logger, $verbose)
+    {
+        $rawJob = $this->pheanstalk->watch($this->tube)->ignore('default')->reserve();
+        if ($rawJob) {
+            $job = json_decode($rawJob->getData(), false);
+            $time = new \DateTime("now");
+            $logger(sprintf("<info>[%s]</info> Processing job with contact id <info>%d</info> "
+                . " and mailing id <info>%d</info>", $time->format("Y-m-d h:i:s"), $job->contactId, $job->mailingId));
+            
+            $message = $this->sendMailing($job->mailingId, $job->contactId, $job->contactClass);
+            if ($verbose) {
+                $logger(sprintf("Sent message:\n%s", $message->toString()));
+            }
+            $this->pheanstalk->delete($rawJob);
+        }
     }
 }
