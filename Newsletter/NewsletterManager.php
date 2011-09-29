@@ -13,8 +13,9 @@ class NewsletterManager implements NewsletterManagerInterface
     protected $pheanstalk;
     protected $tube;
     protected $sendingTube;
+    protected $placeholders;
 
-    public function __construct(EntityManager $em, \Pheanstalk $pheanstalk, \Swift_Mailer $mailer, $class, $tube)
+    public function __construct(EntityManager $em, \Pheanstalk $pheanstalk, \Swift_Mailer $mailer, $class, $tube, array $placeholders)
     {
         $this->em = $em;
         $metadata = $this->em->getClassMetadata($class);
@@ -23,6 +24,7 @@ class NewsletterManager implements NewsletterManagerInterface
 
         $this->pheanstalk = $pheanstalk;
         $this->tube = $tube;
+        $this->placeholders = $placeholders;
     }
 
     public function putMailingInPreparationQueue(Mailing $mailing, array $contactIds)

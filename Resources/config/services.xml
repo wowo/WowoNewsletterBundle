@@ -7,8 +7,8 @@
     <parameters>
         <parameter key="wowo_newsletter.model.contact.class">Wowo\Bundle\NewsletterBundle\Entity\Contact</parameter>
         <parameter key="wowo_newsletter.pheanstalk.address">127.0.0.1:11300</parameter>
-        <parameter key="wowo_newsletter.queue.preparation">newsletter_preparation_tube</parameter>
-
+        <parameter key="wowo_newsletter.queue">newsletter_tube</parameter>
+        <parameter key="wowo_newsletter.placeholders.mapping"></parameter>
     </parameters>
 
     <services>
@@ -29,7 +29,8 @@
             <argument type="service" id="wowo_newsletter.pheanstalk" />
             <argument type="service" id="mailer" />
             <argument>%wowo_newsletter.model.contact.class%</argument>
-            <argument>%wowo_newsletter.queue.preparation%</argument>
+            <argument>%wowo_newsletter.queue%</argument>
+            <argument>%wowo_newsletter.placeholders.mapping%</argument>
         </service>
 
         <service id="wowo_newsletter.pheanstalk" class="Pheanstalk">
