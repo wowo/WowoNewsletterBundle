@@ -8,8 +8,20 @@ use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
 class Newsletter
 {
     public $mailing;
-    /**
-     * @Assert\Choice(min=1)
-     */
     public $contacts;
+
+    public function __construct()
+    {
+        $this->mailing = new Mailing();
+    }
+
+    public function setSenderNameProxy($value)
+    {
+        $this->mailing->setSenderName($value);
+    }
+
+    public function setSenderEmailProxy($value)
+    {
+        $this->mailing->setSenderEmail($value);
+    }
 }

@@ -18,14 +18,18 @@ class DefaultController extends Controller
     {
         $contactManager = $this->get("wowo_newsletter.contact_manager");
         $mailingManager = $this->get("wowo_newsletter.mailing_manager");
-        $form = $this->createForm(new NewsletterType(), new Newsletter(),
-            array('data' => array('availableContacts' => $contactManager->findContactToChooseForMailing())));
+        $newsletter = $this->get('wowo_newsletter.empty_newsletter');
+        $form = $this->createForm(new NewsletterType(), $newsletter,
+            array('data' => array(
+                'availableContacts' => $contactManager->findContactToChooseForMailing(),
+                'mailing' => $newsletter->mailing,
+            )));
         if ('POST' == $this->get('request')->getMethod()) {
             $form->bindRequest($this->getRequest());
             if ($form->isValid()) {
                 $contactIds = $contactManager->findChoosenContactIdForMailing($form);
                 $mailing    = $mailingManager->createMailingBasedOnForm($form, count((array)$contactIds));
-                $this->get("wowo_newsletter.newsletter_manager")->putMailingInPreparationQueue($mailing, $contactIds);
+                $this->get("wowo_newsletter.newsletter_manager")->putMailingInQueue($mailing, $contactIds);
 
                 $this->get('session')->setFlash('notice',
                     sprintf('Mailing to %d recipients has been enqueued for sending', count($contactIds)));
@@ -33,7 +37,7 @@ class DefaultController extends Controller
             }
         }
         return array(
-            "form"     => $form->createView(),
+            "form" => $form->createView(),
         );
     }
 }

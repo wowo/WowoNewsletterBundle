@@ -42,7 +42,7 @@ EOT
 
         while (1) {
             try {
-                $this->getContainer()->get('wowo_newsletter.newsletter_manager')->getJobFromQueueAndSendMailing($logger, $input->getOption('verbose'));
+                $this->getContainer()->get('wowo_newsletter.newsletter_manager')->processMailing($logger, $input->getOption('verbose'));
             } catch (\Swift_SwiftException $e) {
                 $logger(sprintf('<error>Mailer exception (%s) occured</error> with message: <error>%s</error>', get_class($e), $e->getMessage()));
             } catch (\Exception $e) {

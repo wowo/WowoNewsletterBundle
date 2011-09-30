@@ -43,6 +43,8 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('contact_class')->end()
                 ->scalarNode('pheanstalk_address')->end()
+                ->scalarNode('default_sender_name')->end()
+                ->scalarNode('default_sender_email')->end()
                 ;
 
         return $treeBuilder;

@@ -27,7 +27,7 @@ class NewsletterManager implements NewsletterManagerInterface
         $this->placeholders = $placeholders;
     }
 
-    public function putMailingInPreparationQueue(Mailing $mailing, array $contactIds)
+    public function putMailingInQueue(Mailing $mailing, array $contactIds)
     {
         if (null == $this->tube) {
             throw new \InvalidArgumentException("Preparation tube unkonwn!");
@@ -80,7 +80,7 @@ class NewsletterManager implements NewsletterManagerInterface
         return $message;
     }
 
-    public function getJobFromQueueAndSendMailing(\Closure $logger, $verbose)
+    public function processMailing(\Closure $logger, $verbose)
     {
         $rawJob = $this->pheanstalk->watch($this->tube)->ignore('default')->reserve();
         if ($rawJob) {

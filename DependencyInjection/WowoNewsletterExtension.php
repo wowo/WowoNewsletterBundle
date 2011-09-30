@@ -24,13 +24,19 @@ class WowoNewsletterExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+        $container->setParameter($this->getAlias() . '.placeholders.mapping', $config['placeholders']);
         if (isset($config['contact_class'])) {
             $container->setParameter($this->getAlias() . '.model.contact.class', $config['contact_class']);
         }
         if (isset($config['pheanstalk_address'])) {
             $container->setParameter($this->getAlias() . '.pheanstalk.address', $config['pheanstalk_address']);
         }
-        $container->setParameter($this->getAlias() . '.placeholders.mapping', $config['placeholders']);
+        if (isset($config['default_sender_name'])) {
+            $container->setParameter($this->getAlias() . '.default.sender_name', $config['default_sender_name']);
+        }
+        if (isset($config['default_sender_email'])) {
+            $container->setParameter($this->getAlias() . '.default.sender_email', $config['default_sender_email']);
+        }
     }
 
 }

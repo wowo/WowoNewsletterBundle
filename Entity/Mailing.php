@@ -213,7 +213,7 @@ class Mailing
 
     public function getSendDate()
     {
-        return (null != $this->sendDate) ? $this->sendDate : new \DateTime("now");
+        return (null != $this->sendDate) ? $this->sendDate : new \DateTime("+5 minute");
     }
 
     public function setSendDate($value)

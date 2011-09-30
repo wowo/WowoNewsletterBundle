@@ -9,6 +9,8 @@
         <parameter key="wowo_newsletter.pheanstalk.address">127.0.0.1:11300</parameter>
         <parameter key="wowo_newsletter.queue">newsletter_tube</parameter>
         <parameter key="wowo_newsletter.placeholders.mapping"></parameter>
+        <parameter key="wowo_newsletter.default.sender_name">Wojciech Sznapka</parameter>
+        <parameter key="wowo_newsletter.default.sender_email">wojciech@sznapka.pl</parameter>
     </parameters>
 
     <services>
@@ -31,6 +33,15 @@
             <argument>%wowo_newsletter.model.contact.class%</argument>
             <argument>%wowo_newsletter.queue%</argument>
             <argument>%wowo_newsletter.placeholders.mapping%</argument>
+        </service>
+
+        <service id="wowo_newsletter.empty_newsletter" class="Wowo\Bundle\NewsletterBundle\Model\Newsletter">
+            <call method="setSenderNameProxy">
+                <argument type="string">%wowo_newsletter.default.sender_name%</argument>
+            </call>
+            <call method="setSenderEmailProxy">
+                <argument type="string">%wowo_newsletter.default.sender_email%</argument>
+            </call>
         </service>
 
         <service id="wowo_newsletter.pheanstalk" class="Pheanstalk">
