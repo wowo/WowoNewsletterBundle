@@ -27,12 +27,24 @@
         </service>
 
         <service id="wowo_newsletter.newsletter_manager" class="Wowo\Bundle\NewsletterBundle\Newsletter\NewsletterManager">
-            <argument type="service" id="wowo_newsletter.entity_manager" />
-            <argument type="service" id="wowo_newsletter.pheanstalk" />
-            <argument type="service" id="mailer" />
-            <argument>%wowo_newsletter.model.contact.class%</argument>
-            <argument>%wowo_newsletter.queue%</argument>
-            <argument>%wowo_newsletter.placeholders.mapping%</argument>
+            <call method="setEntityManager">
+                <argument type="service" id="wowo_newsletter.entity_manager"/>
+            </call>
+            <call method="setPheanstalk">
+                <argument type="service" id="wowo_newsletter.pheanstalk"/>
+            </call>
+            <call method="setMailer">
+                <argument type="service" id="mailer"/>
+            </call>
+            <call method="setContactClass">
+                <argument>%wowo_newsletter.model.contact.class%</argument>
+            </call>
+            <call method="setTube">
+                <argument>%wowo_newsletter.queue%</argument>
+            </call>
+            <call method="setPlaceholders">
+                <argument>%wowo_newsletter.placeholders.mapping%</argument>
+            </call>
         </service>
 
         <service id="wowo_newsletter.empty_newsletter" class="Wowo\Bundle\NewsletterBundle\Model\Newsletter">

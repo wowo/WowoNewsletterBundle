@@ -19,6 +19,7 @@ class DefaultController extends Controller
         $contactManager = $this->get("wowo_newsletter.contact_manager");
         $mailingManager = $this->get("wowo_newsletter.mailing_manager");
         $newsletter = $this->get('wowo_newsletter.empty_newsletter');
+        $this->get('wowo_newsletter.newsletter_manager')->validateDependencies();
         $form = $this->createForm(new NewsletterType(), $newsletter,
             array('data' => array(
                 'availableContacts' => $contactManager->findContactToChooseForMailing(),

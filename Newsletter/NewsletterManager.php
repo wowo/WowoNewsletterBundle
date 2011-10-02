@@ -8,23 +8,65 @@ use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
 class NewsletterManager implements NewsletterManagerInterface
 {
     protected $em;
-    protected $class;
+    protected $contactClass;
     protected $mailer;
     protected $pheanstalk;
     protected $tube;
     protected $sendingTube;
     protected $placeholders;
 
-    public function __construct(EntityManager $em, \Pheanstalk $pheanstalk, \Swift_Mailer $mailer, $class, $tube, array $placeholders)
+    public function __construct()
+    {
+    }
+
+    public function setEntityManager(EntityManager $em)
     {
         $this->em = $em;
-        $metadata = $this->em->getClassMetadata($class);
-        $this->class = $metadata->name;
-        $this->mailer = $mailer;
+    }
 
+    public function setMailer(\Swift_Mailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
+    public function setPheanstalk(\Pheanstalk $pheanstalk)
+    {
         $this->pheanstalk = $pheanstalk;
+    }
+
+    public function setContactClass($contactClass)
+    {
+        if (!class_exists($contactClass)) {
+            throw new \InvalidArgumentException(sprintf('Class %s doesn\'t exist!', $contactClass));
+        }
+        $this->contactClass = $contactClass;
+    }
+
+    public function setTube($tube)
+    {
         $this->tube = $tube;
+    }
+
+    public function setPlaceholders(array $placeholders)
+    {
         $this->placeholders = $placeholders;
+    }
+
+    public function validateDependencies()
+    {
+        $dependencies = array(
+            'em' => $this->em,
+            'mailer' => $this->mailer,
+            'pheanstalk' => $this->pheanstalk,
+            'contactClass' => $this->contactClass,
+            'tube' => $this->tube,
+            'placeholders' => $this->placeholders,
+        );
+        foreach ($dependencies as $name => $dependency) {
+            if (null == $dependency) {
+                throw new \RuntimeException(sprintf('Dependency "%s" is not set or set to null', $name));
+            }
+        }
     }
 
     public function putMailingInQueue(Mailing $mailing, array $contactIds)
@@ -40,7 +82,7 @@ class NewsletterManager implements NewsletterManagerInterface
               $job = new \StdClass();
               $job->contactId = $contactId;
               $job->mailingId = $mailing->getId();
-              $job->contactClass = $this->class;
+              $job->contactClass = $this->contactClass;
               $this->pheanstalk->useTube($this->tube)->put(json_encode($job), \Pheanstalk::DEFAULT_PRIORITY,
                   $this->convertDataIntervalToSeconds($interval));
         }
@@ -95,5 +137,9 @@ class NewsletterManager implements NewsletterManagerInterface
             }
             $this->pheanstalk->delete($rawJob);
         }
+    }
+
+    public function fillPlaceholders(array $placeholdersMapping, $contact, $body)
+    {
     }
 }
