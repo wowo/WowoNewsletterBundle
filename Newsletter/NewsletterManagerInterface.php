@@ -9,5 +9,5 @@ interface NewsletterManagerInterface
     public function putMailingInQueue(Mailing $mailing, array $contactIds);
     public function sendMailing($mailingId, $contactIds, $contactClass);
     public function processMailing(\Closure $logger, $verbose);
-    public function fillPlaceholders(array $placeholdersMapping, $contact, $body);
+    public function fillPlaceholders($contact, $body);
 }

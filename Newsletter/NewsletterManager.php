@@ -4,6 +4,7 @@ namespace Wowo\Bundle\NewsletterBundle\Newsletter;
 
 use Doctrine\ORM\EntityManager;
 use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
+use Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException;
 
 class NewsletterManager implements NewsletterManagerInterface
 {
@@ -139,7 +140,46 @@ class NewsletterManager implements NewsletterManagerInterface
         }
     }
 
-    public function fillPlaceholders(array $placeholdersMapping, $contact, $body)
+    public function fillPlaceholders($contact, $body)
     {
+        if (null == $this->placeholders) {
+            throw new \BadMethodCallException('Placeholders mapping ain\'t configured yet');
+        }
+        if (get_class($contact) != $this->contactClass) {
+            throw new \InvalidArgumentException(sprintf('Contact passed to method isn\'t an instance of contactClass (%s != %s)', get_class($contact), $this->contactClass));
+        }
+        $this->validatePlaceholders();
+
+        return $body;
+    }
+
+    /**
+     * It looks firstly for properties, then for method (getter)
+     * 
+     */
+    protected function validatePlaceholders()
+    {
+        $rc = new \ReflectionClass($this->contactClass);
+        foreach ($this->placeholders as $placeholder => $source) {
+            if ($rc->hasProperty($source)) {
+                $rp = new \ReflectionProperty($this->contactClass, $source);
+                if (!$rp->isPublic()) {
+                    throw new InvalidPlaceholderMappingException(
+                        sprintf('A placeholder %s defines source %s as a property, but it isn\'t public visible', $placeholder, $source),
+                        InvalidPlaceholderMappingException::NON_PUBLIC_PROPERTY);
+                }
+            } elseif($rc->hasMethod($source)) {
+                $rm = new \ReflectionMethod($this->contactClass, $source);
+                if (!$rm->isPublic()) {
+                    throw new InvalidPlaceholderMappingException(
+                        sprintf('A placeholder %s defines source %s as a method (getter), but it isn\'t public visible', $placeholder, $source),
+                        InvalidPlaceholderMappingException::NON_PUBLIC_METHOD);
+                }
+            } else {
+                throw new InvalidPlaceholderMappingException(
+                    sprintf('Unable to map placeholder %s with source %s', $placeholder, $source),
+                    InvalidPlaceholderMappingException::UNABLE_TO_MAP);
+            }
+        }
     }
 }
