@@ -15,6 +15,9 @@ class NewsletterManager implements NewsletterManagerInterface
     protected $tube;
     protected $sendingTube;
     protected $placeholders;
+    protected $placeholder_delimiter_left = '{{';
+    protected $placeholder_delimiter_right = '}}';
+    protected $placeholder_regex = '#delim_lef\s*placeholder\s*delim_right#';
 
     public function __construct()
     {
@@ -150,9 +153,41 @@ class NewsletterManager implements NewsletterManagerInterface
         }
         $this->validatePlaceholders();
 
+        foreach ($this->placeholders as $placeholder => $source) {
+            $value = $this->getPlaceholderValue($contact, $source);
+            $body = $this->replacePlaceholder($placeholder, $value, $body);
+        }
+
         return $body;
     }
 
+    /**
+     * Get value from object based on source (property or method). It claims that validation were done
+     * 
+     * @param mixed $object 
+     * @param mixed $source 
+     * @access protected
+     * @return void
+     */
+    protected function getPlaceholderValue($object, $source)
+    {
+        $rc = new \ReflectionClass(get_class($object));
+        if ($rc->hasProperty($source)) {
+            return $object->$source;
+        } else {
+            return call_user_func(array($object, $source));
+        }
+    }
+
+    protected function replacePlaceholder($placeholder, $value, $body)
+    {
+        $regex = str_replace(
+            array('delim_lef', 'delim_right', 'placeholder'),
+            array($this->placeholder_delimiter_left, $this->placeholder_delimiter_right, $placeholder),
+            $this->placeholder_regex
+        );
+        return preg_replace($regex, $value, $body);
+    }
     /**
      * It looks firstly for properties, then for method (getter)
      * 

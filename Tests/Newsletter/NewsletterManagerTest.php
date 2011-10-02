@@ -12,7 +12,7 @@ class NewsletterManagerTest extends \PHPUnit_Framework_TestCase
     public function testFillPlaceholders()
     {
         $contact = $this->getContact();
-        $body = "Samuel L. Ipsum, read it {{ name }}  {{ surname }}
+        $body = "Samuel L. Ipsum, read it {{ name }} {{ surname }}
 
             The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother's keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.  Email: {{ email }}";
         $resultBody = "Samuel L. Ipsum, read it John Smith
