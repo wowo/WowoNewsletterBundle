@@ -5,6 +5,7 @@ namespace Wowo\Bundle\NewsletterBundle\Newsletter;
 use Doctrine\ORM\EntityManager;
 use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
 use Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException;
+use Wowo\Bundle\NewsletterBundle\Exception\MailingNotFoundException;
 
 class NewsletterManager implements NewsletterManagerInterface
 {
@@ -79,22 +80,28 @@ class NewsletterManager implements NewsletterManagerInterface
             throw new \InvalidArgumentException("Preparation tube unkonwn!");
         }
         if (count($contactIds) == 0) {
-            throw new \InvalidArgumentException('No contacs selected, it need to be at least one contact to send mailing');
+            throw new \InvalidArgumentException('No contacs selected, it need to be at least '
+                . 'one contact to send mailing');
         }
-        $interval = $mailing->getSendDate()->diff(new \DateTime("now"));
+        $interval = $mailing->isDelayedMailing()
+            ? $this->convertDataIntervalToSeconds($mailing->getSendDate()->diff(new \DateTime("now")))
+            : null;
         foreach($contactIds as $contactId) {
               $job = new \StdClass();
               $job->contactId = $contactId;
               $job->mailingId = $mailing->getId();
               $job->contactClass = $this->contactClass;
-              $this->pheanstalk->useTube($this->tube)->put(json_encode($job), \Pheanstalk::DEFAULT_PRIORITY,
-                  $this->convertDataIntervalToSeconds($interval));
+              $this->pheanstalk->useTube($this->tube)->put(json_encode($job),
+                  \Pheanstalk::DEFAULT_PRIORITY, $interval);
         }
     }
 
     protected function convertDataIntervalToSeconds(\DateInterval $interval)
     {
-        return $interval->format("%days") * 24 * 60 * 60 + $interval->format("%h") * 60 * 60 + $interval->format("%i") * 60 + $interval->format("%s");
+        return $interval->format("%days") * 24 * 60 * 60 
+            + $interval->format("%h") * 60 * 60 
+            + $interval->format("%i") * 60 
+            + $interval->format("%s");
     }
 
     protected function buildMessage($mailingId, $contactId, $contactClass)
@@ -105,6 +112,9 @@ class NewsletterManager implements NewsletterManagerInterface
         $mailing = $this->em
             ->getRepository('WowoNewsletterBundle:Mailing')
             ->find($mailingId);
+        if (null == $mailing) {
+            throw new MailingNotFoundException(sprintf('Mailing with id %d not found', $mailingId));
+        }
         $body = $this->buildMessageBody($contact, $mailing);
         $message = \Swift_Message::newInstance()
             ->setSubject($mailing->getTitle())
@@ -126,18 +136,20 @@ class NewsletterManager implements NewsletterManagerInterface
         return $message;
     }
 
-    public function processMailing(\Closure $logger, $verbose)
+    public function processMailing(\Closure $logger)
     {
         $rawJob = $this->pheanstalk->watch($this->tube)->ignore('default')->reserve();
         if ($rawJob) {
             $job = json_decode($rawJob->getData(), false);
             $time = new \DateTime("now");
-            $logger(sprintf("<info>[%s]</info> Processing job with contact id <info>%d</info> "
-                . " and mailing id <info>%d</info>", $time->format("Y-m-d h:i:s"), $job->contactId, $job->mailingId));
+            if (is_callable($logger)) {
+                $logger(sprintf("<info>[%s]</info> Processing job with contact id <info>%d</info> "
+                    . " and mailing id <info>%d</info>", $time->format("Y-m-d h:i:s"), $job->contactId, $job->mailingId));
+            }
             
             $message = $this->sendMailing($job->mailingId, $job->contactId, $job->contactClass);
-            if ($verbose) {
-                $logger(sprintf("Sent message:\n%s", $message->toString()));
+            if (is_callable($logger)) {
+                $logger(sprintf("<info>Sent message:</info>\n%s", $message->toString()));
             }
             $this->pheanstalk->delete($rawJob);
         }

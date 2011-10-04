@@ -98,6 +98,14 @@ class Mailing
      * @ORM\Column(name="errorsCount", type="integer")
      */
     private $errorsCount;
+
+    /**
+     * @var bool $delayedMailing
+     * 
+     * @ORM\Column(name="delayedMailing", type="boolean")
+     */
+    private $delayedMailing = false;
+
     /**
      * Get id
      *
@@ -249,5 +257,15 @@ class Mailing
     public function getSentCount()
     {
         return $this->sentCount;
+    }
+
+    public function isDelayedMailing()
+    {
+        return (bool)$this->delayedMailing;
+    }
+
+    public function setDelayedMailing($value)
+    {
+        $this->delayedMailing = $value;
     }
 }

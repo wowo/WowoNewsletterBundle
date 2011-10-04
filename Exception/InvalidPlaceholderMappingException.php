@@ -2,7 +2,9 @@
 
 namespace Wowo\Bundle\NewsletterBundle\Exception;
 
-class InvalidPlaceholderMappingException extends \Exception
+use Wowo\Bundle\NewsletterBundle\Exception\NewsletterException;
+
+class InvalidPlaceholderMappingException extends NewsletterException
 {
     const NON_PUBLIC_PROPERTY = 1;
     const NON_PUBLIC_METHOD = 2;
