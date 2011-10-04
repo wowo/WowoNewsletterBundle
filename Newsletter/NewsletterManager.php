@@ -115,19 +115,25 @@ class NewsletterManager implements NewsletterManagerInterface
         if (null == $mailing) {
             throw new MailingNotFoundException(sprintf('Mailing with id %d not found', $mailingId));
         }
-        $body = $this->buildMessageBody($contact, $mailing);
+        $fullName = method_exists($contact, "getFullName") ? $contact->getFullName() : $contact->getEmail();
         $message = \Swift_Message::newInstance()
-            ->setSubject($mailing->getTitle())
             ->setFrom(array($mailing->getSenderEmail() => $mailing->getSenderName() ?: $mailing->getSenderEmail()))
-            ->setTo(array($contact->getEmail() => method_exists($contact, "getFullName") ? $contact->getFullName() : $contact->getEmail()))
-            ->setBody($body);
+            ->setTo(array($contact->getEmail() => $fullName))
+            ->setSubject($this->buildMessageSubject($contact, $mailing))
+            ->setBody($this->buildMessageBody($contact, $mailing));
         return $message;
     }
 
     protected function buildMessageBody($contact, Mailing $mailing)
     {
-        return $mailing->getBody();
+        return $this->fillPlaceholders($contact, $mailing->getBody());
     }
+
+    protected function buildMessageSubject($contact, Mailing $mailing)
+    {
+        return $this->fillPlaceholders($contact, $mailing->getTitle());
+    }
+
 
     public function sendMailing($mailingId, $contactId, $contactClass)
     {
