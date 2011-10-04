@@ -3,6 +3,7 @@
 namespace Wowo\Bundle\NewsletterBundle\Newsletter;
 
 use Wowo\Bundle\NewsletterBundle\Newsletter\PlaceholderProcessorInterface;
+use Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException;
 
 class PlaceholderProcessor implements PlaceholderProcessorInterface
 {

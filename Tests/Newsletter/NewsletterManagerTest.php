@@ -6,6 +6,7 @@ use Wowo\Bundle\NewsletterBundle\Entity\Contact;
 use Wowo\Bundle\NewsletterBundle\Newsletter\NewsletterManager;
 use Doctrine\ORM\EntityManager;
 use Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException;
+use Wowo\Bundle\NewsletterBundle\Newsletter\PlaceholderProcessor;
 
 class NewsletterManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,10 +25,10 @@ class NewsletterManagerTest extends \PHPUnit_Framework_TestCase
             "name"  => "getName",
             "surname" => "getSurname",
         );
-        $manager = new NewsletterManager();
-        $manager->setPlaceholders($mapping);
-        $manager->setContactClass(get_class($contact));
-        $this->assertEquals($resultBody, $manager->fillPlaceholders($contact, $body));
+        $manager = new PlaceholderProcessor();
+        $manager->setMapping($mapping);
+        $manager->setReferenceClass(get_class($contact));
+        $this->assertEquals($resultBody, $manager->process($contact, $body));
     }
 
     protected function getContact()
@@ -44,8 +45,8 @@ class NewsletterManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testFillPlaceholdersWithoutConfiguration()
     {
-        $manager = new NewsletterManager();
-        $manager->fillPlaceholders(new \StdClass(), "");
+        $manager = new PlaceholderProcessor();
+        $manager->process(new \StdClass(), "");
     }
     
     /**
@@ -53,9 +54,9 @@ class NewsletterManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testFillPlaceholdersWithBadContactClass()
     {
-        $manager = new NewsletterManager();
-        $manager->setContactClass("\BadClass");
-        $manager->fillPlaceholders(new \StdClass(), "");
+        $manager = new PlaceholderProcessor();
+        $manager->setReferenceClass("\BadClass");
+        $manager->process(new \StdClass(), "");
     }
 
     /**
@@ -68,10 +69,10 @@ class NewsletterManagerTest extends \PHPUnit_Framework_TestCase
         $mapping = array(
             "email" => "email",
         );
-        $manager = new NewsletterManager();
-        $manager->setPlaceholders($mapping);
-        $manager->setContactClass(get_class($contact));
-        $manager->fillPlaceholders($contact, "");
+        $manager = new PlaceholderProcessor();
+        $manager->setMapping($mapping);
+        $manager->setReferenceClass(get_class($contact));
+        $manager->process($contact, "");
     }
 
     /**
@@ -84,10 +85,10 @@ class NewsletterManagerTest extends \PHPUnit_Framework_TestCase
         $mapping = array(
             "email" => "getEmailX",
         );
-        $manager = new NewsletterManager();
-        $manager->setPlaceholders($mapping);
-        $manager->setContactClass(get_class($contact));
-        $manager->fillPlaceholders($contact, "");
+        $manager = new PlaceholderProcessor();
+        $manager->setMapping($mapping);
+        $manager->setReferenceClass(get_class($contact));
+        $manager->process($contact, "");
     }
 
 
@@ -101,10 +102,10 @@ class NewsletterManagerTest extends \PHPUnit_Framework_TestCase
         $mapping = array(
             "email" => "unkonown",
         );
-        $manager = new NewsletterManager();
-        $manager->setPlaceholders($mapping);
-        $manager->setContactClass(get_class($contact));
-        $manager->fillPlaceholders($contact, "");
+        $manager = new PlaceholderProcessor();
+        $manager->setMapping($mapping);
+        $manager->setReferenceClass(get_class($contact));
+        $manager->process($contact, "");
     }
 }
 
