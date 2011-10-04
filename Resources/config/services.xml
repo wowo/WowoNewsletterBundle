@@ -26,7 +26,8 @@
             <argument>%wowo_newsletter.model.contact.class%</argument>
         </service>
 
-        <service id="wowo_newsletter.newsletter_manager" class="Wowo\Bundle\NewsletterBundle\Newsletter\NewsletterManager">
+        <service id="wowo_newsletter.newsletter_manager"
+            class="Wowo\Bundle\NewsletterBundle\Newsletter\NewsletterManager">
             <call method="setEntityManager">
                 <argument type="service" id="wowo_newsletter.entity_manager"/>
             </call>
@@ -42,8 +43,18 @@
             <call method="setTube">
                 <argument>%wowo_newsletter.queue%</argument>
             </call>
-            <call method="setPlaceholders">
+            <call method="setPlaceholderProcessor">
+                <argument type="service" id="wowo_newsletter.placeholder_processor"/>
+            </call>
+        </service>
+
+        <service id="wowo_newsletter.placeholder_processor" public="false"
+            class="Wowo\Bundle\NewsletterBundle\Newsletter\PlaceholderProcessor">
+            <call method="setMapping">
                 <argument>%wowo_newsletter.placeholders.mapping%</argument>
+            </call>
+            <call method="setReferenceClass">
+                <argument>%wowo_newsletter.model.contact.class%</argument>
             </call>
         </service>
 

@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
 use Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException;
 use Wowo\Bundle\NewsletterBundle\Exception\MailingNotFoundException;
+use Wowo\Bundle\NewsletterBundle\Newsletter\PlaceholderProcessorInterface;
 
 class NewsletterManager implements NewsletterManagerInterface
 {
@@ -15,10 +16,7 @@ class NewsletterManager implements NewsletterManagerInterface
     protected $pheanstalk;
     protected $tube;
     protected $sendingTube;
-    protected $placeholders;
-    protected $placeholder_delimiter_left = '{{';
-    protected $placeholder_delimiter_right = '}}';
-    protected $placeholder_regex = '#delim_lef\s*placeholder\s*delim_right#';
+    protected $placeholderProcessor;
 
     public function __construct()
     {
@@ -52,9 +50,9 @@ class NewsletterManager implements NewsletterManagerInterface
         $this->tube = $tube;
     }
 
-    public function setPlaceholders(array $placeholders)
+    public function setPlaceholderProcessor(PlaceholderProcessorInterface $processor)
     {
-        $this->placeholders = $placeholders;
+        $this->placeholderProcessor = $processor;
     }
 
     public function validateDependencies()
@@ -65,7 +63,7 @@ class NewsletterManager implements NewsletterManagerInterface
             'pheanstalk' => $this->pheanstalk,
             'contactClass' => $this->contactClass,
             'tube' => $this->tube,
-            'placeholders' => $this->placeholders,
+            'placeholderProcessor' => $this->placeholderProcessor,
         );
         foreach ($dependencies as $name => $dependency) {
             if (null == $dependency) {
@@ -163,76 +161,6 @@ class NewsletterManager implements NewsletterManagerInterface
 
     public function fillPlaceholders($contact, $body)
     {
-        if (null == $this->placeholders) {
-            throw new \BadMethodCallException('Placeholders mapping ain\'t configured yet');
-        }
-        if (get_class($contact) != $this->contactClass) {
-            throw new \InvalidArgumentException(sprintf('Contact passed to method isn\'t an instance of contactClass (%s != %s)', get_class($contact), $this->contactClass));
-        }
-        $this->validatePlaceholders();
-
-        foreach ($this->placeholders as $placeholder => $source) {
-            $value = $this->getPlaceholderValue($contact, $source);
-            $body = $this->replacePlaceholder($placeholder, $value, $body);
-        }
-
-        return $body;
-    }
-
-    /**
-     * Get value from object based on source (property or method). It claims that validation were done
-     * 
-     * @param mixed $object 
-     * @param mixed $source 
-     * @access protected
-     * @return void
-     */
-    protected function getPlaceholderValue($object, $source)
-    {
-        $rc = new \ReflectionClass(get_class($object));
-        if ($rc->hasProperty($source)) {
-            return $object->$source;
-        } else {
-            return call_user_func(array($object, $source));
-        }
-    }
-
-    protected function replacePlaceholder($placeholder, $value, $body)
-    {
-        $regex = str_replace(
-            array('delim_lef', 'delim_right', 'placeholder'),
-            array($this->placeholder_delimiter_left, $this->placeholder_delimiter_right, $placeholder),
-            $this->placeholder_regex
-        );
-        return preg_replace($regex, $value, $body);
-    }
-    /**
-     * It looks firstly for properties, then for method (getter)
-     * 
-     */
-    protected function validatePlaceholders()
-    {
-        $rc = new \ReflectionClass($this->contactClass);
-        foreach ($this->placeholders as $placeholder => $source) {
-            if ($rc->hasProperty($source)) {
-                $rp = new \ReflectionProperty($this->contactClass, $source);
-                if (!$rp->isPublic()) {
-                    throw new InvalidPlaceholderMappingException(
-                        sprintf('A placeholder %s defines source %s as a property, but it isn\'t public visible', $placeholder, $source),
-                        InvalidPlaceholderMappingException::NON_PUBLIC_PROPERTY);
-                }
-            } elseif($rc->hasMethod($source)) {
-                $rm = new \ReflectionMethod($this->contactClass, $source);
-                if (!$rm->isPublic()) {
-                    throw new InvalidPlaceholderMappingException(
-                        sprintf('A placeholder %s defines source %s as a method (getter), but it isn\'t public visible', $placeholder, $source),
-                        InvalidPlaceholderMappingException::NON_PUBLIC_METHOD);
-                }
-            } else {
-                throw new InvalidPlaceholderMappingException(
-                    sprintf('Unable to map placeholder %s with source %s', $placeholder, $source),
-                    InvalidPlaceholderMappingException::UNABLE_TO_MAP);
-            }
-        }
+        return $this->placeholderProcessor->process($contact, $body);
     }
 }
