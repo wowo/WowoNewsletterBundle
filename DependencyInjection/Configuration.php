@@ -45,6 +45,13 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('pheanstalk_address')->end()
                 ->scalarNode('default_sender_name')->end()
                 ->scalarNode('default_sender_email')->end()
+                ->arrayNode('templates')
+                    ->useAttributeAsKey('')
+                    ->validate()
+                        ->ifTrue(function($v) {return $v;})
+                        ->then(function($v) {return $v;})
+                    ->end()
+                    ->prototype('scalar')->end()
                 ;
 
         return $treeBuilder;

@@ -11,4 +11,14 @@
         {{ form_widget(form) }}
         <input type="submit" value="{% trans %}Send mailing{% endtrans %}"/>
     </form>
+    {% if templates|length > 0 %}
+        <div>
+            <p><strong>Available templates</strong></p>
+            <ul>
+                {% for key,template in templates %}
+                    <li>{{ key }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 {% endblock %}

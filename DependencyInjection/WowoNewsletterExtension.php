@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
+use Wowo\Bundle\NewsletterBundle\Exception\NonExistingTemplateException;
 
 /**
  * This is the class that loads and manages your bundle configuration
@@ -35,7 +36,20 @@ class WowoNewsletterExtension extends Extension
             $container->setParameter($this->getAlias() . '.default.sender_name', $config['default_sender_name']);
         }
         if (isset($config['default_sender_email'])) {
-            $container->setParameter($this->getAlias() . '.default.sender_email', $config['default_sender_email']);
+            $container->setparameter($this->getalias() . '.default.sender_email', $config['default_sender_email']);
+        }
+        if (isset($config['templates'])) {
+            $rootDir = $container->getParameter('kernel.root_dir');
+            foreach ($config['templates'] as $key => $template) {
+                if (!file_exists($template)) {
+                    $template = $rootDir . '/../' . $template;
+                }
+                if (!file_exists($template)) {
+                    throw new NonExistingTemplateException(sprintf('Template "%s" not exist', $key));
+                }
+                $config['templates'][$key] = $template;
+            }
+            $container->setparameter($this->getalias() . '.available.templates', $config['templates']);
         }
     }
 
