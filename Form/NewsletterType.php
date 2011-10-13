@@ -11,11 +11,11 @@ class NewsletterType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('mailing', new MailingType(), array('label' => 'Mailing details', 'data' => @$options['data']['mailing']))
+            ->add('mailing', new MailingType(), array('label' => ' ', 'data' => @$options['data']['mailing']))
             ->add('contacts', 'choice', array(
                 'label'    => 'Recipients',
                 'multiple' => true,
-                'expanded' => true,
+                'expanded' => false,
                 'required' => true,
                 'choices'  => $options['data']['availableContacts']))
         ;
