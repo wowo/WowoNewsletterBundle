@@ -1,5 +1,10 @@
 {% extends "::base.html.twig" %}
 
+{% form_theme form _self %}
+{% block _wowo_bundle_newsletterbundle_newslettertype_mailing_body_widget %}
+    {{ form_widget(form, { 'attr': {'class': 'tinymce'}}) }}
+{% endblock %}
+
 {% block body %}
     {% if app.session.hasFlash('notice') %}
         <div class="flash-notice">

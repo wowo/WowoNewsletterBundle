@@ -13,7 +13,7 @@ class MailingType extends AbstractType
             ->add('senderName', null, array('label' => 'Sender name'))
             ->add('senderEmail', null, array('label' => 'Sender e-mail'))
             ->add('title')
-            ->add('body', 'textarea')
+            ->add('body', 'textarea', array('required' => false))
             ->add('delayedMailing', null, array('label' => 'Is delayed?', 'required' => false))
             ->add('sendDate', 'datetime', array('label' => 'Send date'))
         ;
