@@ -7,6 +7,7 @@ use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
 use Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException;
 use Wowo\Bundle\NewsletterBundle\Exception\MailingNotFoundException;
 use Wowo\Bundle\NewsletterBundle\Newsletter\PlaceholderProcessorInterface;
+use Wowo\Bundle\NewsletterBundle\Newsletter\MailingMedia;
 
 class NewsletterManager implements NewsletterManagerInterface
 {
@@ -17,6 +18,7 @@ class NewsletterManager implements NewsletterManagerInterface
     protected $tube;
     protected $sendingTube;
     protected $placeholderProcessor;
+    protected $mailingMedia;
 
     public function __construct()
     {
@@ -55,6 +57,11 @@ class NewsletterManager implements NewsletterManagerInterface
         $this->placeholderProcessor = $processor;
     }
 
+    public function setMailingMedia(MailingMedia $mailingMedia)
+    {
+        $this->mailingMedia = $mailingMedia;
+    }
+
     public function validateDependencies()
     {
         $dependencies = array(
@@ -64,6 +71,7 @@ class NewsletterManager implements NewsletterManagerInterface
             'contactClass' => $this->contactClass,
             'tube' => $this->tube,
             'placeholderProcessor' => $this->placeholderProcessor,
+            'mailingMedia' => $this->mailingMedia,
         );
         foreach ($dependencies as $name => $dependency) {
             if (null == $dependency) {
@@ -124,12 +132,15 @@ class NewsletterManager implements NewsletterManagerInterface
 
     protected function buildMessageBody($contact, Mailing $mailing)
     {
-        return $this->fillPlaceholders($contact, $mailing->getBody());
+        $body = $this->placeholderProcessor->process($contact, $mailing->getBody());
+        $body = $this->mailingMedia->embedMedia($body);
+        return $body;
     }
 
     protected function buildMessageSubject($contact, Mailing $mailing)
     {
-        return $this->fillPlaceholders($contact, $mailing->getTitle());
+        $title = $this->placeholderProcessor->process($contact, $mailing->getTitle());
+        return $title;
     }
 
 

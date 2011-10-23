@@ -50,6 +50,9 @@
             <call method="setPlaceholderProcessor">
                 <argument type="service" id="wowo_newsletter.placeholder_processor"/>
             </call>
+            <call method="setMailingMedia">
+                <argument type="service" id="wowo_newsletter.mailing_media"/>
+            </call>
         </service>
 
         <service id="wowo_newsletter.placeholder_processor" public="false"
@@ -73,6 +76,9 @@
 
         <service id="wowo_newsletter.pheanstalk" class="Pheanstalk">
             <argument>%wowo_newsletter.pheanstalk.address%</argument>
+        </service>
+
+        <service id="wowo_newsletter.mailing_media" class="Wowo\Bundle\NewsletterBundle\Newsletter\MailingMedia">
         </service>
 
         <service id="wowo_newsletter.entity_manager" alias="doctrine.orm.entity_manager" />
