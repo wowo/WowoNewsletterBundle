@@ -118,7 +118,7 @@ class NewsletterManager implements NewsletterManagerInterface
             ->setFrom(array($mailing->getSenderEmail() => $mailing->getSenderName() ?: $mailing->getSenderEmail()))
             ->setTo(array($contact->getEmail() => $fullName))
             ->setSubject($this->buildMessageSubject($contact, $mailing))
-            ->setBody($this->buildMessageBody($contact, $mailing));
+            ->setBody($this->buildMessageBody($contact, $mailing), 'text/html');
         return $message;
     }
 
