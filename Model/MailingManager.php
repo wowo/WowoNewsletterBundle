@@ -5,6 +5,7 @@ namespace Wowo\Bundle\NewsletterBundle\Model;
 use Doctrine\ORM\EntityManager;
 use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
 use Symfony\Component\HttpFoundation\Request;
+use Wowo\Bundle\NewsletterBundle\Newsletter\MailingMedia;
 
 class MailingManager extends AbstractManager implements MailingManagerInterface
 {
@@ -49,7 +50,16 @@ class MailingManager extends AbstractManager implements MailingManagerInterface
             array($this->templateContentTag, $this->templateTitleTag),
             array($mailing->getBody(), $mailing->getTitle()),
             $template);
-        // TODO podmiana obrazków!
+        $template = $this->makeAbsolutePaths($template, dirname($path), MailingMedia::REGEX_SRC);
+        $template = $this->makeAbsolutePaths($template, dirname($path), MailingMedia::REGEX_BACKGROUND);
         return $template;
+    }
+
+    protected function makeAbsolutePaths($template, $path, $regex)
+    {
+        return preg_replace_callback($regex, 
+            function ($matches) use ($template, $path) {
+                return str_replace($matches[1], $path . '/' . $matches[1], $matches[0]);
+            }, $template);
     }
 }

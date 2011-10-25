@@ -125,15 +125,17 @@ class NewsletterManager implements NewsletterManagerInterface
         $message = \Swift_Message::newInstance()
             ->setFrom(array($mailing->getSenderEmail() => $mailing->getSenderName() ?: $mailing->getSenderEmail()))
             ->setTo(array($contact->getEmail() => $fullName))
-            ->setSubject($this->buildMessageSubject($contact, $mailing))
-            ->setBody($this->buildMessageBody($contact, $mailing), 'text/html');
+            ->setSubject($this->buildMessageSubject($contact, $mailing));
+
+        $body = $this->buildMessageBody($contact, $mailing, $message);
+        $message->setBody($body, 'text/html');
         return $message;
     }
 
-    protected function buildMessageBody($contact, Mailing $mailing)
+    protected function buildMessageBody($contact, Mailing $mailing, \Swift_Message $message)
     {
         $body = $this->placeholderProcessor->process($contact, $mailing->getBody());
-        $body = $this->mailingMedia->embedMedia($body);
+        $body = $this->mailingMedia->embedMedia($body, $message);
         return $body;
     }
 
