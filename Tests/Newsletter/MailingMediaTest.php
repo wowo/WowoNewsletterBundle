@@ -7,24 +7,63 @@ use Wowo\Bundle\NewsletterBundle\Newsletter\MailingMedia;
 
 class MailingMediaTest extends \PHPUnit_Framework_TestCase
 {
-    private $testTemplatePath;
-
-    public function setUp()
+    /**
+     * @dataProvider bodyProvider
+     */
+    public function testEmbedMedia($body)
     {
-        $this->testTemplatePath = __DIR__.'/../Data/mailing.html';
-    }
-
-    public function testEmbedMedia()
-    {
-        $body = file_get_contents($this->testTemplatePath);
         $msg  = \Swift_Message::newInstance('testing subject');
         $mailingMedia = new MailingMedia($msg);
 
         $this->assertNotNull($body);
-        $bodyWithMedia = $mailingMedia->embedMedia($body, $this->testTemplatePath, $msg);
+        $bodyWithMedia = $mailingMedia->embedMedia($body, $msg);
 
-        var_dump($bodyWithMedia);
         $this->assertNotEquals($body, $bodyWithMedia);
+        $this->assertRegexp('#cid:.*?@swift.generated#', $bodyWithMedia);
+        $this->assertNotRegexp('#cid:.*?@swift.generated#', $body);
+    }
+
+    public function bodyProvider()
+    {
+        $image =<<<EOT
+<html>
+	<head>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+		<title>Mailing</title>
+	</head>
+	<body>
+        <a href="#"><img src="images/bg.jpg" alt="logo" /></a>
+	</body>
+</html>
+EOT;
+        $cssBackground =<<<EOT
+<html>
+	<head>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+		<title>Mailing</title>
+		<style type="text/css">
+			.bg1 {background:url(images/bg.jpg) top center repeat-y, #ebebed;}
+		</style>
+	</head>
+	<body>
+        nothing
+	</body>
+</html>
+EOT;
+        $background =<<<EOT
+<html>
+	<head>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+		<title>Mailing</title>
+	</head>
+	<body>
+        <a href="#" background="images/bg.jpg" /></a>
+	</body>
+</html>
+EOT;
+        return array(
+            array($image), array($cssBackground), array($background)
+        );
     }
 }
 

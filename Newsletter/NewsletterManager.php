@@ -167,7 +167,7 @@ class NewsletterManager implements NewsletterManagerInterface
             
             $message = $this->sendMailing($job->mailingId, $job->contactId, $job->contactClass);
             if (is_callable($logger)) {
-                $logger(sprintf("<info>Sent message:</info>\n%s", $message->toString()));
+                $logger(sprintf("<info>Sent message:</info> %s", $message->getTitle()));
             }
             $this->pheanstalk->delete($rawJob);
         }

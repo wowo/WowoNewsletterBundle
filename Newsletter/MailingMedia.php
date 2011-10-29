@@ -15,6 +15,7 @@ class MailingMedia
 {
     const REGEX_SRC = '#<img.*?src="(.*?)"#im';
     const REGEX_BACKGROUND = '#background:url\((.*?)\)#im';
+    const REGEX_BACKGROUND_ATTRIBUTE = '#background="(.*?)"#im';
 
     /**
      * embedMedia 
@@ -28,6 +29,7 @@ class MailingMedia
     {
         $body = $this->embedInlineContent($body, $message, self::REGEX_SRC);
         $body = $this->embedInlineContent($body, $message, self::REGEX_BACKGROUND);
+        $body = $this->embedInlineContent($body, $message, self::REGEX_BACKGROUND_ATTRIBUTE);
         return $body;
     }
 

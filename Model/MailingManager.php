@@ -52,6 +52,7 @@ class MailingManager extends AbstractManager implements MailingManagerInterface
             $template);
         $template = $this->makeAbsolutePaths($template, dirname($path), MailingMedia::REGEX_SRC);
         $template = $this->makeAbsolutePaths($template, dirname($path), MailingMedia::REGEX_BACKGROUND);
+        $template = $this->makeAbsolutePaths($template, dirname($path), MailingMedia::REGEX_BACKGROUND_ATTRIBUTE);
         return $template;
     }
 
