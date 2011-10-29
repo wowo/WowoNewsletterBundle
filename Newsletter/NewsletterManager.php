@@ -125,7 +125,8 @@ class NewsletterManager implements NewsletterManagerInterface
         $message = \Swift_Message::newInstance()
             ->setFrom(array($mailing->getSenderEmail() => $mailing->getSenderName() ?: $mailing->getSenderEmail()))
             ->setTo(array($contact->getEmail() => $fullName))
-            ->setSubject($this->buildMessageSubject($contact, $mailing));
+            ->setSubject($this->buildMessageSubject($contact, $mailing))
+            ->setMaxLineLength(1000);
 
         $body = $this->buildMessageBody($contact, $mailing, $message);
         $message->setBody($body, 'text/html');
