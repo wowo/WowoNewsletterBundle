@@ -39,8 +39,8 @@ class TemplateManager implements TemplateManagerInterface
      */
     public function applyTemplate($body, $title)
     {
-        $path = current($this->availableTemplates);
-        $tpl = file_get_contents($path);
+        $path = $this->getActiveTemplatePath();
+        $tpl  = $this->getActiveTemplateBody();
         $tpl = str_replace(
             array($this->templateContentTag, $this->templateTitleTag),
             array($body, $title),
@@ -66,5 +66,26 @@ class TemplateManager implements TemplateManagerInterface
             function ($matches) use ($template, $path) {
                 return str_replace($matches[1], $path . '/' . $matches[1], $matches[0]);
             }, $template);
+    }
+
+    /**
+     * Get active template path
+     * 
+     * @return string
+     */
+    protected function getActiveTemplatePath()
+    {
+        return current($this->availableTemplates);
+    }
+
+    /**
+     * Get active template body
+     * 
+     * @return string
+     */
+    protected function getActiveTemplateBody()
+    {
+        $path = $this->getActiveTemplatePath();
+        return file_get_contents($path);
     }
 }

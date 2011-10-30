@@ -2,7 +2,6 @@
 
 namespace Wowo\Bundle\NewsletterBundle\Tests\Newsletter;
 
-use lapistano\ProxyObject\ProxyObject;
 use Wowo\Bundle\NewsletterBundle\Newsletter\MailingMedia;
 
 class MailingMediaTest extends \PHPUnit_Framework_TestCase
