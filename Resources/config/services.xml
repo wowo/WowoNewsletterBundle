@@ -15,16 +15,23 @@
     </parameters>
 
     <services>
-        <service id="wowo_newsletter.contact_manager" class="Wowo\Bundle\NewsletterBundle\Model\ContactManager">
+        <service id="wowo_newsletter.contact_manager" class="Wowo\Bundle\NewsletterBundle\Newsletter\ContactManager">
             <argument type="service" id="wowo_newsletter.entity_manager" />
             <argument type="service" id="service_container" />
             <argument>%wowo_newsletter.model.contact.class%</argument>
         </service>
 
-        <service id="wowo_newsletter.mailing_manager" class="Wowo\Bundle\NewsletterBundle\Model\MailingManager">
+        <service id="wowo_newsletter.mailing_manager" class="Wowo\Bundle\NewsletterBundle\Newsletter\MailingManager">
             <argument type="service" id="wowo_newsletter.entity_manager" />
             <argument type="service" id="service_container" />
             <argument>%wowo_newsletter.model.contact.class%</argument>
+            <call method="setTemplateManager">
+                <argument type="service" id="wowo_newsletter.template_manager"/>
+            </call>
+        </service>
+
+        <service id="wowo_newsletter.template_manager"
+            class="Wowo\Bundle\NewsletterBundle\Newsletter\TemplateManager">
             <call method="setAvailableTemplates">
                 <argument>%wowo_newsletter.available.templates%</argument>
             </call>
@@ -65,7 +72,7 @@
             </call>
         </service>
 
-        <service id="wowo_newsletter.empty_newsletter" class="Wowo\Bundle\NewsletterBundle\Model\Newsletter">
+        <service id="wowo_newsletter.empty_newsletter" class="Wowo\Bundle\NewsletterBundle\Newsletter\Newsletter">
             <call method="setSenderNameProxy">
                 <argument type="string">%wowo_newsletter.default.sender_name%</argument>
             </call>

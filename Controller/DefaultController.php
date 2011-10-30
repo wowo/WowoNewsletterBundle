@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Wowo\Bundle\NewsletterBundle\Form\NewsletterType;
-use Wowo\Bundle\NewsletterBundle\Model\Newsletter;
+use Wowo\Bundle\NewsletterBundle\Newsletter\Newsletter;
 
 class DefaultController extends Controller
 {
@@ -38,7 +38,7 @@ class DefaultController extends Controller
         }
         return array(
             'form' => $form->createView(),
-            'templates' => $mailingManager->getAvailableTemplates(),
+            'templates' => $this->get('wowo_newsletter.template_manager')->getAvailableTemplates(),
         );
     }
 }

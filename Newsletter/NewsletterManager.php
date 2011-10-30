@@ -136,7 +136,7 @@ class NewsletterManager implements NewsletterManagerInterface
     protected function buildMessageBody($contact, Mailing $mailing, \Swift_Message $message)
     {
         $body = $this->placeholderProcessor->process($contact, $mailing->getBody());
-        $body = $this->mailingMedia->embedMedia($body, $message);
+        //$body = $this->mailingMedia->embedMedia($body, $message);
         return $body;
     }
 
@@ -162,12 +162,14 @@ class NewsletterManager implements NewsletterManagerInterface
             $time = new \DateTime("now");
             if (is_callable($logger)) {
                 $logger(sprintf("<info>[%s]</info> Processing job with contact id <info>%d</info> "
-                    . " and mailing id <info>%d</info>", $time->format("Y-m-d h:i:s"), $job->contactId, $job->mailingId));
+                    . " and mailing id <info>%d</info>", $time->format("Y-m-d h:i:s"), $job->contactId,
+                      $job->mailingId));
             }
             
             $message = $this->sendMailing($job->mailingId, $job->contactId, $job->contactClass);
             if (is_callable($logger)) {
-                $logger(sprintf("<info>Sent message:</info> %s", $message->getTitle()));
+                $logger(sprintf("<info>[%s]</info> Recipient: %s Subject: %s",  $time->format("Y-m-d h:i:s"),
+                    key($message->getTo()), $message->getSubject()));
             }
             $this->pheanstalk->delete($rawJob);
         }
