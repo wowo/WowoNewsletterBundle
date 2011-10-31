@@ -7,6 +7,7 @@ use Wowo\Bundle\NewsletterBundle\Newsletter\NewsletterManager;
 use Doctrine\ORM\EntityManager;
 use Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException;
 use Wowo\Bundle\NewsletterBundle\Newsletter\PlaceholderProcessor;
+use lapistano\ProxyObject\ProxyObject;
 
 class PlaceholdersTest extends \PHPUnit_Framework_TestCase
 {
@@ -107,6 +108,31 @@ class PlaceholdersTest extends \PHPUnit_Framework_TestCase
         $manager->setReferenceClass(get_class($contact));
         $manager->process($contact, "");
     }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testProcessWithWrongReferenceClass()
+    {
+        $manager = new PlaceholderProcessor();
+        $manager->setReferenceClass(get_class($this));
+        $manager->setMapping(array('asd' => 'asd'));
+        $manager->process(new \Exception('asd'), 'asd');
+    }
+
+    public function testGetPlaceholderValue()
+    {
+        $proxy = new ProxyObject();
+        $managerProxy= $proxy
+            ->getProxyBuilder('\Wowo\Bundle\NewsletterBundle\Newsletter\PlaceholderProcessor')
+            ->setMethods(array('getPlaceholderValue'))
+            ->getProxy();
+        $this->assertEquals('lol', $managerProxy->getPlaceholderValue(new FakeObject(), 'source'));
+    }
+}
+
+class FakeObject {
+    public $source = 'lol';
 }
 
 class MockContact extends Contact {
