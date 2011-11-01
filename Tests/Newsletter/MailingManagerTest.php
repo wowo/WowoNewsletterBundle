@@ -14,18 +14,17 @@ class MailingManagerTest extends AbstractManagerBase
         $manager = new MailingManager($this->getEmMock(), $this->getContainerMock(), 'aClass');
         $manager->setTemplateManager($templateManagerMock);
 
-        $formMock = $this->getMock('\Wowo\Bundle\NewsletterBundle\Form\MailingType', array('getData'));
-        $formMock->expects($this->any())
-            ->method('getData')
-            ->will($this->returnValue(array('mailing' => new Mailing())));
+
+        $mock = \Mockery::mock('Symfony\Component\Form\AbstractType',
+            array('getData' => array('mailing' => new Mailing())));
 
         $result = new Mailing();
         $result->setTotalCount(0);
         $result->setSentCount(0);
         $result->setErrorsCount(0);
-        $this->assertEquals($result, $manager->createMailingBasedOnForm($formMock, 0));
+        $this->assertEquals($result, $manager->createMailingBasedOnForm($mock, 0));
         $result->setTotalCount(1);
-        $this->assertEquals($result, $manager->createMailingBasedOnForm($formMock, 1));
+        $this->assertEquals($result, $manager->createMailingBasedOnForm($mock, 1));
     }
 
 }

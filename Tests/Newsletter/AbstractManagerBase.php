@@ -22,16 +22,21 @@ class AbstractManagerBase extends \PHPUnit_Framework_TestCase
         $emMock->expects($this->any())
             ->method('flush')
             ->will($this->returnValue(null));
+
+        $emMock = \Mockery::mock('\Doctrine\ORM\EntityManager',
+            array(
+                'getRepository' => new FakeRepository(),
+                'getClassMetadata' => (object)array('name' => 'aClass'),
+                'persist' => null,
+                'flush' => null,
+            ));
         return $emMock;
     }
 
     protected function getContainerMock()
     {
-        $containerMock = $this->getMock('Symfony\Component\DependencyInjection\Container',
-            array('get'), array(), '', false);
-        $containerMock->expects($this->any())
-            ->method('get')
-            ->will($this->returnValue(null));
+        $containerMock = \Mockery::mock('\Symfony\Component\DependencyInjection\Container',
+            array('get' => null));
         return $containerMock;
     }
 }

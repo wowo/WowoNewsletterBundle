@@ -16,13 +16,11 @@ class ContactManagerTest extends AbstractManagerBase
 
     public function testFindChoosenContactIdForMailing()
     {
-        $formMock = $this->getMock('\Wowo\Bundle\NewsletterBundle\Form\MailingType', array('getData'));
-        $formMock->expects($this->any())
-            ->method('getData')
-            ->will($this->returnValue(array('contacts' => array(2 => 'john'))));
+        $mock = \Mockery::mock('Symfony\Component\Form\AbstractType',
+            array('getData' => array('contacts' => array(2 => 'john'))));
 
         $this->assertEquals(array(2 => 'john'),
-            $this->getContactManager()->findChoosenContactIdForMailing($formMock));
+            $this->getContactManager()->findChoosenContactIdForMailing($mock));
     }
 
     protected function getContactManager()
