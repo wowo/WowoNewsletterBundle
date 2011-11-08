@@ -5,25 +5,22 @@
     {{ form_widget(form, { 'attr': {'class': 'tinymce'}}) }}
 {% endblock %}
 
+{% block field_row %}
+    <div class="form-row">
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form, {'attr': {'class':'text'}} ) }}
+    </div>
+{% endblock field_row %}
+
 {% block body %}
     {% if app.session.hasFlash('notice') %}
         <div class="flash-notice">
             {{ app.session.flash('notice') }}
         </div>
     {% endif %}
-    <h1>{% trans %}Create mailing{% endtrans %}</h1>
     <form action="" method="post" {{ form_enctype(form) }} >
         {{ form_widget(form) }}
-        <input type="submit" value="{% trans %}Send mailing{% endtrans %}"/>
+        <input type="submit" value="{% trans %}Send mailing{% endtrans %}" class="{{ submitCssClass }}"/>
     </form>
-    {% if templates|length > 0 %}
-        <div>
-            <p><strong>Available templates</strong></p>
-            <ul>
-                {% for key,template in templates %}
-                    <li>{{ key }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
 {% endblock %}

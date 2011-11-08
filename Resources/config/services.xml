@@ -12,6 +12,10 @@
         <parameter key="wowo_newsletter.available.templates"></parameter>
         <parameter key="wowo_newsletter.default.sender_name">Wojciech Sznapka</parameter>
         <parameter key="wowo_newsletter.default.sender_email">wojciech@sznapka.pl</parameter>
+        <parameter key="wowo_newsletter.form.newsletter.class">Wowo\Bundle\NewsletterBundle\Form\NewsletterType</parameter>
+        <parameter key="wowo_newsletter.form.mailing.class">Wowo\Bundle\NewsletterBundle\Form\MailingType</parameter>
+        <parameter key="wowo_newsletter.form.can.choose.contacts.via.form">true</parameter>
+        <parameter key="wowo_newsletter.form.has.delayed.sending">true</parameter>
     </parameters>
 
     <services>
@@ -84,6 +88,22 @@
         <service id="wowo_newsletter.pheanstalk" class="Pheanstalk">
             <argument>%wowo_newsletter.pheanstalk.address%</argument>
         </service>
+
+        <service id="wowo_newsletter.form.newsletter" class="%wowo_newsletter.form.newsletter.class%">
+            <call method="setMailingType">
+                <argument type="service" id="wowo_newsletter.form.mailing"/>
+            </call>
+            <call method="setCanChooseContactsViaForm">
+                <argument type="string">%wowo_newsletter.form.can.choose.contacts.via.form%</argument>
+            </call>
+        </service>
+
+        <service id="wowo_newsletter.form.mailing" class="%wowo_newsletter.form.mailing.class%">
+            <call method="setHasDelayedSending">
+                <argument type="string">%wowo_newsletter.form.has.delayed.sending%</argument>
+            </call>
+        </service>
+
 
         <service id="wowo_newsletter.mailing_media" class="Wowo\Bundle\NewsletterBundle\Newsletter\MailingMedia">
         </service>

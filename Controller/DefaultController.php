@@ -14,12 +14,12 @@ class DefaultController extends Controller
      * @Route("/mailing")
      * @Template()
      */
-    public function createMailingAction()
+    public function createMailingAction($submitCssClass = '')
     {
         $contactManager = $this->get('wowo_newsletter.contact_manager');
         $mailingManager = $this->get('wowo_newsletter.mailing_manager');
         $newsletter = $this->get('wowo_newsletter.empty_newsletter');
-        $form = $this->createForm(new NewsletterType(), $newsletter,
+        $form = $this->createForm($this->get('wowo_newsletter.form.newsletter'), $newsletter,
             array('data' => array(
                 'availableContacts' => $contactManager->findContactToChooseForMailing(),
                 'mailing' => $newsletter->mailing,
@@ -39,6 +39,7 @@ class DefaultController extends Controller
         return array(
             'form' => $form->createView(),
             'templates' => $this->get('wowo_newsletter.template_manager')->getAvailableTemplates(),
+            'submitCssClass' => $submitCssClass,
         );
     }
 }

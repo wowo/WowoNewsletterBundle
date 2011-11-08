@@ -1,0 +1,10 @@
+{% if templates|length > 0 %}
+    <div>
+        <p><strong>Available templates</strong></p>
+        <ul>
+            {% for key,template in templates %}
+                <li>{{ key }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
