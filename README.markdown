@@ -74,7 +74,7 @@ $ sudo apt-get install beanstalkd
 Then run it as a daemon:
 
 ``` bash
-$ beanstalkd -d -l 127.0.01 -p 11300
+$ beanstalkd -d -l 127.0.0.1 -p 11300
 ```
 
 ### Step 5: run newsletter:send worker

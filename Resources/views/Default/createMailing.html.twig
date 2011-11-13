@@ -21,6 +21,6 @@
     {% endif %}
     <form action="" method="post" {{ form_enctype(form) }} >
         {{ form_widget(form) }}
-        <input type="submit" value="{% trans %}Send mailing{% endtrans %}" class="{{ submitCssClass }}"/>
+        <input type="submit" id="wowo_bundle_newsletterbundle_newslettertype_submit" value="{% trans %}Send mailing{% endtrans %}" class="{{ submitCssClass }}"/>
     </form>
 {% endblock %}
