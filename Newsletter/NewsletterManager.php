@@ -140,7 +140,7 @@ class NewsletterManager implements NewsletterManagerInterface
     protected function buildMessageBody($contact, Mailing $mailing, \Swift_Message $message)
     {
         $body = $this->placeholderProcessor->process($contact, $mailing->getBody());
-        //$body = $this->mailingMedia->embedMedia($body, $message);
+        $body = $this->mailingMedia->embedMedia($body, $message);
         return $body;
     }
 
