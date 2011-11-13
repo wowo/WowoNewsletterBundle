@@ -2,6 +2,8 @@
 
 namespace Wowo\Bundle\NewsletterBundle\Newsletter;
 
+use Wowo\Bundle\NewsletterBundle\Exception\NonExistingTemplateException;
+
 class TemplateManager implements TemplateManagerInterface
 {
     protected $availableTemplates = array();
@@ -86,6 +88,9 @@ class TemplateManager implements TemplateManagerInterface
     protected function getActiveTemplateBody()
     {
         $path = $this->getActiveTemplatePath();
+        if (!$path || !file_exists($path)) {
+            throw new NonExistingTemplateException (sprintf('Template "%s" does not exists or was not set', $path));
+        }
         return file_get_contents($path);
     }
 }

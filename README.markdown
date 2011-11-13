@@ -25,6 +25,12 @@ Add following lines to your `deps` file:
     [WowoNewsletterBundle]
         git=git://github.com/wowo/WowoNewsletterBundle.git
         target=bundles/Wowo/NewsletterBundle
+
+    [pheanstalk]
+        git=https://github.com/pda/pheanstalk
+        target=/pheanstalk
+        version=v1.1.0
+
 ```
 Now, run the vendors script to download the bundle:
 
@@ -46,6 +52,13 @@ $loader->registerNamespaces(array(
         ));
 ```
 
+Also add Pheanstalk init on the bottom of autoload:
+
+``` php
+// ...
+require_once __DIR__.'/../vendor/pheanstalk/pheanstalk_init.php';
+```
+
 ### Step 3: Enable the bundle
 
 Finally, enable the bundle in the kernel:
@@ -57,9 +70,9 @@ Finally, enable the bundle in the kernel:
 public function registerBundles()
 {
         $bundles = array(
-                // ...
-                        new Wowo\NewsletterBundle\WowoNewsletterBundle(),
-                            );
+            // ...
+            new Wowo\NewsletterBundle\WowoNewsletterBundle(),
+        );
 }
 ```
 

@@ -59,8 +59,7 @@ class Mailing
     /**
      * @var datetime $sendDate
      *
-     * @Assert\NotBlank()
-     * @ORM\Column(name="sendDate", type="datetime")
+     * @ORM\Column(name="sendDate", type="datetime", nullable=true)
      */
     private $sendDate;
 

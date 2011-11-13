@@ -24,7 +24,7 @@ class MailingType extends AbstractType
         if ($this->hasDelayedSending) {
             $builder
                 ->add('delayedMailing', null, array('label' => 'Is delayed?', 'required' => false))
-                ->add('sendDate', 'datetime', array('label' => 'Send date'));
+                ->add('sendDate', 'datetime', array('label' => 'Send date', 'required' => false));
         }
     }
 

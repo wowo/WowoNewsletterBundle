@@ -6,6 +6,8 @@
 
     <parameters>
         <parameter key="wowo_newsletter.model.contact.class">Wowo\Bundle\NewsletterBundle\Entity\Contact</parameter>
+        <parameter key="wowo_newsletter.contact_manager.class">Wowo\Bundle\NewsletterBundle\Newsletter\ContactManager</parameter>
+        <parameter key="wowo_newsletter.mailing_manager.class">Wowo\Bundle\NewsletterBundle\Newsletter\MailingManager</parameter>
         <parameter key="wowo_newsletter.pheanstalk.address">127.0.0.1:11300</parameter>
         <parameter key="wowo_newsletter.queue">newsletter_tube</parameter>
         <parameter key="wowo_newsletter.placeholders.mapping"></parameter>
@@ -19,13 +21,13 @@
     </parameters>
 
     <services>
-        <service id="wowo_newsletter.contact_manager" class="Wowo\Bundle\NewsletterBundle\Newsletter\ContactManager">
+        <service id="wowo_newsletter.contact_manager" class="%wowo_newsletter.contact_manager.class%">
             <argument type="service" id="wowo_newsletter.entity_manager" />
             <argument type="service" id="service_container" />
             <argument>%wowo_newsletter.model.contact.class%</argument>
         </service>
 
-        <service id="wowo_newsletter.mailing_manager" class="Wowo\Bundle\NewsletterBundle\Newsletter\MailingManager">
+        <service id="wowo_newsletter.mailing_manager" class="%wowo_newsletter.mailing_manager.class%">
             <argument type="service" id="wowo_newsletter.entity_manager" />
             <argument type="service" id="service_container" />
             <argument>%wowo_newsletter.model.contact.class%</argument>

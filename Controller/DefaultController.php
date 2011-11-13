@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Wowo\Bundle\NewsletterBundle\Form\NewsletterType;
 use Wowo\Bundle\NewsletterBundle\Newsletter\Newsletter;
+use Wowo\Bundle\NewsletterBundle\Newsletter\ContactManagerInterface;
 
 class DefaultController extends Controller
 {
@@ -18,12 +19,7 @@ class DefaultController extends Controller
     {
         $contactManager = $this->get('wowo_newsletter.contact_manager');
         $mailingManager = $this->get('wowo_newsletter.mailing_manager');
-        $newsletter = $this->get('wowo_newsletter.empty_newsletter');
-        $form = $this->createForm($this->get('wowo_newsletter.form.newsletter'), $newsletter,
-            array('data' => array(
-                'availableContacts' => $contactManager->findContactToChooseForMailing(),
-                'mailing' => $newsletter->mailing,
-            )));
+        $form = $this->getForm($contactManager);
         if ('POST' == $this->get('request')->getMethod()) {
             $form->bindRequest($this->getRequest());
             if ($form->isValid()) {
@@ -40,6 +36,17 @@ class DefaultController extends Controller
             'form' => $form->createView(),
             'templates' => $this->get('wowo_newsletter.template_manager')->getAvailableTemplates(),
             'submitCssClass' => $submitCssClass,
+        );
+    }
+
+    protected function getForm(ContactManagerInterface $contactManager)
+    {
+        $newsletter = $this->get('wowo_newsletter.empty_newsletter');
+        return $this->createForm($this->get('wowo_newsletter.form.newsletter'), $newsletter,
+            array('data' => array(
+                'availableContacts' => $contactManager->findContactToChooseForMailing(),
+                'mailing' => $newsletter->mailing,
+            ))
         );
     }
 }
