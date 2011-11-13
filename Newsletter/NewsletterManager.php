@@ -175,6 +175,14 @@ class NewsletterManager implements NewsletterManagerInterface
         }
     }
 
+    public function clearQueues()
+    {
+        $rawJob = $this->pheanstalk->watch($this->tube)->ignore('default')->reserve();
+        if ($rawJob) {
+            $this->pheanstalk->delete($rawJob);
+        }
+    }
+
     public function fillPlaceholders($contact, $body)
     {
         return $this->placeholderProcessor->process($contact, $body);
