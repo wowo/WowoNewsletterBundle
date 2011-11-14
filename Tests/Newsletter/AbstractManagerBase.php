@@ -8,21 +8,6 @@ class AbstractManagerBase extends \PHPUnit_Framework_TestCase
 {
     protected function getEmMock()
     {
-        $emMock  = $this->getMock('\Doctrine\ORM\EntityManager',
-            array('getRepository', 'getClassMetadata', 'persist', 'flush'), array(), '', false);
-        $emMock->expects($this->any())
-            ->method('getRepository')
-            ->will($this->returnValue(new FakeRepository()));
-        $emMock->expects($this->any())
-            ->method('getClassMetadata')
-            ->will($this->returnValue((object)array('name' => 'aClass')));
-        $emMock->expects($this->any())
-            ->method('persist')
-            ->will($this->returnValue(null));
-        $emMock->expects($this->any())
-            ->method('flush')
-            ->will($this->returnValue(null));
-
         $emMock = \Mockery::mock('\Doctrine\ORM\EntityManager',
             array(
                 'getRepository' => new FakeRepository(),
