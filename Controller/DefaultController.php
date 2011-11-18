@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Wowo\Bundle\NewsletterBundle\Form\NewsletterType;
 use Wowo\Bundle\NewsletterBundle\Newsletter\Newsletter;
-use Wowo\Bundle\NewsletterBundle\Newsletter\ContactManagerInterface;
+use Wowo\Bundle\NewsletterBundle\Newsletter\Model\ContactManagerInterface;
 
 class DefaultController extends Controller
 {

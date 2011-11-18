@@ -2,7 +2,7 @@
 
 namespace Wowo\Bundle\NewsletterBundle\Tests\Newsletter;
 
-use Wowo\Bundle\NewsletterBundle\Newsletter\MailingManager;
+use Wowo\Bundle\NewsletterBundle\Newsletter\Model\MailingManager;
 use Wowo\Bundle\NewsletterBundle\Newsletter\TemlateManager;
 use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
 

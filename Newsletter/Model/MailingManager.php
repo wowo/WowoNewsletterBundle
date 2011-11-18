@@ -1,10 +1,7 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter;
+namespace Wowo\Bundle\NewsletterBundle\Newsletter\Model;
 
-use Doctrine\ORM\EntityManager;
-use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
-use Symfony\Component\HttpFoundation\Request;
 use Wowo\Bundle\NewsletterBundle\Newsletter\TemplateManagerInterface;
 
 /**

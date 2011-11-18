@@ -1,8 +1,6 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter;
-
-use Symfony\Component\HttpFoundation\Request;
+namespace Wowo\Bundle\NewsletterBundle\Newsletter\Model;
 
 interface MailingManagerInterface
 {

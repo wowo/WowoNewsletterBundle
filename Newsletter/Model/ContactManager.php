@@ -1,8 +1,6 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter;
-
-use Doctrine\ORM\EntityManager;
+namespace Wowo\Bundle\NewsletterBundle\Newsletter\Model;
 
 class ContactManager extends AbstractManager implements ContactManagerInterface
 {
