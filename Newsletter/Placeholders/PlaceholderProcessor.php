@@ -1,8 +1,7 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter;
+namespace Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders;
 
-use Wowo\Bundle\NewsletterBundle\Newsletter\PlaceholderProcessorInterface;
 use Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException;
 
 class PlaceholderProcessor implements PlaceholderProcessorInterface

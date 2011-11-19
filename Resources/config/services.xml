@@ -69,7 +69,7 @@
         </service>
 
         <service id="wowo_newsletter.placeholder_processor" public="false"
-            class="Wowo\Bundle\NewsletterBundle\Newsletter\PlaceholderProcessor">
+            class="Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessor">
             <call method="setMapping">
                 <argument>%wowo_newsletter.placeholders.mapping%</argument>
             </call>

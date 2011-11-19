@@ -15,7 +15,7 @@ class NewsletterManagerTest extends \PHPUnit_Framework_TestCase
         $manager->setContactClass('Wowo\Bundle\NewsletterBundle\Entity\Contact');
         $manager->setTube('tube');
         $manager->setMailingMedia($this->getMock('Wowo\Bundle\NewsletterBundle\Newsletter\MailingMedia'));
-        $manager->setPlaceholderProcessor($this->getMock('Wowo\Bundle\NewsletterBundle\Newsletter\PlaceholderProcessorInterface'));
+        $manager->setPlaceholderProcessor($this->getMock('Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessorInterface'));
         $manager->validateDependencies();
     }
 

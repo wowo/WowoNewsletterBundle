@@ -7,7 +7,7 @@ use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
 use Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException;
 use Wowo\Bundle\NewsletterBundle\Exception\MailingNotFoundException;
 use Wowo\Bundle\NewsletterBundle\Exception\ContactNotFoundException;
-use Wowo\Bundle\NewsletterBundle\Newsletter\PlaceholderProcessorInterface;
+use Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessorInterface;
 use Wowo\Bundle\NewsletterBundle\Newsletter\MailingMedia;
 
 class NewsletterManager implements NewsletterManagerInterface
