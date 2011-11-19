@@ -38,8 +38,16 @@
 
         <service id="wowo_newsletter.template_manager"
             class="Wowo\Bundle\NewsletterBundle\Newsletter\TemplateManager">
+            <argument type="service" id="wowo_newsletter.mailing_media"/>
             <call method="setAvailableTemplates">
                 <argument>%wowo_newsletter.available.templates%</argument>
+            </call>
+            <call method="setTemplateRegex">
+                <argument type="collection">
+                    <argument>src</argument>
+                    <argument>background</argument>
+                    <argument>background_attribute</argument>
+                </argument>
             </call>
         </service>
 
@@ -107,7 +115,7 @@
         </service>
 
 
-        <service id="wowo_newsletter.mailing_media" class="Wowo\Bundle\NewsletterBundle\Newsletter\MailingMedia">
+        <service id="wowo_newsletter.mailing_media" class="Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManager">
         </service>
 
         <service id="wowo_newsletter.entity_manager" alias="doctrine.orm.entity_manager" />

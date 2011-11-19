@@ -3,12 +3,20 @@
 namespace Wowo\Bundle\NewsletterBundle\Newsletter;
 
 use Wowo\Bundle\NewsletterBundle\Exception\NonExistingTemplateException;
+use Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManagerInterface;
 
 class TemplateManager implements TemplateManagerInterface
 {
+    protected $mediaManager;
     protected $availableTemplates = array();
+    protected $templateRegex      = array();
     protected $templateContentTag = '{{ content }}';
     protected $templateTitleTag   = '{{ title }}';
+
+    public function __construct(MediaManagerInterface $mediaManager)
+    {
+        $this->mediaManager = $mediaManager;
+    }
 
     /**
      * Sets available templates
@@ -31,6 +39,11 @@ class TemplateManager implements TemplateManagerInterface
         return $this->availableTemplates;
     }
 
+    public function setTemplateRegex(array $regex)
+    {
+        $this->templateRegex = $regex;
+    }
+
     /**
      * Applies template, which means that it surrounds body with master template
      * and makes paths to images absolute, that makes they easy to embed into email
@@ -47,9 +60,9 @@ class TemplateManager implements TemplateManagerInterface
             array($this->templateContentTag, $this->templateTitleTag),
             array($body, $title),
             $tpl);
-        $tpl = $this->makeAbsolutePaths($tpl, dirname($path), MailingMedia::REGEX_SRC);
-        $tpl = $this->makeAbsolutePaths($tpl, dirname($path), MailingMedia::REGEX_BACKGROUND);
-        $tpl = $this->makeAbsolutePaths($tpl, dirname($path), MailingMedia::REGEX_BACKGROUND_ATTRIBUTE);
+        foreach ($this->templateRegex as $regex) {
+            $tpl = $this->makeAbsolutePaths($tpl, dirname($path), $this->mediaManager->getRegex($regex));
+        }
         return $tpl;
     }
 

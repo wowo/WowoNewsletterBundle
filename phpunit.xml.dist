@@ -9,12 +9,11 @@
     </testsuites>
 
     <filter>
-        <whitelist>
-            <directory>./</directory>
-            <exclude>
-                <directory>./Resources</directory>
-                <directory>./Tests</directory>
-            </exclude>
-        </whitelist>
+        <blacklist>
+            <directory>./Resources</directory>
+            <directory>./Tests</directory>
+            <directory>./DataFixtures</directory>
+            <directory>./vendor</directory>
+        </blacklist>
     </filter>
 </phpunit>

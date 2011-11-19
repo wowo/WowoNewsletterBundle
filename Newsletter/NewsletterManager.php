@@ -8,7 +8,7 @@ use Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException;
 use Wowo\Bundle\NewsletterBundle\Exception\MailingNotFoundException;
 use Wowo\Bundle\NewsletterBundle\Exception\ContactNotFoundException;
 use Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessorInterface;
-use Wowo\Bundle\NewsletterBundle\Newsletter\MailingMedia;
+use Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManagerInterface;
 
 class NewsletterManager implements NewsletterManagerInterface
 {
@@ -19,7 +19,7 @@ class NewsletterManager implements NewsletterManagerInterface
     protected $tube;
     protected $sendingTube;
     protected $placeholderProcessor;
-    protected $mailingMedia;
+    protected $mediaManager;
 
     public function __construct()
     {
@@ -58,9 +58,9 @@ class NewsletterManager implements NewsletterManagerInterface
         $this->placeholderProcessor = $processor;
     }
 
-    public function setMailingMedia(MailingMedia $mailingMedia)
+    public function setMailingMedia(MediaManagerInterface $manager)
     {
-        $this->mailingMedia = $mailingMedia;
+        $this->mediaManager= $manager;
     }
 
     public function validateDependencies()
@@ -72,7 +72,7 @@ class NewsletterManager implements NewsletterManagerInterface
             'contactClass' => $this->contactClass,
             'tube' => $this->tube,
             'placeholderProcessor' => $this->placeholderProcessor,
-            'mailingMedia' => $this->mailingMedia,
+            'mediaManager' => $this->mediaManager,
         );
         foreach ($dependencies as $name => $dependency) {
             if (null == $dependency) {
@@ -140,7 +140,7 @@ class NewsletterManager implements NewsletterManagerInterface
     protected function buildMessageBody($contact, Mailing $mailing, \Swift_Message $message)
     {
         $body = $this->placeholderProcessor->process($contact, $mailing->getBody());
-        $body = $this->mailingMedia->embedMedia($body, $message);
+        $body = $this->mediaManager->embed($body, $message);
         return $body;
     }
 
