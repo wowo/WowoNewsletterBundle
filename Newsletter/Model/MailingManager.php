@@ -2,7 +2,7 @@
 
 namespace Wowo\Bundle\NewsletterBundle\Newsletter\Model;
 
-use Wowo\Bundle\NewsletterBundle\Newsletter\TemplateManagerInterface;
+use Wowo\Bundle\NewsletterBundle\Newsletter\Templates\TemplateManagerInterface;
 
 /**
  * Mailing Manager is used to create mailing depends on form submited by suer 

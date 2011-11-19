@@ -8,14 +8,19 @@
         <parameter key="wowo_newsletter.model.contact.class">Wowo\Bundle\NewsletterBundle\Entity\Contact</parameter>
         <parameter key="wowo_newsletter.contact_manager.class">Wowo\Bundle\NewsletterBundle\Newsletter\Model\ContactManager</parameter>
         <parameter key="wowo_newsletter.mailing_manager.class">Wowo\Bundle\NewsletterBundle\Newsletter\Model\MailingManager</parameter>
+        <parameter key="wowo_newsletter.template_manager.class">Wowo\Bundle\NewsletterBundle\Newsletter\Templates\TemplateManager</parameter>
+        <parameter key="wowo_newsletter.placeholder_processor.class">Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessor</parameter>
+        <parameter key="wowo_newsletter.newsletter.class">Wowo\Bundle\NewsletterBundle\Newsletter\Newsletter</parameter>
+        <parameter key="wowo_newsletter.media_manager.class">Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManager</parameter>
+        <parameter key="wowo_newsletter.form.newsletter.class">Wowo\Bundle\NewsletterBundle\Form\NewsletterType</parameter>
+        <parameter key="wowo_newsletter.form.mailing.class">Wowo\Bundle\NewsletterBundle\Form\MailingType</parameter>
+
         <parameter key="wowo_newsletter.pheanstalk.address">127.0.0.1:11300</parameter>
         <parameter key="wowo_newsletter.queue">newsletter_tube</parameter>
         <parameter key="wowo_newsletter.placeholders.mapping"></parameter>
         <parameter key="wowo_newsletter.available.templates"></parameter>
         <parameter key="wowo_newsletter.default.sender_name">Wojciech Sznapka</parameter>
         <parameter key="wowo_newsletter.default.sender_email">wojciech@sznapka.pl</parameter>
-        <parameter key="wowo_newsletter.form.newsletter.class">Wowo\Bundle\NewsletterBundle\Form\NewsletterType</parameter>
-        <parameter key="wowo_newsletter.form.mailing.class">Wowo\Bundle\NewsletterBundle\Form\MailingType</parameter>
         <parameter key="wowo_newsletter.form.can.choose.contacts.via.form">true</parameter>
         <parameter key="wowo_newsletter.form.has.delayed.sending">true</parameter>
     </parameters>
@@ -37,8 +42,8 @@
         </service>
 
         <service id="wowo_newsletter.template_manager"
-            class="Wowo\Bundle\NewsletterBundle\Newsletter\TemplateManager">
-            <argument type="service" id="wowo_newsletter.mailing_media"/>
+            class="%wowo_newsletter.template_manager.class%">
+            <argument type="service" id="wowo_newsletter.media_manager"/>
             <call method="setAvailableTemplates">
                 <argument>%wowo_newsletter.available.templates%</argument>
             </call>
@@ -72,12 +77,12 @@
                 <argument type="service" id="wowo_newsletter.placeholder_processor"/>
             </call>
             <call method="setMailingMedia">
-                <argument type="service" id="wowo_newsletter.mailing_media"/>
+                <argument type="service" id="wowo_newsletter.media_manager"/>
             </call>
         </service>
 
         <service id="wowo_newsletter.placeholder_processor" public="false"
-            class="Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessor">
+            class="%wowo_newsletter.placeholder_processor.class%">
             <call method="setMapping">
                 <argument>%wowo_newsletter.placeholders.mapping%</argument>
             </call>
@@ -86,7 +91,7 @@
             </call>
         </service>
 
-        <service id="wowo_newsletter.empty_newsletter" class="Wowo\Bundle\NewsletterBundle\Newsletter\Newsletter">
+        <service id="wowo_newsletter.empty_newsletter" class="%wowo_newsletter.newsletter.class%">
             <call method="setSenderNameProxy">
                 <argument type="string">%wowo_newsletter.default.sender_name%</argument>
             </call>
@@ -115,8 +120,7 @@
         </service>
 
 
-        <service id="wowo_newsletter.mailing_media" class="Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManager">
-        </service>
+        <service id="wowo_newsletter.media_manager" class="%wowo_newsletter.media_manager.class%"/>
 
         <service id="wowo_newsletter.entity_manager" alias="doctrine.orm.entity_manager" />
     </services>

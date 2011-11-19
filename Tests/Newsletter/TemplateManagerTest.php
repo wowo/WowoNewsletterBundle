@@ -2,12 +2,12 @@
 
 namespace Wowo\Bundle\NewsletterBundle\Tests\Newsletter;
 
-use Wowo\Bundle\NewsletterBundle\Newsletter\TemplateManager;
+use Wowo\Bundle\NewsletterBundle\Newsletter\Templates\TemplateManager;
 use lapistano\ProxyObject\ProxyObject;
 
 class TemplateManagerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $class = '\Wowo\Bundle\NewsletterBundle\Newsletter\TemplateManager';
+    protected $class = '\Wowo\Bundle\NewsletterBundle\Newsletter\Templates\TemplateManager';
 
     public function testGetters()
     {
