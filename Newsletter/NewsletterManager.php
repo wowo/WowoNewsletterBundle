@@ -8,33 +8,28 @@ use Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceh
 use Wowo\Bundle\NewsletterBundle\Newsletter\Model\Exception\MailingNotFoundException;
 use Wowo\Bundle\NewsletterBundle\Newsletter\Model\Exception\ContactNotFoundException;
 use Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessorInterface;
-use Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManagerInterface;
 use Wowo\Bundle\QueueBundle\QueueManager;
+use Wowo\Bundle\NewsletterBundle\Newsletter\BuilderInterface;
 
 class NewsletterManager implements NewsletterManagerInterface
 {
-    protected $em;
     protected $contactClass;
     protected $mailer;
-    protected $tube;
-    protected $sendingTube;
-    protected $placeholderProcessor;
-    protected $mediaManager;
     protected $queue;
+    protected $builder;
 
     public function __construct()
     {
     }
 
+    public function setBuilder(BuilderInterface $builder)
+    {
+        $this->builder = $builder;
+    }
+
     public function setQueue(QueueManager $queue)
     {
         $this->queue = $queue;
-    }
-
-
-    public function setEntityManager(EntityManager $em)
-    {
-        $this->em = $em;
     }
 
     public function setMailer(\Swift_Mailer $mailer)
@@ -50,30 +45,11 @@ class NewsletterManager implements NewsletterManagerInterface
         $this->contactClass = $contactClass;
     }
 
-    public function setTube($tube)
-    {
-        $this->tube = $tube;
-    }
-
-    public function setPlaceholderProcessor(PlaceholderProcessorInterface $processor)
-    {
-        $this->placeholderProcessor = $processor;
-    }
-
-    public function setMailingMedia(MediaManagerInterface $manager)
-    {
-        $this->mediaManager= $manager;
-    }
-
     public function validateDependencies()
     {
         $dependencies = array(
-            'em' => $this->em,
             'mailer' => $this->mailer,
             'contactClass' => $this->contactClass,
-            'tube' => $this->tube,
-            'placeholderProcessor' => $this->placeholderProcessor,
-            'mediaManager' => $this->mediaManager,
         );
         foreach ($dependencies as $name => $dependency) {
             if (null == $dependency) {
@@ -84,9 +60,6 @@ class NewsletterManager implements NewsletterManagerInterface
 
     public function putMailingInQueue(Mailing $mailing, array $contactIds)
     {
-        if (null == $this->tube) {
-            throw new \InvalidArgumentException("Preparation tube unkonwn!");
-        }
         if (count($contactIds) == 0) {
             throw new \InvalidArgumentException('No contacs selected, it need to be at least '
                 . 'one contact to send mailing');
@@ -111,49 +84,9 @@ class NewsletterManager implements NewsletterManagerInterface
             + $interval->format("%s");
     }
 
-    protected function buildMessage($mailingId, $contactId, $contactClass)
-    {
-        $contact = $this->em
-            ->getRepository($contactClass)
-            ->find($contactId);
-        if (!$contact) {
-            throw new ContactNotFoundException(sprintf('Contact %s with id %d not found', $contactClass, $contactId));
-        }
-        $mailing = $this->em
-            ->getRepository('WowoNewsletterBundle:Mailing')
-            ->find($mailingId);
-        if (null == $mailing) {
-            throw new MailingNotFoundException(sprintf('Mailing with id %d not found', $mailingId));
-        }
-        $fullName = method_exists($contact, "getFullName") ? $contact->getFullName() : $contact->getEmail();
-        $message = \Swift_Message::newInstance()
-            ->setFrom(array($mailing->getSenderEmail() => $mailing->getSenderName() ?: $mailing->getSenderEmail()))
-            ->setTo(array($contact->getEmail() => $fullName))
-            ->setSubject($this->buildMessageSubject($contact, $mailing))
-            ->setMaxLineLength(1000);
-
-        $body = $this->buildMessageBody($contact, $mailing, $message);
-        $message->setBody($body, 'text/html');
-        return $message;
-    }
-
-    protected function buildMessageBody($contact, Mailing $mailing, \Swift_Message $message)
-    {
-        $body = $this->placeholderProcessor->process($contact, $mailing->getBody());
-        $body = $this->mediaManager->embed($body, $message);
-        return $body;
-    }
-
-    protected function buildMessageSubject($contact, Mailing $mailing)
-    {
-        $title = $this->placeholderProcessor->process($contact, $mailing->getTitle());
-        return $title;
-    }
-
-
     public function sendMailing($mailingId, $contactId, $contactClass)
     {
-        $message = $this->buildMessage($mailingId, $contactId, $contactClass);
+        $message = $this->builder->buildMessage($mailingId, $contactId, $contactClass);
         $this->mailer->send($message);
         return $message;
     }

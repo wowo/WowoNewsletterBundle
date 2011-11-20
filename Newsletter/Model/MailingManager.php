@@ -54,4 +54,16 @@ class MailingManager extends AbstractManager implements MailingManagerInterface
         $this->em->flush();
         return $mailing;
     }
+
+    public function findMailing($id)
+    {
+        $mailing = $this
+            ->em
+            ->getRepository('WowoNewsletterBundle:Mailing')
+            ->find($id);
+        if (null == $mailing) {
+            throw new MailingNotFoundException(sprintf('Mailing with id %d not found', $id));
+        }
+        return $mailing;
+    }
 }

@@ -20,6 +20,7 @@ class DefaultController extends Controller
         $contactManager = $this->get('wowo_newsletter.contact_manager');
         $mailingManager = $this->get('wowo_newsletter.mailing_manager');
         $form = $this->getForm($contactManager);
+
         if ('POST' == $this->get('request')->getMethod()) {
             $form->bindRequest($this->getRequest());
             if ($form->isValid()) {

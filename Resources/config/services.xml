@@ -14,6 +14,7 @@
         <parameter key="wowo_newsletter.media_manager.class">Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManager</parameter>
         <parameter key="wowo_newsletter.form.newsletter.class">Wowo\Bundle\NewsletterBundle\Form\NewsletterType</parameter>
         <parameter key="wowo_newsletter.form.mailing.class">Wowo\Bundle\NewsletterBundle\Form\MailingType</parameter>
+        <parameter key="wowo_newsletter.builder.class">Wowo\Bundle\NewsletterBundle\Newsletter\Builder</parameter>
 
         <parameter key="wowo_newsletter.queue">newsletter_tube</parameter>
         <parameter key="wowo_newsletter.placeholders.mapping"></parameter>
@@ -27,13 +28,11 @@
     <services>
         <service id="wowo_newsletter.contact_manager" class="%wowo_newsletter.contact_manager.class%">
             <argument type="service" id="wowo_newsletter.entity_manager" />
-            <argument type="service" id="service_container" />
             <argument>%wowo_newsletter.model.contact.class%</argument>
         </service>
 
         <service id="wowo_newsletter.mailing_manager" class="%wowo_newsletter.mailing_manager.class%">
             <argument type="service" id="wowo_newsletter.entity_manager" />
-            <argument type="service" id="service_container" />
             <argument>%wowo_newsletter.model.contact.class%</argument>
             <call method="setTemplateManager">
                 <argument type="service" id="wowo_newsletter.template_manager"/>
@@ -60,23 +59,14 @@
             <call method="setQueue">
                 <argument type="service" id="wowo_queue.manager"/>
             </call>
-            <call method="setEntityManager">
-                <argument type="service" id="wowo_newsletter.entity_manager"/>
+            <call method="setBuilder">
+                <argument type="service" id="wowo_newsletter.builder"/>
             </call>
             <call method="setMailer">
                 <argument type="service" id="mailer"/>
             </call>
             <call method="setContactClass">
                 <argument>%wowo_newsletter.model.contact.class%</argument>
-            </call>
-            <call method="setTube">
-                <argument>%wowo_newsletter.queue%</argument>
-            </call>
-            <call method="setPlaceholderProcessor">
-                <argument type="service" id="wowo_newsletter.placeholder_processor"/>
-            </call>
-            <call method="setMailingMedia">
-                <argument type="service" id="wowo_newsletter.media_manager"/>
             </call>
         </service>
 
@@ -118,5 +108,12 @@
         <service id="wowo_newsletter.media_manager" class="%wowo_newsletter.media_manager.class%"/>
 
         <service id="wowo_newsletter.entity_manager" alias="doctrine.orm.entity_manager" />
+
+        <service id="wowo_newsletter.builder" class="%wowo_newsletter.builder.class%">
+            <argument type="service" id="wowo_newsletter.mailing_manager" />
+            <argument type="service" id="wowo_newsletter.contact_manager" />
+            <argument type="service" id="wowo_newsletter.placeholder_processor" />
+            <argument type="service" id="wowo_newsletter.media_manager" />
+        </service>
     </services>
 </container>

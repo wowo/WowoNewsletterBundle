@@ -46,10 +46,8 @@ EOT
         while (1) {
             try {
                 $this->getContainer()->get('wowo_newsletter.newsletter_manager')->processMailing($logger);
-                $logger(sprintf('<error>Mailer exception (%s) occured, message: %s</error>',
-                    get_class($e), $e->getMessage()));
             } catch (\Exception $e) {
-                $logger(sprintf('<error>Unknown exception (%s) occured, message: %s</error>',
+                $logger(sprintf('Exception <error>(%s)</error> occured, message: %s',
                     get_class($e), $e->getMessage()));
             }
             usleep(self::DELAY);
