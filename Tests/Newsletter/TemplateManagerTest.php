@@ -66,7 +66,7 @@ EOT;
     }
 
     /**
-     * @expectedException \Wowo\Bundle\NewsletterBundle\Exception\NonExistingTemplateException
+     * @expectedException \Wowo\Bundle\NewsletterBundle\Newsletter\Templates\Exception\NonExistingTemplateException
      */
     public function testGetActiveTemplateBodyNonExistingPath()
     {

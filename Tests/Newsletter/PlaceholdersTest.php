@@ -5,7 +5,7 @@ namespace Wowo\Bundle\NewsletterBundle\Tests\Newsletter;
 use Wowo\Bundle\NewsletterBundle\Entity\Contact;
 use Wowo\Bundle\NewsletterBundle\Newsletter\NewsletterManager;
 use Doctrine\ORM\EntityManager;
-use Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException;
+use Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException;
 use Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessor;
 use lapistano\ProxyObject\ProxyObject;
 
@@ -61,7 +61,7 @@ class PlaceholdersTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     *  @expectedException Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException
+     *  @expectedException Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException
      *  @expectedExceptionCode 1
      */
     public function testFillPlaceholdersWithNonPublicPropertyPlaceholder()
@@ -77,7 +77,7 @@ class PlaceholdersTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     *  @expectedException Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException
+     *  @expectedException Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException
      *  @expectedExceptionCode 2
      */
     public function testFillPlaceholdersWithNonPublicMethodPlaceholder()
@@ -94,7 +94,7 @@ class PlaceholdersTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     *  @expectedException Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException
+     *  @expectedException Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException
      *  @expectedExceptionCode 3
      */
     public function testFillPlaceholdersWithNonExistingSourcePlaceholder()

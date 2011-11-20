@@ -8,7 +8,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Wowo\Bundle\NewsletterBundle\Exception\NewsletterException;
 
 class SendMailingCommand extends ContainerAwareCommand
 {
@@ -47,10 +46,6 @@ EOT
         while (1) {
             try {
                 $this->getContainer()->get('wowo_newsletter.newsletter_manager')->processMailing($logger);
-            } catch (NewsletterException $e) {
-                $logger(sprintf('<error>Newsletter exception (%s) occured, message: %s</error>',
-                    get_class($e), $e->getMessage()));
-            } catch (\Swift_SwiftException $e) {
                 $logger(sprintf('<error>Mailer exception (%s) occured, message: %s</error>',
                     get_class($e), $e->getMessage()));
             } catch (\Exception $e) {

@@ -4,9 +4,9 @@ namespace Wowo\Bundle\NewsletterBundle\Newsletter;
 
 use Doctrine\ORM\EntityManager;
 use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
-use Wowo\Bundle\NewsletterBundle\Exception\InvalidPlaceholderMappingException;
-use Wowo\Bundle\NewsletterBundle\Exception\MailingNotFoundException;
-use Wowo\Bundle\NewsletterBundle\Exception\ContactNotFoundException;
+use Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException;
+use Wowo\Bundle\NewsletterBundle\Newsletter\Model\Exception\MailingNotFoundException;
+use Wowo\Bundle\NewsletterBundle\Newsletter\Model\Exception\ContactNotFoundException;
 use Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessorInterface;
 use Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManagerInterface;
 use Wowo\Bundle\QueueBundle\QueueManager;
@@ -185,10 +185,5 @@ class NewsletterManager implements NewsletterManagerInterface
         if ($rawJob) {
             $this->queue->delete($rawJob);
         }
-    }
-
-    public function fillPlaceholders($contact, $body)
-    {
-        return $this->placeholderProcessor->process($contact, $body);
     }
 }

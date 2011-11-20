@@ -2,7 +2,7 @@
 
 namespace Wowo\Bundle\NewsletterBundle\Newsletter\Templates;
 
-use Wowo\Bundle\NewsletterBundle\Exception\NonExistingTemplateException;
+use Wowo\Bundle\NewsletterBundle\Newsletter\Templates\Exception\NonExistingTemplateException;
 use Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManagerInterface;
 
 class TemplateManager implements TemplateManagerInterface
