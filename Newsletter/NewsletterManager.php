@@ -22,10 +22,15 @@ class NewsletterManager implements NewsletterManagerInterface
     protected $mediaManager;
     protected $queue;
 
-    public function __construct(QueueManager $queue)
+    public function __construct()
+    {
+    }
+
+    public function setQueue(QueueManager $queue)
     {
         $this->queue = $queue;
     }
+
 
     public function setEntityManager(EntityManager $em)
     {

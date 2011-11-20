@@ -57,7 +57,9 @@
 
         <service id="wowo_newsletter.newsletter_manager"
             class="Wowo\Bundle\NewsletterBundle\Newsletter\NewsletterManager">
-            <argument type="service" id="wowo_queue.manager"/>
+            <call method="setQueue">
+                <argument type="service" id="wowo_queue.manager"/>
+            </call>
             <call method="setEntityManager">
                 <argument type="service" id="wowo_newsletter.entity_manager"/>
             </call>
