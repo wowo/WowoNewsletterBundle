@@ -38,7 +38,7 @@ EOT
                 $this->getContainer()->get('wowo_newsletter.newsletter_manager')->clearQueues();
                 $output->writeln(sprintf(' Removed <info>%d</info> job', $i++));
             } catch (\Exception $e) {
-                $this->writeln(sprintf('<error>Unknown exception (%s) occured, message: %s</error>',
+                $output->writeln(sprintf('<error>Unknown exception (%s) occured, message: %s</error>',
                     get_class($e), $e->getMessage()));
             }
         }

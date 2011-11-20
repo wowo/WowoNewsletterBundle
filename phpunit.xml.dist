@@ -12,6 +12,7 @@
         <blacklist>
             <directory>./Resources</directory>
             <directory>./Tests</directory>
+            <file>./Tests/autoload.php.dist</file>
             <directory>./DataFixtures</directory>
             <directory>./vendor</directory>
         </blacklist>

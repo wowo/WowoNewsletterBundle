@@ -15,7 +15,6 @@
         <parameter key="wowo_newsletter.form.newsletter.class">Wowo\Bundle\NewsletterBundle\Form\NewsletterType</parameter>
         <parameter key="wowo_newsletter.form.mailing.class">Wowo\Bundle\NewsletterBundle\Form\MailingType</parameter>
 
-        <parameter key="wowo_newsletter.pheanstalk.address">127.0.0.1:11300</parameter>
         <parameter key="wowo_newsletter.queue">newsletter_tube</parameter>
         <parameter key="wowo_newsletter.placeholders.mapping"></parameter>
         <parameter key="wowo_newsletter.available.templates"></parameter>
@@ -58,11 +57,9 @@
 
         <service id="wowo_newsletter.newsletter_manager"
             class="Wowo\Bundle\NewsletterBundle\Newsletter\NewsletterManager">
+            <argument type="service" id="wowo_queue.manager"/>
             <call method="setEntityManager">
                 <argument type="service" id="wowo_newsletter.entity_manager"/>
-            </call>
-            <call method="setPheanstalk">
-                <argument type="service" id="wowo_newsletter.pheanstalk"/>
             </call>
             <call method="setMailer">
                 <argument type="service" id="mailer"/>
@@ -98,10 +95,6 @@
             <call method="setSenderEmailProxy">
                 <argument type="string">%wowo_newsletter.default.sender_email%</argument>
             </call>
-        </service>
-
-        <service id="wowo_newsletter.pheanstalk" class="Pheanstalk">
-            <argument>%wowo_newsletter.pheanstalk.address%</argument>
         </service>
 
         <service id="wowo_newsletter.form.newsletter" class="%wowo_newsletter.form.newsletter.class%">

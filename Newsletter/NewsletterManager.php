@@ -9,20 +9,22 @@ use Wowo\Bundle\NewsletterBundle\Exception\MailingNotFoundException;
 use Wowo\Bundle\NewsletterBundle\Exception\ContactNotFoundException;
 use Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessorInterface;
 use Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManagerInterface;
+use Wowo\Bundle\QueueBundle\QueueManager;
 
 class NewsletterManager implements NewsletterManagerInterface
 {
     protected $em;
     protected $contactClass;
     protected $mailer;
-    protected $pheanstalk;
     protected $tube;
     protected $sendingTube;
     protected $placeholderProcessor;
     protected $mediaManager;
+    protected $queue;
 
-    public function __construct()
+    public function __construct(QueueManager $queue)
     {
+        $this->queue = $queue;
     }
 
     public function setEntityManager(EntityManager $em)
@@ -33,11 +35,6 @@ class NewsletterManager implements NewsletterManagerInterface
     public function setMailer(\Swift_Mailer $mailer)
     {
         $this->mailer = $mailer;
-    }
-
-    public function setPheanstalk(\Pheanstalk $pheanstalk)
-    {
-        $this->pheanstalk = $pheanstalk;
     }
 
     public function setContactClass($contactClass)
@@ -68,7 +65,6 @@ class NewsletterManager implements NewsletterManagerInterface
         $dependencies = array(
             'em' => $this->em,
             'mailer' => $this->mailer,
-            'pheanstalk' => $this->pheanstalk,
             'contactClass' => $this->contactClass,
             'tube' => $this->tube,
             'placeholderProcessor' => $this->placeholderProcessor,
@@ -98,8 +94,7 @@ class NewsletterManager implements NewsletterManagerInterface
               $job->contactId = $contactId;
               $job->mailingId = $mailing->getId();
               $job->contactClass = $this->contactClass;
-              $this->pheanstalk->useTube($this->tube)->put(json_encode($job),
-                  \Pheanstalk::DEFAULT_PRIORITY, $interval);
+              $this->queue->put(json_encode($job), null, $interval);
         }
     }
 
@@ -160,7 +155,7 @@ class NewsletterManager implements NewsletterManagerInterface
 
     public function processMailing(\Closure $logger)
     {
-        $rawJob = $this->pheanstalk->watch($this->tube)->ignore('default')->reserve();
+        $rawJob = $this->queue->get();
         if ($rawJob) {
             $job = json_decode($rawJob->getData(), false);
             $time = new \DateTime("now");
@@ -175,15 +170,15 @@ class NewsletterManager implements NewsletterManagerInterface
                 $logger(sprintf("<info>[%s]</info> Recipient: <info>%s</info> Subject: <info>%s</info>",
                     $time->format("Y-m-d h:i:s"), key($message->getTo()), $message->getSubject()));
             }
-            $this->pheanstalk->delete($rawJob);
+            $this->queue->delete($rawJob);
         }
     }
 
     public function clearQueues()
     {
-        $rawJob = $this->pheanstalk->watch($this->tube)->ignore('default')->reserve();
+        $rawJob = $this->queue->get();
         if ($rawJob) {
-            $this->pheanstalk->delete($rawJob);
+            $this->queue->delete($rawJob);
         }
     }
 
