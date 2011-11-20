@@ -17,9 +17,11 @@ Features included:
 - Scalable-ready - you can put beanstalkd queue and worker which sends mails
  away from your main application webserver
 
+ This bundle depends on [WowoQueueBundle](git://github.com/wowo/WowoQueueBundle.git), which is abstraction layer for beanstalkd messaging system
+
 ## Installation
 
-### Step 2: Download WowoNewsletterBundle
+### Step 1: Download WowoNewsletterBundle
 
 Add following lines to your `deps` file:
 
@@ -28,10 +30,9 @@ Add following lines to your `deps` file:
         git=git://github.com/wowo/WowoNewsletterBundle.git
         target=bundles/Wowo/NewsletterBundle
 
-    [pheanstalk]
-        git=https://github.com/pda/pheanstalk
-        target=/pheanstalk
-        version=v1.1.0
+    [WowoQueueBundle]
+        git=git://github.com/wowo/WowoQueueBundle.git
+        target=bundles/Wowo/QueueBundle
 
 ```
 Now, run the vendors script to download the bundle:
@@ -54,12 +55,6 @@ $loader->registerNamespaces(array(
         ));
 ```
 
-Also add Pheanstalk init on the bottom of autoload:
-
-``` php
-// ...
-require_once __DIR__.'/../vendor/pheanstalk/pheanstalk_init.php';
-```
 
 ### Step 3: Enable the bundle
 
@@ -78,21 +73,7 @@ public function registerBundles()
 }
 ```
 
-### Step 4: install and run beanstalkd
-
-On Debian linux systems (including Ubuntu) you can run:
-
-``` bash
-$ sudo apt-get install beanstalkd
-```
-
-Then run it as a daemon:
-
-``` bash
-$ beanstalkd -d -l 127.0.0.1 -p 11300
-```
-
-### Step 5: run newsletter:send worker
+### Step 4: run newsletter:send worker
 
 Last thing you need to do, to achieve mailings sending is to run worker:
 
@@ -101,3 +82,73 @@ $ php app/console newsletter:send
 ```
 
 There's optional switch `--verbose` which can be useful as a simple stdout monitor
+
+## TinyMCE integration
+
+This bundle is TinyMCE-ready. Just turn on this bundle and add some config (example is below) and body field will transform into Rich Text editor.
+
+``` yml
+stfalcon_tinymce:
+    include_jquery: true
+    theme:
+        advanced:
+            mode: "textareas"
+            theme: "advanced"
+            theme_advanced_buttons1: "bold,italic,underline,separator,strikethrough,justifyleft,justifycenter,justifyright,justifyfull,separator,bullist,numlist,link,unlink"
+            theme_advanced_buttons2: ""
+            theme_advanced_buttons3: ""
+            theme_advanced_toolbar_location: "top"
+```
+
+## Configuration
+
+You can set plenty of parameters, which can be found in services.xml. Also you can
+adjust some options in app/config/config.yml (mapping and templates)
+
+### Parameters:
+
+* wowo_newsletter.queue (default: newsletter_tube) - Beanstalkd tube name
+* wowo_newsletter.default.sender_name (default: Wojciech Sznapka) - "from" name in email messages
+* wowo_newsletter.default.sender_email (default: wojciech@sznapka.pl) - "from" address in email messages
+* wowo_newsletter.form.can.choose.contacts.via.form (default: true) - determines if contacts can be choosen using form
+* wowo_newsletter.form.has.delayed.sending (default: true) - determines wheter form allows to delay mailing (setting send date)
+
+### Configuration (config.yml)
+
+Example:
+``` yml
+wowo_newsletter:
+    placeholders:
+        key1: value1
+        key2: value3
+        key3: value3
+        name:       getName
+        email:      getEmail
+    templates:
+        'template name': %kernel.root_dir%/Resources/mailing/mailing.html
+```
+
+In placeholders you should provide map, in which key is placeholder name (example: email) and value is property/getter name on contact entity.
+There are two obligatory keys: (email and name).
+
+With templates you can set html templates (with images relative to its dir) source. By default it takes first position ('template name' in above) and resolves filesystem path for HTML template and images. You can add your own implementation, so user can choose from configured templates or even add his own (stored in database).
+
+## Extension and adjustments guidelines
+
+You can extend bundle by providing your own contact source. There are more extension points, but this one is most probably to use.
+
+``` yml
+parameters:
+    wowo_newsletter.contact_manager.class: Your\Bundle\NewsletterContactManager
+    wowo_newsletter.model.contact.class: Your\Bundle\Entity\User
+
+wowo_newsletter:
+    placeholders:
+        firstname:  getFirstname
+        lastname:   getLastname
+        email:      getEmail
+    templates:
+        'main template': %kernel.root_dir%/Resources/templates/newsletter/mailing.html
+```
+
+In above example *User* is an existing Entity, which has fields firstname, lastname, email. For this purposes we wrote NewsletterContactManager which implements *Wowo\Bundle\NewsletterBundle\Newsletter\Model\ContactManagerInterface* and provides bundle with contacts retrieved by Doctrine2.
