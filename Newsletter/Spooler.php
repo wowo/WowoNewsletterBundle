@@ -99,11 +99,11 @@ class Spooler implements SpoolerInterface
      */
     public function spool(Mailing $mailing, $contactId, $contactClass)
     {
-          $job = new \StdClass();
-          $job->contactId = $contactId;
-          $job->mailingId = $mailing->getId();
-          $job->contactClass = $contactClass;
-          $this->queue->put(json_encode($job), null, $this->getInterval($mailing));
+        $job = new \StdClass();
+        $job->contactId = $contactId;
+        $job->mailingId = $mailing->getId();
+        $job->contactClass = $contactClass;
+        $this->queue->put(json_encode($job), null, $this->getInterval($mailing));
     }
 
     /**

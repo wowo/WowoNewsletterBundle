@@ -9,6 +9,7 @@ $loader->registerNamespaces(array(
     'Doctrine\\Common' => array(VENDOR_DIR.'/doctrine-common/lib'),
     'Doctrine\\DBAL'   => array(VENDOR_DIR.'/doctrine-dbal/lib'),
     'Doctrine'         => array(VENDOR_DIR.'/doctrine/lib'),
+    'Wowo' => array(VENDOR_DIR.'/bundles'),
 ));
 $loader->register();
 
