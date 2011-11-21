@@ -34,7 +34,7 @@ EOT
         $i = 1;
         while (1) {
             try {
-                $this->getContainer()->get('wowo_newsletter.newsletter_manager')->clearQueues();
+                $this->getContainer()->get('wowo_newsletter.spooler')->clear();
                 $output->writeln(sprintf(' Removed <info>%d</info> job', $i++));
             } catch (\Exception $e) {
                 $output->writeln(sprintf('<error>Unknown exception (%s) occured, message: %s</error>',

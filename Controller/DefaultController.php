@@ -26,7 +26,8 @@ class DefaultController extends Controller
             if ($form->isValid()) {
                 $contactIds = $contactManager->findChoosenContactIdForMailing($form);
                 $mailing    = $mailingManager->createMailingBasedOnForm($form, count((array)$contactIds));
-                $this->get('wowo_newsletter.newsletter_manager')->putMailingInQueue($mailing, $contactIds);
+                $contactClass = $this->container->getParameter('wowo_newsletter.model.contact.class');
+                $this->get('wowo_newsletter.spooler')->spoolManyContacts($mailing, $contactIds, $contactClass);
 
                 $this->get('session')->setFlash('notice',
                     sprintf('Mailing to %d recipients has been enqueued for sending', count($contactIds)));
@@ -40,6 +41,13 @@ class DefaultController extends Controller
         );
     }
 
+    /**
+     * Builds form for this controller
+     * 
+     * @param ContactManagerInterface $contactManager 
+     * @access protected
+     * @return void
+     */
     protected function getForm(ContactManagerInterface $contactManager)
     {
         $newsletter = $this->get('wowo_newsletter.empty_newsletter');

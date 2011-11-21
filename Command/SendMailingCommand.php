@@ -43,9 +43,11 @@ EOT
             }
         };
 
+        $spooler = $this->getContainer()->get('wowo_newsletter.spooler');
+        $spooler->setLogger($logger);
         while (1) {
             try {
-                $this->getContainer()->get('wowo_newsletter.newsletter_manager')->processMailing($logger);
+                $spooler->process();
             } catch (\Exception $e) {
                 $logger(sprintf('Exception <error>(%s)</error> occured, message: %s',
                     get_class($e), $e->getMessage()));

@@ -15,6 +15,8 @@
         <parameter key="wowo_newsletter.form.newsletter.class">Wowo\Bundle\NewsletterBundle\Form\NewsletterType</parameter>
         <parameter key="wowo_newsletter.form.mailing.class">Wowo\Bundle\NewsletterBundle\Form\MailingType</parameter>
         <parameter key="wowo_newsletter.builder.class">Wowo\Bundle\NewsletterBundle\Newsletter\Builder</parameter>
+        <parameter key="wowo_newsletter.spooler.class">Wowo\Bundle\NewsletterBundle\Newsletter\Spooler</parameter>
+        <parameter key="wowo_newsletter.sender.class">Wowo\Bundle\NewsletterBundle\Newsletter\Sender</parameter>
 
         <parameter key="wowo_newsletter.queue">newsletter_tube</parameter>
         <parameter key="wowo_newsletter.placeholders.mapping"></parameter>
@@ -54,22 +56,6 @@
             </call>
         </service>
 
-        <service id="wowo_newsletter.newsletter_manager"
-            class="Wowo\Bundle\NewsletterBundle\Newsletter\NewsletterManager">
-            <call method="setQueue">
-                <argument type="service" id="wowo_queue.manager"/>
-            </call>
-            <call method="setBuilder">
-                <argument type="service" id="wowo_newsletter.builder"/>
-            </call>
-            <call method="setMailer">
-                <argument type="service" id="mailer"/>
-            </call>
-            <call method="setContactClass">
-                <argument>%wowo_newsletter.model.contact.class%</argument>
-            </call>
-        </service>
-
         <service id="wowo_newsletter.placeholder_processor" public="false"
             class="%wowo_newsletter.placeholder_processor.class%">
             <call method="setMapping">
@@ -104,7 +90,6 @@
             </call>
         </service>
 
-
         <service id="wowo_newsletter.media_manager" class="%wowo_newsletter.media_manager.class%"/>
 
         <service id="wowo_newsletter.entity_manager" alias="doctrine.orm.entity_manager" />
@@ -114,6 +99,16 @@
             <argument type="service" id="wowo_newsletter.contact_manager" />
             <argument type="service" id="wowo_newsletter.placeholder_processor" />
             <argument type="service" id="wowo_newsletter.media_manager" />
+        </service>
+
+        <service id="wowo_newsletter.spooler" class="%wowo_newsletter.spooler.class%">
+            <argument type="service" id="wowo_queue.manager"/>
+            <argument type="service"  id="wowo_newsletter.sender"/>
+        </service>
+
+        <service id="wowo_newsletter.sender" class="%wowo_newsletter.sender.class%">
+            <argument type="service" id="mailer"/>
+            <argument type="service" id="wowo_newsletter.builder"/>
         </service>
     </services>
 </container>
