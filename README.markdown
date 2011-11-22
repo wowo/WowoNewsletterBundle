@@ -1,7 +1,5 @@
 # WowoNewsletterBundle
 
-*WARNING* this bundle is still under development, although you can use it on your own risk :-)
-
 [![Build Status](https://secure.travis-ci.org/wowo/WowoNewsletterBundle.png)](https://secure.travis-ci.org/wowo/WowoNewsletterBundle)
 
 The WowoNewsletterBundle provides easy way to send huge amount of rich HTML
