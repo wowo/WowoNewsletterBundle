@@ -86,6 +86,9 @@ class Spooler implements SpoolerInterface
         $rawJob = $this->queue->get();
         if ($rawJob) {
             $this->queue->delete($rawJob);
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -120,9 +123,12 @@ class Spooler implements SpoolerInterface
             throw new \InvalidArgumentException('No contacs selected, it need to be at least '
                 . 'one contact to send mailing');
         }
-        foreach($contactIds as $contactId) {
+        $count = 0;
+        foreach(array_unique($contactIds) as $contactId) {
             $this->spool($mailing, $contactId, $contactClass);
+            $count++;
         }
+        return $count;
     }
 
     /**
@@ -136,11 +142,11 @@ class Spooler implements SpoolerInterface
     {
         if ($mailing->isDelayedMailing()) {
             $interval = $mailing->getSendDate()->diff(new \DateTime("now"));
-            $interval->format("%days") * 24 * 60 * 60 
+            $intervalSeconds = $interval->format("%days") * 24 * 60 * 60 
                 + $interval->format("%h") * 60 * 60 
                 + $interval->format("%i") * 60 
                 + $interval->format("%s");
-            return $interval;
+            return $intervalSeconds;
         } else {
             return null;
         }
