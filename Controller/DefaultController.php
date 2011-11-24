@@ -27,7 +27,6 @@ class DefaultController extends Controller
                 try {
                     $contactIds = $contactManager->findChoosenContactIdForMailing($form);
                     $mailing    = $mailingManager->createMailingBasedOnForm($form, count((array)$contactIds));
-                    $contactIds = array();
                     $contactClass = $this->container->getParameter('wowo_newsletter.model.contact.class');
                     $this->get('wowo_newsletter.spooler')->spoolManyContacts($mailing, $contactIds, $contactClass);
 
