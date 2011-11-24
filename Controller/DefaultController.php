@@ -24,13 +24,27 @@ class DefaultController extends Controller
         if ('POST' == $this->get('request')->getMethod()) {
             $form->bindRequest($this->getRequest());
             if ($form->isValid()) {
-                $contactIds = $contactManager->findChoosenContactIdForMailing($form);
-                $mailing    = $mailingManager->createMailingBasedOnForm($form, count((array)$contactIds));
-                $contactClass = $this->container->getParameter('wowo_newsletter.model.contact.class');
-                $this->get('wowo_newsletter.spooler')->spoolManyContacts($mailing, $contactIds, $contactClass);
+                try {
+                    $contactIds = $contactManager->findChoosenContactIdForMailing($form);
+                    $mailing    = $mailingManager->createMailingBasedOnForm($form, count((array)$contactIds));
+                    $contactIds = array();
+                    $contactClass = $this->container->getParameter('wowo_newsletter.model.contact.class');
+                    $this->get('wowo_newsletter.spooler')->spoolManyContacts($mailing, $contactIds, $contactClass);
 
-                $this->get('session')->setFlash('notice',
-                    sprintf('Mailing to %d recipients has been enqueued for sending', count($contactIds)));
+                    $msg= $this
+                        ->get('translator')
+                        ->trans(
+                            'Mailing to %count% recipients has been enqueued for sending',
+                            array('%count%' => count($contactIds))
+                        );
+                    $this->get('session')->setFlash('notice', $msg);
+                } catch (\Exception $e) {
+                    $this->get('logger')->err(get_class($e) . ' ' . $e->getMessage());
+                    $msg = $this
+                        ->get('translator')
+                        ->trans($e->getMessage());
+                    $this->get('session')->setFlash('error', $msg);
+                }
                 return $this->redirect($this->generateUrl('wowo_newsletter_default_createmailing'));
             }
         }

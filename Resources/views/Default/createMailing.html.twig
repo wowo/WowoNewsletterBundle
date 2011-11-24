@@ -19,6 +19,11 @@
             {{ app.session.flash('notice') }}
         </div>
     {% endif %}
+    {% if app.session.hasFlash('error') %}
+        <div class="flash-error">
+            {{ app.session.flash('error') }}
+        </div>
+    {% endif %}
     <form action="" method="post" {{ form_enctype(form) }} >
         {{ form_widget(form) }}
         <input type="submit" id="wowo_bundle_newsletterbundle_newslettertype_submit" value="{% trans %}Send mailing{% endtrans %}" class="{{ submitCssClass }}"/>

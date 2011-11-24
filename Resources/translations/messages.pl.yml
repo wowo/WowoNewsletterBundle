@@ -1,0 +1,13 @@
+Bad credentials: Niepoprawny login i/lub hasło
+The presented password is invalid.: Niepoprawny login i/lub hasło
+The presented password cannot be empty.: Wprowadź hasło
+Sender name: Nazwa wysyłającego
+Sender e-mail: E-mail wysyłającego
+Title: Tytuł
+Body: Treść
+Send mailing: Wyślij newsletter
+Is delayed?: Opóźniony?
+Send date: Data wysłania
+Recipients: Odbiorcy
+Mailing to %count% recipients has been enqueued for sending: Mailing do %count% odbiorców został zakolejkowany do wysłania
+No contacs selected, it need to be at least one contact to send mailing: Nie wybrano kontaktow, musi być przynajmniej jeden kontakt, aby wysłać mailing
