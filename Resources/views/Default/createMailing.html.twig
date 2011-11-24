@@ -6,10 +6,12 @@
 {% endblock %}
 
 {% block field_row %}
-    <div class="form-row">
+    <div class="form-row newsletter-form-row">
         {{ form_label(form) }}
-        {{ form_errors(form) }}
-        {{ form_widget(form, {'attr': {'class':'text'}} ) }}
+        <div class="newsletter-error-and-widget">
+            {{ form_errors(form) }}
+            {{ form_widget(form, {'attr': {'class':'text'}} ) }}
+        </div>
     </div>
 {% endblock field_row %}
 
