@@ -36,6 +36,10 @@ class Sender implements SenderInterface
     {
         $message = $this->builder->buildMessage($mailingId, $contactId, $contactClass);
         $this->mailer->send($message);
+        $transport = $this->mailer->getTransport();
+        if ($transport) {
+            $transport->stop();
+        }
         return $message;
     }
 }
