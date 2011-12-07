@@ -3,6 +3,7 @@
 namespace Wowo\Bundle\NewsletterBundle\Newsletter\Model;
 
 use Wowo\Bundle\NewsletterBundle\Newsletter\Templates\TemplateManagerInterface;
+use Wowo\Bundle\NewsletterBundle\Newsletter\Model\Exception\MailingNotFoundException;
 
 /**
  * Mailing Manager is used to create mailing depends on form submited by suer 
