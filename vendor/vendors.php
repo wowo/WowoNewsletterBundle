@@ -10,7 +10,7 @@ $deps = array(
     array('doctrine-dbal', 'http://github.com/doctrine/dbal.git', 'origin/master'),
     array('doctrine', 'http://github.com/doctrine/doctrine2.git', 'origin/master'),
     array('swiftmailer', 'http://github.com/swiftmailer/swiftmailer.git', 'v4.1.0'),
-    array('proxy-object', 'https://github.com/lapistano/proxy-object.git', 'origin/master'),
+    array('proxy-object', 'https://github.com/lapistano/proxy-object.git', 'v1.2.0'),
     array('mockery', 'https://github.com/padraic/mockery.git', 'origin/master'),
     array('bundles/Wowo/Bundle/QueueBundle', 'git://github.com/wowo/WowoQueueBundle.git', 'origin/master'),
 );
