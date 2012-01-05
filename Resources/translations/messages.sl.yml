@@ -1,0 +1,13 @@
+Bad credentials: Nepravilna dovoljenja
+The presented password is invalid.: Geslo je napačno.
+The presented password cannot be empty.: Geslo ne sme biti prazno.
+Sender name: Ime pošiljatelja
+Sender e-mail: Email pošiljatelja
+Title: Naslov
+Body: Vsebina
+Send mailing: Pošlji emaile
+Is delayed?: Zamuja?
+Send date: Datum pošiljanja
+Recipients: Prejemniki
+Mailing to %count% recipients has been enqueued for sending: Mailing do %count% prejemnikov je ostalo v čakalni vrsti za pošiljanje
+No contacs selected, it need to be at least one contact to send mailing: Ni izbranih kontaktov, za pošiljanje mora biti izbran vsaj en kontakt
