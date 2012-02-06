@@ -151,4 +151,4 @@ wowo_newsletter:
 
 In above example *User* is an existing Entity, which has fields firstname, lastname, email. For this purposes we wrote NewsletterContactManager which implements *Wowo\Bundle\NewsletterBundle\Newsletter\Model\ContactManagerInterface* and provides bundle with contacts retrieved by Doctrine2.
 
-![tracking](http://sznapka.pl/visits/visits.php?source=github-newsletter-bundle)
+![tracking](http://visitspy.net/spot/1c8ff7c1/track)
