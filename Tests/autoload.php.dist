@@ -10,6 +10,7 @@ $loader->registerNamespaces(array(
     'Doctrine\\DBAL'   => array(VENDOR_DIR.'/doctrine-dbal/lib'),
     'Doctrine'         => array(VENDOR_DIR.'/doctrine/lib'),
     'Wowo' => array(VENDOR_DIR.'/bundles'),
+    'lapistano' => array(VENDOR_DIR.'/'),
 ));
 $loader->register();
 

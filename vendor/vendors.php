@@ -13,6 +13,7 @@ $deps = array(
     array('proxy-object', 'https://github.com/lapistano/proxy-object.git', 'v1.2.0'),
     array('mockery', 'https://github.com/padraic/mockery.git', 'origin/master'),
     array('bundles/Wowo/Bundle/QueueBundle', 'git://github.com/wowo/WowoQueueBundle.git', 'origin/master'),
+    array('lapistano', 'https://github.com/lapistano/proxy-object.git', 'origin/master'),
 );
 
 foreach ($deps as $dep) {
