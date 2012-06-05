@@ -15,7 +15,7 @@ Features included:
 - Scalable-ready - you can put beanstalkd queue and worker which sends mails
  away from your main application webserver
 
- This bundle depends on [WowoQueueBundle](git://github.com/wowo/WowoQueueBundle.git), which is abstraction layer for beanstalkd messaging system
+ This bundle depends on [WowoQueueBundle](https://github.com/wowo/WowoQueueBundle.git), which is abstraction layer for beanstalkd messaging system
 
 ## Installation
 
@@ -26,11 +26,11 @@ Add following lines to your `deps` file:
 ```
     [WowoNewsletterBundle]
         git=git://github.com/wowo/WowoNewsletterBundle.git
-        target=bundles/Wowo/NewsletterBundle
+        target=bundles/Wowo/Bundle/NewsletterBundle
 
     [WowoQueueBundle]
         git=git://github.com/wowo/WowoQueueBundle.git
-        target=bundles/Wowo/QueueBundle
+        target=bundles/Wowo/Bundle/QueueBundle
 
 ```
 Now, run the vendors script to download the bundle:
@@ -66,7 +66,7 @@ public function registerBundles()
 {
         $bundles = array(
             // ...
-            new Wowo\NewsletterBundle\WowoNewsletterBundle(),
+            new Wowo\Bundle\NewsletterBundle\WowoNewsletterBundle(),
         );
 }
 ```
