@@ -149,6 +149,6 @@ wowo_newsletter:
         'main template': %kernel.root_dir%/Resources/templates/newsletter/mailing.html
 ```
 
-In above example *User* is an existing Entity, which has fields firstname, lastname, email. For this purposes we wrote NewsletterContactManager which implements *Wowo\Bundle\NewsletterBundle\Newsletter\Model\ContactManagerInterface* and provides bundle with contacts retrieved by Doctrine2.
+In above example *User* is an existing Entity, which has fields firstname, lastname, email. For this purposes we wrote [NewsletterContactManager](https://github.com/wowo/WowoNewsletterBundle/blob/master/Newsletter/Model/ContactManager.php) which implements [*Wowo\Bundle\NewsletterBundle\Newsletter\Model\ContactManagerInterface*](https://github.com/wowo/WowoNewsletterBundle/blob/master/Newsletter/Model/ContactManagerInterface.php) and provides bundle with contacts retrieved by Doctrine2.
 
 ![tracking](http://visitspy.net/spot/1c8ff7c1/track)
