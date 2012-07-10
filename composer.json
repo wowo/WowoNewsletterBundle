@@ -1,0 +1,24 @@
+{
+    "name": "wowo/wowo-newsletter-bundle",
+    "description": "Newsletter Bundle for Symfony2 (with messages queuing in beanstalkd)",
+    "keywords": ["newsletter", "queue", "beanstalkd"],
+    "type": "package",
+    "license": "",
+    "authors": [
+        {
+            "name":     "Wojciech Sznapka",
+            "homepage": "http://sznapka.pl",
+            "email":    "wojciech@sznapka.pl"
+        }     
+    ],
+    "require": {
+        "wowo/wowo-queue-bundle":  "*"
+    },
+    "suggest": {
+        "stfalcon/tinymce-bundle": "master"
+    },
+    "autoload": {
+        "psr-0": { "Wowo\\Bundle\\NewsletterBundle": "" }
+    },
+    "target-dir": "Wowo/Bundle/NewsletterBundle"
+}
