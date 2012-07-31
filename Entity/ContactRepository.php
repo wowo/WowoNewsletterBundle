@@ -1,6 +1,6 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Entity;
+namespace Wowo\NewsletterBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

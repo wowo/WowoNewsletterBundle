@@ -1,9 +1,9 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter\Model;
+namespace Wowo\NewsletterBundle\Newsletter\Model;
 
-use Wowo\Bundle\NewsletterBundle\Newsletter\Templates\TemplateManagerInterface;
-use Wowo\Bundle\NewsletterBundle\Newsletter\Model\Exception\MailingNotFoundException;
+use Wowo\NewsletterBundle\Newsletter\Templates\TemplateManagerInterface;
+use Wowo\NewsletterBundle\Newsletter\Model\Exception\MailingNotFoundException;
 
 /**
  * Mailing Manager is used to create mailing depends on form submited by suer 

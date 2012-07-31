@@ -1,12 +1,12 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Tests\Newsletter;
+namespace Wowo\NewsletterBundle\Tests\Newsletter;
 
-use Wowo\Bundle\NewsletterBundle\Entity\Contact;
-use Wowo\Bundle\NewsletterBundle\Newsletter\NewsletterManager;
+use Wowo\NewsletterBundle\Entity\Contact;
+use Wowo\NewsletterBundle\Newsletter\NewsletterManager;
 use Doctrine\ORM\EntityManager;
-use Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException;
-use Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessor;
+use Wowo\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException;
+use Wowo\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessor;
 use lapistano\ProxyObject\ProxyObject;
 
 class PlaceholdersTest extends \PHPUnit_Framework_TestCase
@@ -61,7 +61,7 @@ class PlaceholdersTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     *  @expectedException Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException
+     *  @expectedException Wowo\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException
      *  @expectedExceptionCode 1
      */
     public function testFillPlaceholdersWithNonPublicPropertyPlaceholder()
@@ -77,7 +77,7 @@ class PlaceholdersTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     *  @expectedException Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException
+     *  @expectedException Wowo\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException
      *  @expectedExceptionCode 2
      */
     public function testFillPlaceholdersWithNonPublicMethodPlaceholder()
@@ -94,7 +94,7 @@ class PlaceholdersTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     *  @expectedException Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException
+     *  @expectedException Wowo\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException
      *  @expectedExceptionCode 3
      */
     public function testFillPlaceholdersWithNonExistingSourcePlaceholder()
@@ -124,7 +124,7 @@ class PlaceholdersTest extends \PHPUnit_Framework_TestCase
     {
         $proxy = new ProxyObject();
         $managerProxy= $proxy
-            ->getProxyBuilder('\Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessor')
+            ->getProxyBuilder('\Wowo\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessor')
             ->setMethods(array('getPlaceholderValue'))
             ->getProxy();
         $this->assertEquals('lol', $managerProxy->getPlaceholderValue(new FakeObject(), 'source'));

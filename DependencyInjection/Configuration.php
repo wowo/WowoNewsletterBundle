@@ -1,6 +1,6 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\DependencyInjection;
+namespace Wowo\NewsletterBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\DataFixtures\ORM;
+namespace Wowo\NewsletterBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
-use Wowo\Bundle\NewsletterBundle\Entity\Contact;
+use Wowo\NewsletterBundle\Entity\Contact;
 
 class LoadContactData implements FixtureInterface
 {

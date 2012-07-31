@@ -1,13 +1,13 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Controller;
+namespace Wowo\NewsletterBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Wowo\Bundle\NewsletterBundle\Form\NewsletterType;
-use Wowo\Bundle\NewsletterBundle\Newsletter\Newsletter;
-use Wowo\Bundle\NewsletterBundle\Newsletter\Model\ContactManagerInterface;
+use Wowo\NewsletterBundle\Form\NewsletterType;
+use Wowo\NewsletterBundle\Newsletter\Newsletter;
+use Wowo\NewsletterBundle\Newsletter\Model\ContactManagerInterface;
 
 class DefaultController extends Controller
 {

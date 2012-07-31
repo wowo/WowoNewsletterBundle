@@ -1,6 +1,6 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter\Media;
+namespace Wowo\NewsletterBundle\Newsletter\Media;
 
 /**
  * MediaManager 

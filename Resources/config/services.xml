@@ -5,18 +5,18 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="wowo_newsletter.model.contact.class">Wowo\Bundle\NewsletterBundle\Entity\Contact</parameter>
-        <parameter key="wowo_newsletter.contact_manager.class">Wowo\Bundle\NewsletterBundle\Newsletter\Model\ContactManager</parameter>
-        <parameter key="wowo_newsletter.mailing_manager.class">Wowo\Bundle\NewsletterBundle\Newsletter\Model\MailingManager</parameter>
-        <parameter key="wowo_newsletter.template_manager.class">Wowo\Bundle\NewsletterBundle\Newsletter\Templates\TemplateManager</parameter>
-        <parameter key="wowo_newsletter.placeholder_processor.class">Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessor</parameter>
-        <parameter key="wowo_newsletter.newsletter.class">Wowo\Bundle\NewsletterBundle\Newsletter\Newsletter</parameter>
-        <parameter key="wowo_newsletter.media_manager.class">Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManager</parameter>
-        <parameter key="wowo_newsletter.form.newsletter.class">Wowo\Bundle\NewsletterBundle\Form\NewsletterType</parameter>
-        <parameter key="wowo_newsletter.form.mailing.class">Wowo\Bundle\NewsletterBundle\Form\MailingType</parameter>
-        <parameter key="wowo_newsletter.builder.class">Wowo\Bundle\NewsletterBundle\Newsletter\Builder</parameter>
-        <parameter key="wowo_newsletter.spooler.class">Wowo\Bundle\NewsletterBundle\Newsletter\Spooler</parameter>
-        <parameter key="wowo_newsletter.sender.class">Wowo\Bundle\NewsletterBundle\Newsletter\Sender</parameter>
+        <parameter key="wowo_newsletter.model.contact.class">Wowo\NewsletterBundle\Entity\Contact</parameter>
+        <parameter key="wowo_newsletter.contact_manager.class">Wowo\NewsletterBundle\Newsletter\Model\ContactManager</parameter>
+        <parameter key="wowo_newsletter.mailing_manager.class">Wowo\NewsletterBundle\Newsletter\Model\MailingManager</parameter>
+        <parameter key="wowo_newsletter.template_manager.class">Wowo\NewsletterBundle\Newsletter\Templates\TemplateManager</parameter>
+        <parameter key="wowo_newsletter.placeholder_processor.class">Wowo\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessor</parameter>
+        <parameter key="wowo_newsletter.newsletter.class">Wowo\NewsletterBundle\Newsletter\Newsletter</parameter>
+        <parameter key="wowo_newsletter.media_manager.class">Wowo\NewsletterBundle\Newsletter\Media\MediaManager</parameter>
+        <parameter key="wowo_newsletter.form.newsletter.class">Wowo\NewsletterBundle\Form\NewsletterType</parameter>
+        <parameter key="wowo_newsletter.form.mailing.class">Wowo\NewsletterBundle\Form\MailingType</parameter>
+        <parameter key="wowo_newsletter.builder.class">Wowo\NewsletterBundle\Newsletter\Builder</parameter>
+        <parameter key="wowo_newsletter.spooler.class">Wowo\NewsletterBundle\Newsletter\Spooler</parameter>
+        <parameter key="wowo_newsletter.sender.class">Wowo\NewsletterBundle\Newsletter\Sender</parameter>
 
         <parameter key="wowo_newsletter.queue">newsletter_tube</parameter>
         <parameter key="wowo_newsletter.placeholders.mapping"></parameter>

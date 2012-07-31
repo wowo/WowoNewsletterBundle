@@ -1,17 +1,17 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Tests\Newsletter;
+namespace Wowo\NewsletterBundle\Tests\Newsletter;
 
 use lapistano\ProxyObject\ProxyObject;
-use \Wowo\Bundle\NewsletterBundle\Newsletter\Spooler;
-use \Wowo\Bundle\NewsletterBundle\Entity\Mailing;
+use \Wowo\NewsletterBundle\Newsletter\Spooler;
+use \Wowo\NewsletterBundle\Entity\Mailing;
 
 class SpoolerTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {
-        $queue = \Mockery::mock('\Wowo\Bundle\QueueBundle\QueueManager');
-        $sender = \Mockery::mock('\Wowo\Bundle\NewsletterBundle\Newsletter\Sender');
+        $queue = \Mockery::mock('\Wowo\QueueBundle\QueueManager');
+        $sender = \Mockery::mock('\Wowo\NewsletterBundle\Newsletter\Sender');
         $spooler = new Spooler($queue, $sender);
         $spooler->setLogger(function() {});
     }
@@ -19,11 +19,11 @@ class SpoolerTest extends \PHPUnit_Framework_TestCase
     public function testSpoolManyContacts()
     {
         $data = array('contactId' => 1, 'mailingId' => null, 'contactClass' => 'Foo');
-        $queue = \Mockery::mock('\Wowo\Bundle\QueueBundle\QueueManager');
+        $queue = \Mockery::mock('\Wowo\QueueBundle\QueueManager');
         $queue->shouldReceive('put')->with(json_encode((object)$data), null, null)->once()->ordered();
         $data['contactId'] = 2;
         $queue->shouldReceive('put')->with(json_encode((object)$data), null, null)->once()->ordered();
-        $sender = \Mockery::mock('\Wowo\Bundle\NewsletterBundle\Newsletter\Sender');
+        $sender = \Mockery::mock('\Wowo\NewsletterBundle\Newsletter\Sender');
         $spooler = new Spooler($queue, $sender);
 
         $mailing= new Mailing();
@@ -36,9 +36,9 @@ class SpoolerTest extends \PHPUnit_Framework_TestCase
     public function testSpoolManyContactsNonUnique()
     {
         $data = array('contactId' => 1, 'mailingId' => null, 'contactClass' => 'Foo');
-        $queue = \Mockery::mock('\Wowo\Bundle\QueueBundle\QueueManager');
+        $queue = \Mockery::mock('\Wowo\QueueBundle\QueueManager');
         $queue->shouldReceive('put')->with(json_encode((object)$data), null, null)->once()->ordered();
-        $sender = \Mockery::mock('\Wowo\Bundle\NewsletterBundle\Newsletter\Sender');
+        $sender = \Mockery::mock('\Wowo\NewsletterBundle\Newsletter\Sender');
         $spooler = new Spooler($queue, $sender);
 
         $mailing= new Mailing();
@@ -53,8 +53,8 @@ class SpoolerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSpoolManyContactsWithEmptyContacts()
     {
-        $queue = \Mockery::mock('\Wowo\Bundle\QueueBundle\QueueManager');
-        $sender = \Mockery::mock('\Wowo\Bundle\NewsletterBundle\Newsletter\Sender');
+        $queue = \Mockery::mock('\Wowo\QueueBundle\QueueManager');
+        $sender = \Mockery::mock('\Wowo\NewsletterBundle\Newsletter\Sender');
         $spooler = new Spooler($queue, $sender);
 
         $mailing= new Mailing();
@@ -65,8 +65,8 @@ class SpoolerTest extends \PHPUnit_Framework_TestCase
 
     public function testClearSuccessful()
     {
-        $sender = \Mockery::mock('\Wowo\Bundle\NewsletterBundle\Newsletter\Sender');
-        $queue = \Mockery::mock('\Wowo\Bundle\QueueBundle\QueueManager');
+        $sender = \Mockery::mock('\Wowo\NewsletterBundle\Newsletter\Sender');
+        $queue = \Mockery::mock('\Wowo\QueueBundle\QueueManager');
         $job = new \StdClass();
         $job->id = 666;
         $queue->shouldReceive('get')->andReturn($job)->once()->ordered();
@@ -78,8 +78,8 @@ class SpoolerTest extends \PHPUnit_Framework_TestCase
 
     public function testClearNone()
     {
-        $sender = \Mockery::mock('\Wowo\Bundle\NewsletterBundle\Newsletter\Sender');
-        $queue = \Mockery::mock('\Wowo\Bundle\QueueBundle\QueueManager');
+        $sender = \Mockery::mock('\Wowo\NewsletterBundle\Newsletter\Sender');
+        $queue = \Mockery::mock('\Wowo\QueueBundle\QueueManager');
         $queue->shouldReceive('get')->andReturn(null)->once()->ordered();
         $spooler = new Spooler($queue, $sender);
 
@@ -89,7 +89,7 @@ class SpoolerTest extends \PHPUnit_Framework_TestCase
     public function testGetInterval()
     {
         $spooler = new ProxyObject();
-        $spooler = $spooler->getProxyBuilder('\Wowo\Bundle\NewsletterBundle\Newsletter\Spooler')
+        $spooler = $spooler->getProxyBuilder('\Wowo\NewsletterBundle\Newsletter\Spooler')
             ->setMethods(array('getInterval'))
             ->disableOriginalConstructor()
             ->getProxy();
@@ -114,11 +114,11 @@ class SpoolerTest extends \PHPUnit_Framework_TestCase
     {
         $mockJob = new MockJob();
 
-        $queue = \Mockery::mock('\Wowo\Bundle\QueueBundle\QueueManager');
+        $queue = \Mockery::mock('\Wowo\QueueBundle\QueueManager');
         $queue->shouldReceive('get')->andReturn($mockJob)->once()->ordered();
         $queue->shouldReceive('delete')->with($mockJob)->once()->ordered();
 
-        $sender = \Mockery::mock('\Wowo\Bundle\NewsletterBundle\Newsletter\Sender');
+        $sender = \Mockery::mock('\Wowo\NewsletterBundle\Newsletter\Sender');
         $sender
             ->shouldReceive('send')
             ->with($mockJob->mailingId, $mockJob->contactId, $mockJob->contactClass)

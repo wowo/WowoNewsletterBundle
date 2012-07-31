@@ -18,7 +18,7 @@
         "stfalcon/tinymce-bundle": "master"
     },
     "autoload": {
-        "psr-0": { "Wowo\\Bundle\\NewsletterBundle": "" }
+        "psr-0": { "Wowo\\NewsletterBundle": "" }
     },
-    "target-dir": "Wowo/Bundle/NewsletterBundle"
+    "target-dir": "Wowo/NewsletterBundle"
 }

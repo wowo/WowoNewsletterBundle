@@ -1,9 +1,9 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Tests\Newsletter;
+namespace Wowo\NewsletterBundle\Tests\Newsletter;
 
-use Wowo\Bundle\NewsletterBundle\Newsletter\Model\ContactManager;
-use Wowo\Bundle\NewsletterBundle\Entity\Contact;
+use Wowo\NewsletterBundle\Newsletter\Model\ContactManager;
+use Wowo\NewsletterBundle\Entity\Contact;
 use lapistano\ProxyObject\ProxyObject;
 
 class ContactManagerTest extends AbstractManagerBase

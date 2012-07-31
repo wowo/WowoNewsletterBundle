@@ -1,6 +1,6 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter\Templates\Exception;
+namespace Wowo\NewsletterBundle\Newsletter\Templates\Exception;
 
 class NonExistingTemplateException extends \Exception
 {

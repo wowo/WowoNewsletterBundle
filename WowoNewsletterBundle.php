@@ -1,6 +1,6 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle;
+namespace Wowo\NewsletterBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

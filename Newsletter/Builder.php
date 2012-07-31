@@ -1,12 +1,12 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter;
+namespace Wowo\NewsletterBundle\Newsletter;
 
-use Wowo\Bundle\NewsletterBundle\Newsletter\Model\MailingManagerInterface;
-use Wowo\Bundle\NewsletterBundle\Newsletter\Model\ContactManagerInterface;
-use Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessorInterface;
-use Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManagerInterface;
-use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
+use Wowo\NewsletterBundle\Newsletter\Model\MailingManagerInterface;
+use Wowo\NewsletterBundle\Newsletter\Model\ContactManagerInterface;
+use Wowo\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessorInterface;
+use Wowo\NewsletterBundle\Newsletter\Media\MediaManagerInterface;
+use Wowo\NewsletterBundle\Entity\Mailing;
 
 /**
  * Builds Swift Mailer message based on mailin

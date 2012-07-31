@@ -1,15 +1,15 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Entity;
+namespace Wowo\NewsletterBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Wowo\Bundle\NewsletterBundle\Entity\Mailing
+ * Wowo\NewsletterBundle\Entity\Mailing
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Wowo\Bundle\NewsletterBundle\Entity\MailingRepository")
+ * @ORM\Entity(repositoryClass="Wowo\NewsletterBundle\Entity\MailingRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Mailing
