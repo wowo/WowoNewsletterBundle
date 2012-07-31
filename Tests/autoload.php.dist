@@ -30,7 +30,7 @@ $loader->register();
 
 // Some nifty namespaces taking care of (borrowed from FOSUserBundle)
 spl_autoload_register(function($class) {
-    if (0 === strpos($class, 'Wowo\\Bundle\\NewsletterBundle')) {
+    if (0 === strpos($class, 'Wowo\\NewsletterBundle')) {
         $path = __DIR__.'/../'.implode('/', array_slice(explode('\\', $class), 3)).'.php';
         if (!stream_resolve_include_path($path)) {
             return false;
