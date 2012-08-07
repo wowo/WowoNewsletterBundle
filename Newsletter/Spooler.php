@@ -3,7 +3,7 @@
 namespace Wowo\Bundle\NewsletterBundle\Newsletter;
 
 use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
-use Wowo\Bundle\QueueBundle\QueueInterface;
+use Wowo\QueueBundle\QueueInterface;
 
 /**
  * Spooler implementation
