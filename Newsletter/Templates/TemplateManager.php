@@ -1,9 +1,9 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter\Templates;
+namespace Wowo\NewsletterBundle\Newsletter\Templates;
 
-use Wowo\Bundle\NewsletterBundle\Newsletter\Templates\Exception\NonExistingTemplateException;
-use Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManagerInterface;
+use Wowo\NewsletterBundle\Newsletter\Templates\Exception\NonExistingTemplateException;
+use Wowo\NewsletterBundle\Newsletter\Media\MediaManagerInterface;
 
 class TemplateManager implements TemplateManagerInterface
 {

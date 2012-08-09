@@ -1,6 +1,6 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter\Model;
+namespace Wowo\NewsletterBundle\Newsletter\Model;
 
 interface ContactManagerInterface
 {

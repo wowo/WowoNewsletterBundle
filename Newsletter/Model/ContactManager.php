@@ -1,8 +1,8 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter\Model;
+namespace Wowo\NewsletterBundle\Newsletter\Model;
 
-use Wowo\Bundle\NewsletterBundle\Newsletter\Model\Exception\ContactNotFoundException;
+use Wowo\NewsletterBundle\Newsletter\Model\Exception\ContactNotFoundException;
 
 class ContactManager extends AbstractManager implements ContactManagerInterface
 {

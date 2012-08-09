@@ -1,9 +1,9 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter;
+namespace Wowo\NewsletterBundle\Newsletter;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
+use Wowo\NewsletterBundle\Entity\Mailing;
 
 class Newsletter
 {

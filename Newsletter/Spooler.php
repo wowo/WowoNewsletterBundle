@@ -1,8 +1,8 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter;
+namespace Wowo\NewsletterBundle\Newsletter;
 
-use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
+use Wowo\NewsletterBundle\Entity\Mailing;
 use Wowo\QueueBundle\QueueInterface;
 
 /**

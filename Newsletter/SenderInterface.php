@@ -1,8 +1,8 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter;
+namespace Wowo\NewsletterBundle\Newsletter;
 
-use Wowo\Bundle\NewsletterBundle\Newsletter\BuilderInterface;
+use Wowo\NewsletterBundle\Newsletter\BuilderInterface;
 
 interface SenderInterface
 {

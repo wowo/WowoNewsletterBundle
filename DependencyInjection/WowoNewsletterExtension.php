@@ -1,12 +1,12 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\DependencyInjection;
+namespace Wowo\NewsletterBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
-use Wowo\Bundle\NewsletterBundle\Newsletter\Templates\Exception\NonExistingTemplateException;
+use Wowo\NewsletterBundle\Newsletter\Templates\Exception\NonExistingTemplateException;
 
 /**
  * This is the class that loads and manages your bundle configuration

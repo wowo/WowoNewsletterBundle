@@ -1,10 +1,10 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Form;
+namespace Wowo\NewsletterBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
-use Wowo\Bundle\NewsletterBundle\Entity\Mailing;
+use Wowo\NewsletterBundle\Entity\Mailing;
 
 class NewsletterType extends AbstractType
 {

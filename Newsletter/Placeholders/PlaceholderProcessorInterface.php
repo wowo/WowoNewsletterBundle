@@ -1,6 +1,6 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders;
+namespace Wowo\NewsletterBundle\Newsletter\Placeholders;
 
 interface PlaceholderProcessorInterface
 {

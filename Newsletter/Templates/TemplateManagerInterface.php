@@ -1,6 +1,6 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter\Templates;
+namespace Wowo\NewsletterBundle\Newsletter\Templates;
 
 interface TemplateManagerInterface
 {

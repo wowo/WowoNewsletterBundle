@@ -1,6 +1,6 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Form;
+namespace Wowo\NewsletterBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
@@ -36,7 +36,7 @@ class MailingType extends AbstractType
     public function getDefaultOptions(array $options)
     {
         return array(
-            'data_class' => 'Wowo\Bundle\NewsletterBundle\Entity\Mailing',
+            'data_class' => 'Wowo\NewsletterBundle\Entity\Mailing',
         );
     }
 }

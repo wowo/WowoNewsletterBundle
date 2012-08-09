@@ -1,8 +1,8 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Tests\Newsletter;
+namespace Wowo\NewsletterBundle\Tests\Newsletter;
 
-use Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManager;
+use Wowo\NewsletterBundle\Newsletter\Media\MediaManager;
 use lapistano\ProxyObject\ProxyObject;
 
 class MediaManagerTest extends \PHPUnit_Framework_TestCase

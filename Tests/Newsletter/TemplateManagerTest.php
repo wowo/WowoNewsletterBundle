@@ -1,17 +1,17 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Tests\Newsletter;
+namespace Wowo\NewsletterBundle\Tests\Newsletter;
 
-use Wowo\Bundle\NewsletterBundle\Newsletter\Templates\TemplateManager;
+use Wowo\NewsletterBundle\Newsletter\Templates\TemplateManager;
 use lapistano\ProxyObject\ProxyObject;
 
 class TemplateManagerTest extends \PHPUnit_Framework_TestCase
 {
-    protected $class = '\Wowo\Bundle\NewsletterBundle\Newsletter\Templates\TemplateManager';
+    protected $class = '\Wowo\NewsletterBundle\Newsletter\Templates\TemplateManager';
 
     public function testGetters()
     {
-        $manager = new TemplateManager(\Mockery::mock('\Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManager'));
+        $manager = new TemplateManager(\Mockery::mock('\Wowo\NewsletterBundle\Newsletter\Media\MediaManager'));
         $tpls = array("main" => "/tmp/main.html");
         $manager->setAvailableTemplates($tpls);
         $this->assertEquals($tpls, $manager->getAvailableTemplates());
@@ -51,7 +51,7 @@ EOT;
 </body>
 </html>
 EOT;
-        $mediaManager = new \Wowo\Bundle\NewsletterBundle\Newsletter\Media\MediaManager();
+        $mediaManager = new \Wowo\NewsletterBundle\Newsletter\Media\MediaManager();
         $managerMock = $this->getMock($this->class, array('getActiveTemplateBody', 'getActiveTemplatePath'),
             array($mediaManager));
         $managerMock->expects($this->any())
@@ -66,7 +66,7 @@ EOT;
     }
 
     /**
-     * @expectedException \Wowo\Bundle\NewsletterBundle\Newsletter\Templates\Exception\NonExistingTemplateException
+     * @expectedException \Wowo\NewsletterBundle\Newsletter\Templates\Exception\NonExistingTemplateException
      */
     public function testGetActiveTemplateBodyNonExistingPath()
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter\Placeholders\Exception;
+namespace Wowo\NewsletterBundle\Newsletter\Placeholders\Exception;
 
 class InvalidPlaceholderMappingException extends \Exception
 {

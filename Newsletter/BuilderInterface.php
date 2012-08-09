@@ -1,6 +1,6 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter;
+namespace Wowo\NewsletterBundle\Newsletter;
 
 interface BuilderInterface
 {

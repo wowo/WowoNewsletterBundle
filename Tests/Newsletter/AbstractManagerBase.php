@@ -1,8 +1,8 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Tests\Newsletter;
+namespace Wowo\NewsletterBundle\Tests\Newsletter;
 
-use Wowo\Bundle\NewsletterBundle\Entity\Contact;
+use Wowo\NewsletterBundle\Entity\Contact;
 
 class AbstractManagerBase extends \PHPUnit_Framework_TestCase
 {

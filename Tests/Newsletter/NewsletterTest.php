@@ -1,8 +1,8 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Tests\Newsletter;
+namespace Wowo\NewsletterBundle\Tests\Newsletter;
 
-use Wowo\Bundle\NewsletterBundle\Newsletter\Newsletter;
+use Wowo\NewsletterBundle\Newsletter\Newsletter;
 
 class NewsletterTest extends \PHPUnit_Framework_TestCase
 {

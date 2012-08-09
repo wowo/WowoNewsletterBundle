@@ -1,6 +1,6 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Newsletter\Model\Exception;
+namespace Wowo\NewsletterBundle\Newsletter\Model\Exception;
 
 class ContactNotFoundException extends \Exception
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Wowo\Bundle\NewsletterBundle\Entity;
+namespace Wowo\NewsletterBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Wowo\Bundle\NewsletterBundle\Entity\Contact
+ * Wowo\NewsletterBundle\Entity\Contact
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Wowo\Bundle\NewsletterBundle\Entity\ContactRepository")
+ * @ORM\Entity(repositoryClass="Wowo\NewsletterBundle\Entity\ContactRepository")
  */
 class Contact
 {
