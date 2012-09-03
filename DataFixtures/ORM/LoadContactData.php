@@ -3,11 +3,12 @@
 namespace Wowo\NewsletterBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use Wowo\NewsletterBundle\Entity\Contact;
 
 class LoadContactData implements FixtureInterface
 {
-  public function load($manager)
+  public function load(ObjectManager $manager)
   {
     $names = array("John", "Thomas", "Jack");
     $surnames = array(
