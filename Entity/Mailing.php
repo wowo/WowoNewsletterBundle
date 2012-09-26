@@ -267,4 +267,9 @@ class Mailing
     {
         $this->delayedMailing = $value;
     }
+    
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }
