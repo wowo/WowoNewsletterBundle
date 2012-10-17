@@ -26,11 +26,11 @@ Add following lines to your `deps` file:
 ```
     [WowoNewsletterBundle]
         git=git://github.com/wowo/WowoNewsletterBundle.git
-        target=bundles/Wowo/Bundle/NewsletterBundle
+        target=bundles/Wowo/NewsletterBundle
 
     [WowoQueueBundle]
         git=git://github.com/wowo/WowoQueueBundle.git
-        target=bundles/Wowo/Bundle/QueueBundle
+        target=bundles/Wowo/QueueBundle
 
 ```
 Now, run the vendors script to download the bundle:
@@ -66,7 +66,7 @@ public function registerBundles()
 {
         $bundles = array(
             // ...
-            new Wowo\Bundle\NewsletterBundle\WowoNewsletterBundle(),
+            new Wowo\NewsletterBundle\WowoNewsletterBundle(),
         );
 }
 ```
