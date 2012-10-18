@@ -24,7 +24,6 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('placeholders')
-                    ->addDefaultsIfNotSet()
                     ->defaultValue(array('name' => 'getFullName', 'email' => 'getEmail'))
                     ->useAttributeAsKey('')
                     ->cannotBeEmpty()
