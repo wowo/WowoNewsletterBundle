@@ -3,7 +3,7 @@
 namespace Wowo\NewsletterBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 use Wowo\NewsletterBundle\Entity\Mailing;
 
 class NewsletterType extends AbstractType
@@ -21,7 +21,7 @@ class NewsletterType extends AbstractType
         $this->canChooseContactsViaForm = $value;
     }
 
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('mailing', $this->mailingType, array('label' => ' ', 'data' => @$options['data']['mailing']));

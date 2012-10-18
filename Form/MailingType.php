@@ -3,7 +3,7 @@
 namespace Wowo\NewsletterBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class MailingType extends AbstractType
 {
@@ -14,7 +14,7 @@ class MailingType extends AbstractType
         $this->hasDelayedSending = $value;
     }
 
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('senderName', null, array('label' => 'Sender name'))
