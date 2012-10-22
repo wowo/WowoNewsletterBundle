@@ -7,7 +7,7 @@ use Wowo\NewsletterBundle\Newsletter\NewsletterManager;
 use Doctrine\ORM\EntityManager;
 use Wowo\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException;
 use Wowo\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessor;
-use lapistano\ProxyObject\ProxyObject;
+use lapistano\ProxyObject\ProxyBuilder;
 
 class PlaceholdersTest extends \PHPUnit_Framework_TestCase
 {
@@ -122,9 +122,8 @@ class PlaceholdersTest extends \PHPUnit_Framework_TestCase
 
     public function testGetPlaceholderValue()
     {
-        $proxy = new ProxyObject();
+        $proxy = new ProxyBuilder('\Wowo\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessor');
         $managerProxy= $proxy
-            ->getProxyBuilder('\Wowo\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessor')
             ->setMethods(array('getPlaceholderValue'))
             ->getProxy();
         $this->assertEquals('lol', $managerProxy->getPlaceholderValue(new FakeObject(), 'source'));

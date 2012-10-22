@@ -25,10 +25,6 @@ class MediaManagerTest extends \PHPUnit_Framework_TestCase
     public function testGetRegex()
     {
         $mailingMedia = new MediaManager();
-        $mailingMediaProxy = new ProxyObject();
-        $mailingMediaProxy->getProxyBuilder('\\' . get_class($mailingMedia))
-            ->setProperties(array('regex'))
-            ->getProxy();
         $this->assertNotNull($mailingMedia->getRegex('src'));
         $this->assertNotNull($mailingMedia->getRegex('background'));
         $this->assertNotNull($mailingMedia->getRegex('background_attribute'));
