@@ -1,5 +1,5 @@
 {
-    "hash": "9241eb4df2188a8440a46e8771e53781",
+    "hash": "bc9b7452ce41a0e67a79a7338ca77fad",
     "packages": [
         {
             "name": "doctrine/common",
@@ -139,12 +139,12 @@
             "source": {
                 "type": "git",
                 "url": "git://github.com/doctrine/doctrine2.git",
-                "reference": "9d0b254407e6f8827e0f00aa4ed0fcefc6111aad"
+                "reference": "e9c7deae4fa95fd24e106d97a7c83bcf9d2faaed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/doctrine2/zipball/9d0b254407e6f8827e0f00aa4ed0fcefc6111aad",
-                "reference": "9d0b254407e6f8827e0f00aa4ed0fcefc6111aad",
+                "url": "https://github.com/doctrine/doctrine2/zipball/e9c7deae4fa95fd24e106d97a7c83bcf9d2faaed",
+                "reference": "e9c7deae4fa95fd24e106d97a7c83bcf9d2faaed",
                 "shasum": ""
             },
             "require": {
@@ -156,7 +156,7 @@
             "suggest": {
                 "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
             },
-            "time": "1350878062",
+            "time": "1350957395",
             "bin": [
                 "bin/doctrine",
                 "bin/doctrine.php"
@@ -248,16 +248,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "dev-master",
+            "version": "0.7.2",
             "source": {
                 "type": "git",
                 "url": "git://github.com/padraic/mockery.git",
-                "reference": "b6adea3c241798c5afcbe2a2ac9294ce635a096f"
+                "reference": "0.7.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/padraic/mockery/zipball/b6adea3c241798c5afcbe2a2ac9294ce635a096f",
-                "reference": "b6adea3c241798c5afcbe2a2ac9294ce635a096f",
+                "url": "https://github.com/padraic/mockery/zipball/0.7.2",
+                "reference": "0.7.2",
                 "shasum": ""
             },
             "require": {
@@ -266,9 +266,9 @@
             "suggest": {
                 "Hamcrest": "1.0.0"
             },
-            "time": "1348513062",
+            "time": "2012-01-24 12:22:39",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-0": {
                     "Mockery": "library/"
@@ -480,7 +480,6 @@
     "stability-flags": {
         "swiftmailer/swiftmailer": 20,
         "doctrine/orm": 20,
-        "mockery/mockery": 20,
         "lapistano/proxy-object": 20
     }
 }

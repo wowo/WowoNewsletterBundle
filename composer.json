@@ -15,7 +15,7 @@
         "wowo/wowo-queue-bundle": "1.0.2",
         "swiftmailer/swiftmailer": "4.2.x-dev",
         "doctrine/orm": "2.4.x-dev",
-        "mockery/mockery" : "dev-master",
+        "mockery/mockery" : "0.7.2",
         "lapistano/proxy-object": "dev-master"
     },
     "suggest": {
