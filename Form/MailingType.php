@@ -14,7 +14,7 @@ class MailingType extends AbstractType
         $this->hasDelayedSending = $value;
     }
 
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('senderName', null, array('label' => 'Sender name'))

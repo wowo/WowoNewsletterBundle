@@ -2,7 +2,7 @@
 
 namespace Wowo\NewsletterBundle\Tests\Newsletter;
 
-use lapistano\ProxyObject\ProxyObject;
+use lapistano\ProxyObject\ProxyBuilder;
 use \Wowo\NewsletterBundle\Newsletter\Spooler;
 use \Wowo\NewsletterBundle\Entity\Mailing;
 
@@ -88,8 +88,8 @@ class SpoolerTest extends \PHPUnit_Framework_TestCase
 
     public function testGetInterval()
     {
-        $spooler = new ProxyObject();
-        $spooler = $spooler->getProxyBuilder('\Wowo\NewsletterBundle\Newsletter\Spooler')
+        $proxy= new ProxyBuilder('\Wowo\NewsletterBundle\Newsletter\Spooler');
+        $spooler = $proxy
             ->setMethods(array('getInterval'))
             ->disableOriginalConstructor()
             ->getProxy();

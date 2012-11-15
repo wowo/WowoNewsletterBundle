@@ -3,7 +3,7 @@
 namespace Wowo\NewsletterBundle\Tests\Newsletter;
 
 use Wowo\NewsletterBundle\Newsletter\Templates\TemplateManager;
-use lapistano\ProxyObject\ProxyObject;
+use lapistano\ProxyObject\ProxyBuilder;
 
 class TemplateManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,9 +22,8 @@ class TemplateManagerTest extends \PHPUnit_Framework_TestCase
         $tpls = array("main" => tempnam(sys_get_temp_dir(), 'NewsletterBundle'));
         file_put_contents($tpls['main'], 'NewsletterBundle');
 
-        $proxy = new ProxyObject();
+        $proxy = new ProxyBuilder($this->class);
         $managerProxy= $proxy
-            ->getProxyBuilder($this->class)
             ->setMethods(array('getActiveTemplatePath', 'getActiveTemplateBody'))
             ->disableOriginalConstructor()
             ->getProxy();
@@ -70,9 +69,8 @@ EOT;
      */
     public function testGetActiveTemplateBodyNonExistingPath()
     {
-        $proxy = new ProxyObject();
+        $proxy = new ProxyBuilder($this->class);
         $managerProxy= $proxy
-            ->getProxyBuilder($this->class)
             ->setMethods(array('getActiveTemplateBody'))
             ->disableOriginalConstructor()
             ->getProxy();

@@ -21,7 +21,7 @@ class NewsletterType extends AbstractType
         $this->canChooseContactsViaForm = $value;
     }
 
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('mailing', $this->mailingType, array('label' => ' ', 'data' => @$options['data']['mailing']));

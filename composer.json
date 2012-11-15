@@ -12,7 +12,11 @@
         }     
     ],
     "require": {
-        "wowo/wowo-queue-bundle":  "*"
+        "wowo/wowo-queue-bundle": "1.0.2",
+        "swiftmailer/swiftmailer": "4.2.x-dev",
+        "doctrine/orm": ">=2.2.3,<2.4-dev",
+        "mockery/mockery" : "0.7.2",
+        "lapistano/proxy-object": "dev-master"
     },
     "suggest": {
         "stfalcon/tinymce-bundle": "master"
@@ -20,5 +24,6 @@
     "autoload": {
         "psr-0": { "Wowo\\NewsletterBundle": "" }
     },
-    "target-dir": "Wowo/NewsletterBundle"
+    "target-dir": "Wowo/NewsletterBundle",
+    "minimum-stability": "dev"
 }
