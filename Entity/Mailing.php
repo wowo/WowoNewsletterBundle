@@ -21,7 +21,7 @@ class Mailing
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string $title
@@ -29,7 +29,7 @@ class Mailing
      * @Assert\NotBlank()
      * @ORM\Column(name="title", type="string", length=255)
      */
-    private $title;
+    protected $title;
 
     /**
      * @var text $body
@@ -37,7 +37,7 @@ class Mailing
      * @Assert\NotBlank()
      * @ORM\Column(name="body", type="text")
      */
-    private $body;
+    protected $body;
 
     /**
      * @var string $senderEmail
@@ -46,7 +46,7 @@ class Mailing
      * @Assert\Email()
      * @ORM\Column(name="senderEmail", type="string", length=255)
      */
-    private $senderEmail;
+    protected $senderEmail;
 
     /**
      * @var string $senderName
@@ -54,56 +54,56 @@ class Mailing
      * @Assert\NotBlank()
      * @ORM\Column(name="senderName", type="string", length=255)
      */
-    private $senderName;
+    protected $senderName;
 
     /**
      * @var datetime $sendDate
      *
      * @ORM\Column(name="sendDate", type="datetime", nullable=true)
      */
-    private $sendDate;
+    protected $sendDate;
 
     /**
      * @var datetime $createdAt
      *
      * @ORM\Column(name="createdAt", type="datetime")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var datetime $updatedAt
      *
      * @ORM\Column(name="updatedAt", type="datetime")
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * @var integer $totalCount
      * 
      * @ORM\Column(name="totalCount", type="integer")
      */
-    private $totalCount;
+    protected $totalCount;
 
     /**
      * @var integer $sentCount
      * 
      * @ORM\Column(name="sentCount", type="integer")
      */
-    private $sentCount;
+    protected $sentCount;
 
     /**
      * @var integer $errorsCount
      * 
      * @ORM\Column(name="errorsCount", type="integer")
      */
-    private $errorsCount;
+    protected $errorsCount;
 
     /**
      * @var bool $delayedMailing
      * 
      * @ORM\Column(name="delayedMailing", type="boolean")
      */
-    private $delayedMailing = false;
+    protected $delayedMailing = false;
 
     /**
      * Get id
