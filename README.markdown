@@ -29,8 +29,6 @@ Add following lines to your `composer.json` `"require"` definitions:
 "wowo/wowo-newsletter-bundle": "dev-master"
 ```
 
-Run composer
-
 Now, run the composer script to download the bundle:
 
 ``` bash
