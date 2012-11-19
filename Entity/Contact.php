@@ -19,28 +19,28 @@ class Contact
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string $name
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string $surname
      *
      * @ORM\Column(name="surname", type="string", length=255)
      */
-    private $surname;
+    protected $surname;
 
     /**
      * @var string $email
      *
      * @ORM\Column(name="email", type="string", length=255)
      */
-    private $email;
+    protected $email;
 
     public function __toString()
     {
