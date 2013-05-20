@@ -21,6 +21,22 @@ Features included:
 
 ### Step 1: Download WowoNewsletterBundle
 
+#### composer mechanism
+
+Add following lines to your `composer.json` `"require"` definitions:
+
+``` json
+"wowo/wowo-newsletter-bundle": "dev-master"
+```
+
+Now, run the composer script to download the bundle:
+
+``` bash
+$ php composer.phar install
+```
+
+#### deps mechanism
+
 Add following lines to your `deps` file:
 
 ```
@@ -33,13 +49,14 @@ Add following lines to your `deps` file:
         target=bundles/Wowo/QueueBundle
 
 ```
-Now, run the vendors script to download the bundle:
+
+and after check for other dependences and its settings at https://github.com/wowo/WowoQueueBundle, run the vendors script to download the bundle:
 
 ``` bash
 $ php bin/vendors install
 ```
 
-### Step 2: Configure the Autoloader
+### Step 2: Configure the Autoloader (skip it if you are using composer)
 
 Add the `Wowo` namespace to your autoloader:
 
