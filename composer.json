@@ -13,7 +13,7 @@
     ],
     "require": {
         "wowo/wowo-queue-bundle": "1.0.2",
-        "swiftmailer/swiftmailer": "4.2.x-dev",
+        "swiftmailer/swiftmailer": "4.2.*",
         "doctrine/orm": ">=2.2.3,<2.4-dev",
         "mockery/mockery" : "0.7.2",
         "lapistano/proxy-object": "dev-master"
