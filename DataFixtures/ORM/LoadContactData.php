@@ -23,7 +23,7 @@ class LoadContactData implements FixtureInterface
       "Gagnon",
       "Wilson",
     );
-    for($i = 0; $i < 10; $i++) {
+    for ($i = 0; $i < 10; $i++) {
       shuffle($surnames);
       $contact = new Contact();
       $contact->setName($names[array_rand($names)]);

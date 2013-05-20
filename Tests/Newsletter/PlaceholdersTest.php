@@ -3,8 +3,6 @@
 namespace Wowo\NewsletterBundle\Tests\Newsletter;
 
 use Wowo\NewsletterBundle\Entity\Contact;
-use Wowo\NewsletterBundle\Newsletter\NewsletterManager;
-use Doctrine\ORM\EntityManager;
 use Wowo\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException;
 use Wowo\NewsletterBundle\Newsletter\Placeholders\PlaceholderProcessor;
 use lapistano\ProxyObject\ProxyBuilder;
@@ -38,18 +36,19 @@ class PlaceholdersTest extends \PHPUnit_Framework_TestCase
         $contact->setEmail("john@example.org");
         $contact->setName("John");
         $contact->setSurname("Smith");
+
         return $contact;
     }
-    
+
     /**
-     *  @expectedException \BadMethodCallException 
+     *  @expectedException \BadMethodCallException
      */
     public function testFillPlaceholdersWithoutConfiguration()
     {
         $manager = new PlaceholderProcessor();
         $manager->process(new \StdClass(), "");
     }
-    
+
     /**
      *  @expectedException \InvalidArgumentException
      */
@@ -92,7 +91,6 @@ class PlaceholdersTest extends \PHPUnit_Framework_TestCase
         $manager->process($contact, "");
     }
 
-
     /**
      *  @expectedException Wowo\NewsletterBundle\Newsletter\Placeholders\Exception\InvalidPlaceholderMappingException
      *  @expectedExceptionCode 3
@@ -130,10 +128,12 @@ class PlaceholdersTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class FakeObject {
+class FakeObject
+{
     public $source = 'lol';
 }
 
-class MockContact extends Contact {
+class MockContact extends Contact
+{
     protected function getEmailX() {}
 }

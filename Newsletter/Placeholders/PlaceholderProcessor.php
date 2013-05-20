@@ -47,9 +47,9 @@ class PlaceholderProcessor implements PlaceholderProcessorInterface
 
     /**
      * Get value from object based on source (property or method). It claims that validation were done
-     * 
-     * @param mixed $object 
-     * @param mixed $source 
+     *
+     * @param mixed $object
+     * @param mixed $source
      * @access protected
      * @return void
      */
@@ -70,11 +70,12 @@ class PlaceholderProcessor implements PlaceholderProcessorInterface
             array($this->placeholder_delimiter_left, $this->placeholder_delimiter_right, $placeholder),
             $this->placeholder_regex
         );
+
         return preg_replace($regex, $value, $body);
     }
     /**
      * It looks firstly for properties, then for method (getter)
-     * 
+     *
      */
     protected function validatePlaceholders()
     {
@@ -87,7 +88,7 @@ class PlaceholderProcessor implements PlaceholderProcessorInterface
                         sprintf('A placeholder %s defines source %s as a property, but it isn\'t public visible', $placeholder, $source),
                         InvalidPlaceholderMappingException::NON_PUBLIC_PROPERTY);
                 }
-            } elseif($rc->hasMethod($source)) {
+            } elseif ($rc->hasMethod($source)) {
                 $rm = new \ReflectionMethod($this->referenceClass, $source);
                 if (!$rm->isPublic()) {
                     throw new InvalidPlaceholderMappingException(

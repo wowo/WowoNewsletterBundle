@@ -3,8 +3,6 @@
 namespace Wowo\NewsletterBundle\Tests\Newsletter;
 
 use Wowo\NewsletterBundle\Newsletter\Model\ContactManager;
-use Wowo\NewsletterBundle\Entity\Contact;
-use lapistano\ProxyObject\ProxyObject;
 
 class ContactManagerTest extends AbstractManagerBase
 {

@@ -34,6 +34,7 @@ class Configuration implements ConfigurationInterface
                                 throw new InvalidConfigurationException('No email mapping in newslettr placeholders '
                                    .'mappings. Please define one in wowo_newsletter -> placeholders -> email');
                             }
+
                             return $v;
                         })
                         ->then(function($v) {return $v;})

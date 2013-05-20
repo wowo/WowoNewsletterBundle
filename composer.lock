@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "0163676df6984683fcc64be3b584762b",
+    "hash": "10065177449d78e24b350f498b60df6e",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -546,16 +546,16 @@
         },
         {
             "name": "pda/pheanstalk",
-            "version": "dev-master",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pda/pheanstalk.git",
-                "reference": "5028537601caba22a85d20a3168443920538baac"
+                "reference": "v2.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pda/pheanstalk/zipball/5028537601caba22a85d20a3168443920538baac",
-                "reference": "5028537601caba22a85d20a3168443920538baac",
+                "url": "https://api.github.com/repos/pda/pheanstalk/zipball/v2.1.0",
+                "reference": "v2.1.0",
                 "shasum": ""
             },
             "require": {
@@ -584,7 +584,7 @@
             "keywords": [
                 "beanstalkd"
             ],
-            "time": "2013-04-03 09:09:52"
+            "time": "2013-04-03 09:15:34"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1420,21 +1420,21 @@
         },
         {
             "name": "wowo/wowo-queue-bundle",
-            "version": "1.0.2",
+            "version": "v1.3.0",
             "target-dir": "Wowo/QueueBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/wowo/WowoQueueBundle",
-                "reference": "1.0.2"
+                "url": "https://github.com/wowo/WowoQueueBundle.git",
+                "reference": "v1.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/wowo/WowoQueueBundle/zipball/1.0.2",
-                "reference": "1.0.2",
+                "url": "https://api.github.com/repos/wowo/WowoQueueBundle/zipball/v1.3.0",
+                "reference": "v1.3.0",
                 "shasum": ""
             },
             "require": {
-                "pda/pheanstalk": "dev-master"
+                "pda/pheanstalk": "v2.1.0"
             },
             "type": "package",
             "autoload": {
@@ -1442,6 +1442,10 @@
                     "Wowo\\QueueBundle": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
                     "name": "Wojciech Sznapka",
@@ -1454,7 +1458,7 @@
                 "beanstalkd",
                 "queue"
             ],
-            "time": "2012-10-18 03:22:47"
+            "time": "2013-04-17 14:31:27"
         }
     ],
     "packages-dev": [

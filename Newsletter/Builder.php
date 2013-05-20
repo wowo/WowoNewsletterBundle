@@ -10,12 +10,12 @@ use Wowo\NewsletterBundle\Entity\Mailing;
 
 /**
  * Builds Swift Mailer message based on mailin
- * 
+ *
  * @package default
  * @version $id$
- * @copyright 
- * @author Wojciech Sznapka <wojciech@sznapka.pl> 
- * @license 
+ * @copyright
+ * @author Wojciech Sznapka <wojciech@sznapka.pl>
+ * @license
  */
 class Builder implements BuilderInterface
 {
@@ -26,9 +26,9 @@ class Builder implements BuilderInterface
 
     /**
      * Constructor, passing obligatory dependencies
-     * 
-     * @param MailingManagerInterface $mailingManager 
-     * @param ContactManagerInterface $contactManager 
+     *
+     * @param MailingManagerInterface $mailingManager
+     * @param ContactManagerInterface $contactManager
      * @access public
      * @return void
      */
@@ -44,7 +44,6 @@ class Builder implements BuilderInterface
         $this->mediaManager = $mediaManager;
     }
 
-
     public function buildMessage($mailingId, $contactId, $contactClass)
     {
         $contact = $this->contactManager->findContact($contactId, $contactClass);
@@ -59,6 +58,7 @@ class Builder implements BuilderInterface
 
         $body = $this->buildMessageBody($contact, $mailing, $message);
         $message->setBody($body, 'text/html');
+
         return $message;
     }
 
@@ -66,12 +66,14 @@ class Builder implements BuilderInterface
     {
         $body = $this->placeholderProcessor->process($contact, $mailing->getBody());
         $body = $this->mediaManager->embed($body, $message);
+
         return $body;
     }
 
     protected function buildMessageSubject($contact, Mailing $mailing)
     {
         $title = $this->placeholderProcessor->process($contact, $mailing->getTitle());
+
         return $title;
     }
 

@@ -5,7 +5,6 @@ namespace Wowo\NewsletterBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Wowo\NewsletterBundle\Form\NewsletterType;
 use Wowo\NewsletterBundle\Newsletter\Newsletter;
 use Wowo\NewsletterBundle\Newsletter\Model\ContactManagerInterface;
 
@@ -26,7 +25,7 @@ class DefaultController extends Controller
             if ($form->isValid()) {
                 try {
                     $contactIds = $contactManager->findChoosenContactIdForMailing($form);
-                    $mailing    = $mailingManager->createMailingBasedOnForm($form, count((array)$contactIds));
+                    $mailing    = $mailingManager->createMailingBasedOnForm($form, count((array) $contactIds));
                     $contactClass = $this->container->getParameter('wowo_newsletter.model.contact.class');
                     $this->get('wowo_newsletter.spooler')->spoolManyContacts($mailing, $contactIds, $contactClass);
 
@@ -44,9 +43,11 @@ class DefaultController extends Controller
                         ->trans($e->getMessage());
                     $this->get('session')->setFlash('error', $msg);
                 }
+
                 return $this->redirect($this->generateUrl('wowo_newsletter_default_createmailing'));
             }
         }
+
         return array(
             'form' => $form->createView(),
             'templates' => $this->get('wowo_newsletter.template_manager')->getAvailableTemplates(),
@@ -56,14 +57,15 @@ class DefaultController extends Controller
 
     /**
      * Builds form for this controller
-     * 
-     * @param ContactManagerInterface $contactManager 
+     *
+     * @param ContactManagerInterface $contactManager
      * @access protected
      * @return void
      */
     protected function getForm(ContactManagerInterface $contactManager)
     {
         $newsletter = $this->get('wowo_newsletter.empty_newsletter');
+
         return $this->createForm($this->get('wowo_newsletter.form.newsletter'), $newsletter,
             array('data' => array(
                 'availableContacts' => $contactManager->findContactToChooseForMailing(),

@@ -2,8 +2,6 @@
 
 namespace Wowo\NewsletterBundle\Command;
 
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
@@ -17,7 +15,7 @@ class SendMailingCommand extends ContainerAwareCommand
         $this
             ->setDescription('Fetches jobs from queue, process them and send as an email')
             ->setHelp(<<<EOT
-The <info>newsletter:send</info> fetches jobs from queue, replaces placeholders 
+The <info>newsletter:send</info> fetches jobs from queue, replaces placeholders
 and sends emails to recipients.
 
 <info>php app/console newsletter:send</info>
@@ -36,8 +34,7 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $verbose = $input->getOption('verbose');
-        $logger = function($message) use ($output, $verbose)
-        {
+        $logger = function($message) use ($output, $verbose) {
             if ($verbose) {
                 $output->writeln($message);
             }

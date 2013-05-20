@@ -3,17 +3,17 @@
 namespace Wowo\NewsletterBundle\Newsletter;
 
 use Wowo\NewsletterBundle\Entity\Mailing;
-use Wowo\QueueBundle\QueueInterface;
+use Wowo\QueueBundle\QueueManager;
 
 /**
  * Spooler implementation
- * 
+ *
  * @uses SpoolerInterface
  * @package default
  * @version $id$
- * @copyright 
- * @author Wojciech Sznapka <wojciech@sznapka.pl> 
- * @license 
+ * @copyright
+ * @author Wojciech Sznapka <wojciech@sznapka.pl>
+ * @license
  */
 class Spooler implements SpoolerInterface
 {
@@ -23,22 +23,22 @@ class Spooler implements SpoolerInterface
 
     /**
      * Constructs object with queue and sender dependencies
-     * 
-     * @param QueueInterface $queue 
-     * @param SenderInterface $sender 
+     *
+     * @param QueueManager    $queue
+     * @param SenderInterface $sender
      * @access public
      * @return Spooler
      */
-    public function __construct(QueueInterface $queue, SenderInterface $sender)
+    public function __construct(QueueManager $queue, SenderInterface $sender)
     {
         $this->queue  = $queue;
         $this->sender = $sender;
     }
 
     /**
-     * setLogger 
-     * 
-     * @param \Closure $logger 
+     * setLogger
+     *
+     * @param \Closure $logger
      * @access public
      * @return void
      */
@@ -48,8 +48,8 @@ class Spooler implements SpoolerInterface
     }
 
     /**
-     * Processes spooled items 
-     * 
+     * Processes spooled items
+     *
      * @access public
      * @return void
      */
@@ -65,7 +65,7 @@ class Spooler implements SpoolerInterface
                     . " and mailing id <info>%d</info>", $time->format("Y-m-d h:i:s"), $job->contactId,
                       $job->mailingId));
             }
-            
+
             $message = $this->sender->send($job->mailingId, $job->contactId, $job->contactClass);
             if (is_callable($logger)) {
                 $logger(sprintf("<info>[%s]</info> Recipient: <info>%s</info> Subject: <info>%s</info>",
@@ -77,7 +77,7 @@ class Spooler implements SpoolerInterface
 
     /**
      * Clears queues
-     * 
+     *
      * @access public
      * @return void
      */
@@ -86,6 +86,7 @@ class Spooler implements SpoolerInterface
         $rawJob = $this->queue->get();
         if ($rawJob) {
             $this->queue->delete($rawJob);
+
             return true;
         } else {
             return false;
@@ -94,9 +95,9 @@ class Spooler implements SpoolerInterface
 
     /**
      * Spools mailing
-     * 
-     * @param Mailing $mailing 
-     * @param mixed $contactId 
+     *
+     * @param Mailing $mailing
+     * @param mixed   $contactId
      * @access public
      * @return void
      */
@@ -111,9 +112,9 @@ class Spooler implements SpoolerInterface
 
     /**
      * Spool with many contacts
-     * 
-     * @param Mailing $mailing 
-     * @param array $contactIds 
+     *
+     * @param Mailing $mailing
+     * @param array   $contactIds
      * @access public
      * @return void
      */
@@ -124,17 +125,18 @@ class Spooler implements SpoolerInterface
                 . 'one contact to send mailing');
         }
         $count = 0;
-        foreach(array_unique($contactIds) as $contactId) {
+        foreach (array_unique($contactIds) as $contactId) {
             $this->spool($mailing, $contactId, $contactClass);
             $count++;
         }
+
         return $count;
     }
 
     /**
      * Gets intaval for mailing
-     * 
-     * @param Mailing $mailing 
+     *
+     * @param Mailing $mailing
      * @access protected
      * @return seconds
      */
@@ -142,10 +144,11 @@ class Spooler implements SpoolerInterface
     {
         if ($mailing->isDelayedMailing()) {
             $interval = $mailing->getSendDate()->diff(new \DateTime("now"));
-            $intervalSeconds = $interval->format("%days") * 24 * 60 * 60 
-                + $interval->format("%h") * 60 * 60 
-                + $interval->format("%i") * 60 
+            $intervalSeconds = $interval->format("%days") * 24 * 60 * 60
+                + $interval->format("%h") * 60 * 60
+                + $interval->format("%i") * 60
                 + $interval->format("%s");
+
             return $intervalSeconds;
         } else {
             return null;

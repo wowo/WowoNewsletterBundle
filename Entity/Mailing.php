@@ -79,28 +79,28 @@ class Mailing
 
     /**
      * @var integer $totalCount
-     * 
+     *
      * @ORM\Column(name="totalCount", type="integer")
      */
     protected $totalCount;
 
     /**
      * @var integer $sentCount
-     * 
+     *
      * @ORM\Column(name="sentCount", type="integer")
      */
     protected $sentCount;
 
     /**
      * @var integer $errorsCount
-     * 
+     *
      * @ORM\Column(name="errorsCount", type="integer")
      */
     protected $errorsCount;
 
     /**
      * @var bool $delayedMailing
-     * 
+     *
      * @ORM\Column(name="delayedMailing", type="boolean")
      */
     protected $delayedMailing = false;
@@ -108,7 +108,7 @@ class Mailing
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -128,7 +128,7 @@ class Mailing
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -148,7 +148,7 @@ class Mailing
     /**
      * Get body
      *
-     * @return text 
+     * @return text
      */
     public function getBody()
     {
@@ -169,7 +169,7 @@ class Mailing
     /**
      * Get createdAt
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getCreatedAt()
     {
@@ -191,7 +191,7 @@ class Mailing
     /**
      * Get updatedAt
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getUpdatedAt()
     {
@@ -260,14 +260,14 @@ class Mailing
 
     public function isDelayedMailing()
     {
-        return (bool)$this->delayedMailing;
+        return (bool) $this->delayedMailing;
     }
 
     public function setDelayedMailing($value)
     {
         $this->delayedMailing = $value;
     }
-    
+
     public function __toString()
     {
         return $this->getTitle();

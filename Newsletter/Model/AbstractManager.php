@@ -3,17 +3,16 @@
 namespace Wowo\NewsletterBundle\Newsletter\Model;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\DependencyInjection\Container;
 
 /**
  * AbstractManager which is base for other managers which uses database (EntityManager)
- * 
+ *
  * @abstract
  * @package default
  * @version $id$
- * @copyright 
- * @author Wojciech Sznapka <wojciech@sznapka.pl> 
- * @license 
+ * @copyright
+ * @author Wojciech Sznapka <wojciech@sznapka.pl>
+ * @license
  */
 abstract class AbstractManager
 {

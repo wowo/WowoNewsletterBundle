@@ -6,27 +6,27 @@ use Wowo\NewsletterBundle\Newsletter\Templates\TemplateManagerInterface;
 use Wowo\NewsletterBundle\Newsletter\Model\Exception\MailingNotFoundException;
 
 /**
- * Mailing Manager is used to create mailing depends on form submited by suer 
- * 
+ * Mailing Manager is used to create mailing depends on form submited by suer
+ *
  * @uses AbstractManager
  * @uses MailingManagerInterface
  * @package default
  * @version $id$
- * @copyright 
- * @author Wojciech Sznapka <wojciech@sznapka.pl> 
- * @license 
+ * @copyright
+ * @author Wojciech Sznapka <wojciech@sznapka.pl>
+ * @license
  */
 class MailingManager extends AbstractManager implements MailingManagerInterface
 {
     /**
-     * template manager 
+     * template manager
      */
     protected $templateManager;
 
     /**
      * Template Manager setter
-     * 
-     * @param TemplateManagerInterface $templateManager 
+     *
+     * @param  TemplateManagerInterface $templateManager
      * @return void
      */
     public function setTemplateManager(TemplateManagerInterface $templateManager)
@@ -36,9 +36,9 @@ class MailingManager extends AbstractManager implements MailingManagerInterface
 
     /**
      * Creates mailing database entry depeding on form and values choosen by user
-     * 
-     * @param mixed $form 
-     * @param int $contactCount 
+     *
+     * @param  mixed   $form
+     * @param  int     $contactCount
      * @return Mailing
      */
     public function createMailingBasedOnForm($form, $contactCount)
@@ -53,6 +53,7 @@ class MailingManager extends AbstractManager implements MailingManagerInterface
         $mailing->setErrorsCount(0);
         $this->em->persist($mailing);
         $this->em->flush();
+
         return $mailing;
     }
 
@@ -65,6 +66,7 @@ class MailingManager extends AbstractManager implements MailingManagerInterface
         if (null == $mailing) {
             throw new MailingNotFoundException(sprintf('Mailing with id %d not found', $id));
         }
+
         return $mailing;
     }
 }

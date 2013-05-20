@@ -41,4 +41,3 @@ class NewsletterType extends AbstractType
         return 'wowo_bundle_newsletterbundle_newslettertype';
     }
 }
-

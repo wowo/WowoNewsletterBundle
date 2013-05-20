@@ -7,8 +7,8 @@ use Wowo\NewsletterBundle\Newsletter\Model\Exception\ContactNotFoundException;
 class ContactManager extends AbstractManager implements ContactManagerInterface
 {
     /**
-    * findContactToChooseForMailing 
-    * 
+    * findContactToChooseForMailing
+    *
     * @access public
     * @return Contact[]
     */
@@ -17,28 +17,30 @@ class ContactManager extends AbstractManager implements ContactManagerInterface
         $contacts = $this->em->getRepository($this->class)->findAll();
         $result   = array();
         foreach ($contacts as $contact) {
-            $result[$contact->getId()] = (string)$contact;
+            $result[$contact->getId()] = (string) $contact;
         }
+
         return $result;
     }
 
     /**
-    * findContactForMailingFromRequest 
-    * 
+    * findContactForMailingFromRequest
+    *
     * @access public
     * @return array
     */
     public function findChoosenContactIdForMailing($form)
     {
         $data = $form->getData();
+
         return $data['contacts'];
     }
 
     /**
-     * findContact 
-     * 
-     * @param mixed $id 
-     * @param mixed $class 
+     * findContact
+     *
+     * @param mixed $id
+     * @param mixed $class
      * @access public
      * @return Contact
      */
@@ -51,6 +53,7 @@ class ContactManager extends AbstractManager implements ContactManagerInterface
         if (!$contact) {
             throw new ContactNotFoundException(sprintf('Contact %s with id %d not found', $class, $id));
         }
+
         return $contact;
     }
 }

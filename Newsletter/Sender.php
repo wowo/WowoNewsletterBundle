@@ -12,8 +12,8 @@ class Sender implements SenderInterface
     /**
      * Constructs object with mailer and builder dependencies
      *
-     * @param \Swift_Mailer $mailer 
-     * @param BuilderInterface $builder 
+     * @param \Swift_Mailer    $mailer
+     * @param BuilderInterface $builder
      * @access public
      * @return Sender
      */
@@ -25,10 +25,10 @@ class Sender implements SenderInterface
 
     /**
      * Sends mailing
-     * 
-     * @param mixed $mailingId 
-     * @param mixed $contactId 
-     * @param mixed $contactClass 
+     *
+     * @param mixed $mailingId
+     * @param mixed $contactId
+     * @param mixed $contactClass
      * @access public
      * @return void
      */
@@ -40,6 +40,7 @@ class Sender implements SenderInterface
         if ($transport) {
             $transport->stop();
         }
+
         return $message;
     }
 }

@@ -3,7 +3,6 @@
 namespace Wowo\NewsletterBundle\Tests\Newsletter;
 
 use Wowo\NewsletterBundle\Newsletter\Media\MediaManager;
-use lapistano\ProxyObject\ProxyObject;
 
 class MediaManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -43,43 +42,43 @@ class MediaManagerTest extends \PHPUnit_Framework_TestCase
     {
         $image =<<<EOT
 <html>
-	<head>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<title>Mailing</title>
-	</head>
-	<body>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Mailing</title>
+    </head>
+    <body>
         <a href="#"><img src="images/bg.jpg" alt="logo" /></a>
-	</body>
+    </body>
 </html>
 EOT;
         $cssBackground =<<<EOT
 <html>
-	<head>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<title>Mailing</title>
-		<style type="text/css">
-			.bg1 {background:url(images/bg.jpg) top center repeat-y, #ebebed;}
-		</style>
-	</head>
-	<body>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Mailing</title>
+        <style type="text/css">
+            .bg1 {background:url(images/bg.jpg) top center repeat-y, #ebebed;}
+        </style>
+    </head>
+    <body>
         nothing
-	</body>
+    </body>
 </html>
 EOT;
         $background =<<<EOT
 <html>
-	<head>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<title>Mailing</title>
-	</head>
-	<body>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Mailing</title>
+    </head>
+    <body>
         <a href="#" background="images/bg.jpg" /></a>
-	</body>
+    </body>
 </html>
 EOT;
+
         return array(
             array($image), array($cssBackground), array($background)
         );
     }
 }
-

@@ -11,10 +11,11 @@ class AbstractManagerBase extends \PHPUnit_Framework_TestCase
         $emMock = \Mockery::mock('\Doctrine\ORM\EntityManager',
             array(
                 'getRepository' => new FakeRepository(),
-                'getClassMetadata' => (object)array('name' => 'aClass'),
+                'getClassMetadata' => (object) array('name' => 'aClass'),
                 'persist' => null,
                 'flush' => null,
             ));
+
         return $emMock;
     }
 
@@ -22,6 +23,7 @@ class AbstractManagerBase extends \PHPUnit_Framework_TestCase
     {
         $containerMock = \Mockery::mock('\Symfony\Component\DependencyInjection\Container',
             array('get' => null));
+
         return $containerMock;
     }
 }
@@ -32,6 +34,7 @@ class FakeRepository
     {
         $c1 = new Contact();
         $c1->setName('john');
+
         return array($c1);
     }
 }

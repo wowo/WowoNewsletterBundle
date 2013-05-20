@@ -2,7 +2,6 @@
 
 namespace Wowo\NewsletterBundle\Tests\Newsletter;
 
-use lapistano\ProxyObject\ProxyObject;
 use \Wowo\NewsletterBundle\Newsletter\Sender;
 
 class SenderTest extends \PHPUnit_Framework_TestCase

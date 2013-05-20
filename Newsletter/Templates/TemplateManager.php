@@ -20,8 +20,8 @@ class TemplateManager implements TemplateManagerInterface
 
     /**
      * Sets available templates
-     * 
-     * @param array $templates 
+     *
+     * @param  array $templates
      * @return void
      */
     public function setAvailableTemplates(array $templates)
@@ -47,9 +47,9 @@ class TemplateManager implements TemplateManagerInterface
     /**
      * Applies template, which means that it surrounds body with master template
      * and makes paths to images absolute, that makes they easy to embed into email
-     * 
-     * @param string $body 
-     * @param string $title 
+     *
+     * @param  string $body
+     * @param  string $title
      * @return void
      */
     public function applyTemplate($body, $title)
@@ -63,21 +63,22 @@ class TemplateManager implements TemplateManagerInterface
         foreach ($this->templateRegex as $regex) {
             $tpl = $this->makeAbsolutePaths($tpl, dirname($path), $this->mediaManager->getRegex($regex));
         }
+
         return $tpl;
     }
 
     /**
      * Makes absolute paths in template based on given regex
-     * 
-     * @param string $template 
-     * @param string $path 
-     * @param string $regex 
+     *
+     * @param string $template
+     * @param string $path
+     * @param string $regex
      * @access protected
      * @return string
      */
     protected function makeAbsolutePaths($template, $path, $regex)
     {
-        return preg_replace_callback($regex, 
+        return preg_replace_callback($regex,
             function ($matches) use ($template, $path) {
                 return str_replace($matches[1], $path . '/' . $matches[1], $matches[0]);
             }, $template);
@@ -85,7 +86,7 @@ class TemplateManager implements TemplateManagerInterface
 
     /**
      * Get active template path
-     * 
+     *
      * @return string
      */
     protected function getActiveTemplatePath()
@@ -95,7 +96,7 @@ class TemplateManager implements TemplateManagerInterface
 
     /**
      * Get active template body
-     * 
+     *
      * @return string
      */
     protected function getActiveTemplateBody()
@@ -104,6 +105,7 @@ class TemplateManager implements TemplateManagerInterface
         if (!$path || !file_exists($path)) {
             throw new NonExistingTemplateException (sprintf('Template "%s" does not exists or was not set', $path));
         }
+
         return file_get_contents($path);
     }
 }
