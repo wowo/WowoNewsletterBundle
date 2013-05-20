@@ -17,7 +17,7 @@
         "symfony/swiftmailer-bridge": ">=2.1.0,<=2.2.x-dev",        
         "symfony/console": ">=2.1.0,<=2.2.x-dev",
         "symfony/framework-bundle": ">=2.1.0,<=2.2.x-dev",
-        "symfony/config": ">=2.1.0,<=2.1.x-dev",
+        "symfony/config": ">=2.1.0,<=2.2.x-dev",
         "symfony/dependency-injection": ">=2.1.0,<=2.2.x-dev",
         "symfony/http-kernel": ">=2.1.0,<=2.2.x-dev",
         "symfony/validator": ">=2.1.0,<=2.2.x-dev",
