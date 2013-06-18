@@ -118,7 +118,9 @@ class Mailing
     /**
      * Set title
      *
-     * @param string $title
+     * @param string $title title
+     * 
+     * @return null
      */
     public function setTitle($title)
     {
@@ -138,7 +140,10 @@ class Mailing
     /**
      * Set body
      *
-     * @param text $body
+     * @param text $body body
+     * 
+     * @return null
+     * 
      */
     public function setBody($body)
     {
@@ -159,7 +164,8 @@ class Mailing
      * Set createdAt
      *
      * @ORM\PrePersist()
-     * @param datetime $createdAt
+     * 
+     * @return null
      */
     public function setCreatedAt()
     {
@@ -181,7 +187,8 @@ class Mailing
      *
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
-     * @param datetime $updatedAt
+     * 
+     * @return null
      */
     public function setUpdatedAt()
     {
@@ -191,85 +198,161 @@ class Mailing
     /**
      * Get updatedAt
      *
-     * @return datetime
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
-
+    /**
+     * sender email getter
+     * 
+     * @return string senderEmail
+     */ 
     public function getSenderEmail()
     {
         return $this->senderEmail;
     }
-
+    /**
+     * sender email setter
+     * 
+     * @param string $value sender email
+     * 
+     * @return null
+     */
     public function setSenderEmail($value)
     {
         $this->senderEmail = $value;
     }
-
+    /**
+     * sender name getter
+     * 
+     * @return string senderName
+     */
     public function getSenderName()
     {
         return $this->senderName;
     }
-
+    /**
+     * sender email getter
+     * 
+     * @param string $value sender name
+     * 
+     * @return null
+     */
     public function setSenderName($value)
     {
         $this->senderName = $value;
     }
 
+    /**
+     * send date getter
+     * 
+     * @return \DateTime send date
+     */
     public function getSendDate()
     {
         return (null != $this->sendDate) ? $this->sendDate : new \DateTime("+5 minute");
     }
-
+    /**
+     * send date setter
+     * 
+     * @param \DateTime $value send date
+     * 
+     * @return null
+     */
     public function setSendDate($value)
     {
         $this->sendDate = $value;
     }
-
+    /**
+     * total count setter
+     * 
+     * @param integer $value total count value
+     * 
+     * @return null
+     */
     public function setTotalCount($value)
     {
         $this->totalCount = $value;
     }
-
+    /**
+     * total count setter
+     * 
+     * @return integer totalcount
+     */
     public function getTotalCount()
     {
         return $this->totalCount;
     }
-
+    /**
+     * error count setter
+     * 
+     * @param integer $value errors count
+     * 
+     * @return null
+     */
     public function setErrorsCount($value)
     {
         $this->errorsCount = $value;
     }
-
+    /**
+     * error count getter
+     * 
+     * @return integer $value errors count
+     */
     public function getErrorsCount()
     {
         return $this->errorsCount;
     }
-
+    /**
+     * error count setter
+     * 
+     * @param integer $value errors count
+     * 
+     * @return null
+     */
     public function setSentCount($value)
     {
         $this->sentCount = $value;
     }
-
+    /**
+     * error count getter
+     * 
+     * @return integer errors count
+     * 
+     */
     public function getSentCount()
     {
         return $this->sentCount;
     }
-
+    /**
+     * delayed mailing checker
+     * 
+     * @return boolean
+     */
     public function isDelayedMailing()
     {
         return (bool) $this->delayedMailing;
     }
-
+    /**
+     * delayed mailing checker
+     * 
+     * @param boolean $value delayedmailing
+     * 
+     * @return null
+     */
     public function setDelayedMailing($value)
     {
         $this->delayedMailing = $value;
     }
-
+    /**
+     * Stringifier
+     * 
+     * @return string title or uniqueid value just for sonata admin bundle integration
+     */
     public function __toString()
     {
-        return $this->getTitle();
+        return $this->getTitle()!=null?$this->getTitle():uniqid();
     }
 }
