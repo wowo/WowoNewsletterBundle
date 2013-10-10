@@ -119,7 +119,7 @@ class Mailing
      * Set title
      *
      * @param string $title title
-     * 
+     *
      * @return null
      */
     public function setTitle($title)
@@ -141,9 +141,9 @@ class Mailing
      * Set body
      *
      * @param text $body body
-     * 
+     *
      * @return null
-     * 
+     *
      */
     public function setBody($body)
     {
@@ -164,7 +164,7 @@ class Mailing
      * Set createdAt
      *
      * @ORM\PrePersist()
-     * 
+     *
      * @return null
      */
     public function setCreatedAt()
@@ -187,7 +187,7 @@ class Mailing
      *
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
-     * 
+     *
      * @return null
      */
     public function setUpdatedAt()
@@ -206,18 +206,18 @@ class Mailing
     }
     /**
      * sender email getter
-     * 
+     *
      * @return string senderEmail
-     */ 
+     */
     public function getSenderEmail()
     {
         return $this->senderEmail;
     }
     /**
      * sender email setter
-     * 
+     *
      * @param string $value sender email
-     * 
+     *
      * @return null
      */
     public function setSenderEmail($value)
@@ -226,7 +226,7 @@ class Mailing
     }
     /**
      * sender name getter
-     * 
+     *
      * @return string senderName
      */
     public function getSenderName()
@@ -235,9 +235,9 @@ class Mailing
     }
     /**
      * sender email getter
-     * 
+     *
      * @param string $value sender name
-     * 
+     *
      * @return null
      */
     public function setSenderName($value)
@@ -247,7 +247,7 @@ class Mailing
 
     /**
      * send date getter
-     * 
+     *
      * @return \DateTime send date
      */
     public function getSendDate()
@@ -256,9 +256,9 @@ class Mailing
     }
     /**
      * send date setter
-     * 
+     *
      * @param \DateTime $value send date
-     * 
+     *
      * @return null
      */
     public function setSendDate($value)
@@ -267,9 +267,9 @@ class Mailing
     }
     /**
      * total count setter
-     * 
+     *
      * @param integer $value total count value
-     * 
+     *
      * @return null
      */
     public function setTotalCount($value)
@@ -278,7 +278,7 @@ class Mailing
     }
     /**
      * total count setter
-     * 
+     *
      * @return integer totalcount
      */
     public function getTotalCount()
@@ -287,9 +287,9 @@ class Mailing
     }
     /**
      * error count setter
-     * 
+     *
      * @param integer $value errors count
-     * 
+     *
      * @return null
      */
     public function setErrorsCount($value)
@@ -298,7 +298,7 @@ class Mailing
     }
     /**
      * error count getter
-     * 
+     *
      * @return integer $value errors count
      */
     public function getErrorsCount()
@@ -307,9 +307,9 @@ class Mailing
     }
     /**
      * error count setter
-     * 
+     *
      * @param integer $value errors count
-     * 
+     *
      * @return null
      */
     public function setSentCount($value)
@@ -318,9 +318,9 @@ class Mailing
     }
     /**
      * error count getter
-     * 
+     *
      * @return integer errors count
-     * 
+     *
      */
     public function getSentCount()
     {
@@ -328,7 +328,7 @@ class Mailing
     }
     /**
      * delayed mailing checker
-     * 
+     *
      * @return boolean
      */
     public function isDelayedMailing()
@@ -337,9 +337,9 @@ class Mailing
     }
     /**
      * delayed mailing checker
-     * 
+     *
      * @param boolean $value delayedmailing
-     * 
+     *
      * @return null
      */
     public function setDelayedMailing($value)
@@ -348,7 +348,7 @@ class Mailing
     }
     /**
      * Stringifier
-     * 
+     *
      * @return string title or uniqueid value just for sonata admin bundle integration
      */
     public function __toString()
