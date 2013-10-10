@@ -3,7 +3,7 @@
     "description": "Newsletter Bundle for Symfony2 (with messages queuing in beanstalkd)",
     "keywords": ["newsletter", "queue", "beanstalkd"],
     "type": "package",
-    "license": "",
+    "license": "MIT",
     "authors": [
         {
             "name":     "Wojciech Sznapka",
