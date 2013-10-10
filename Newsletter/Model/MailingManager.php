@@ -4,6 +4,7 @@ namespace Wowo\NewsletterBundle\Newsletter\Model;
 
 use Wowo\NewsletterBundle\Newsletter\Templates\TemplateManagerInterface;
 use Wowo\NewsletterBundle\Newsletter\Model\Exception\MailingNotFoundException;
+use Symfony\Component\Form\FormTypeInterface;
 
 /**
  * Mailing Manager is used to create mailing depends on form submited by suer
@@ -41,7 +42,7 @@ class MailingManager extends AbstractManager implements MailingManagerInterface
      * @param  int     $contactCount
      * @return Mailing
      */
-    public function createMailingBasedOnForm($form, $contactCount)
+    public function createMailingBasedOnForm(FormTypeInterface $form, $contactCount)
     {
         $data = $form->getData();
         $mailing = $data['mailing'];

@@ -55,7 +55,7 @@ class MediaManager implements MediaManagerInterface
      * @access protected
      * @return void
      */
-    protected function embedInlineContent($body, $message, $regex)
+    protected function embedInlineContent($body, \Swift_Message $message, $regex)
     {
         return preg_replace_callback($regex,
             function ($matches) use ($message) {

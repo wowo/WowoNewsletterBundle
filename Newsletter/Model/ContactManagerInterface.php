@@ -2,6 +2,8 @@
 
 namespace Wowo\NewsletterBundle\Newsletter\Model;
 
+use Symfony\Component\Form\FormTypeInterface;
+
 interface ContactManagerInterface
 {
     /**
@@ -12,7 +14,7 @@ interface ContactManagerInterface
     /**
      * Finds contacts that user has choosen for recieve the mailing
      */
-    public function findChoosenContactIdForMailing($source);
+    public function findChoosenContactIdForMailing(FormTypeInterface $form);
 
     /**
      * Finds contact of given class

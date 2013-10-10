@@ -3,6 +3,7 @@
 namespace Wowo\NewsletterBundle\Newsletter\Model;
 
 use Wowo\NewsletterBundle\Newsletter\Model\Exception\ContactNotFoundException;
+use Symfony\Component\Form\FormTypeInterface;
 
 class ContactManager extends AbstractManager implements ContactManagerInterface
 {
@@ -29,7 +30,7 @@ class ContactManager extends AbstractManager implements ContactManagerInterface
     * @access public
     * @return array
     */
-    public function findChoosenContactIdForMailing($form)
+    public function findChoosenContactIdForMailing(FormTypeInterface $form)
     {
         $data = $form->getData();
 
