@@ -1,0 +1,13 @@
+Bad credentials: Incorrect credentials
+The presented password is invalid.: The entered password is invalid
+The presented password cannot be empty.: The password cannot be left empty
+Sender name: Sender's name
+Sender e-mail: E-mail from the sender
+Title: Título
+Body: Contenido
+Send mailing: Send the newsletter
+Is delayed?: With delay?
+Send date: Deadline for sending
+Recipients: Recipients
+Mailing to %count% recipients has been enqueued for sending: The %count% recipients for sending have been placed in the mail queue.
+No contacs selected, it need to be at least one contact to send mailing: No contacts were selected. At least one is required to send mail.
