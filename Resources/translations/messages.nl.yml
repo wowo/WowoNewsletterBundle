@@ -1,0 +1,13 @@
+Bad credentials: Incorrecte login gegevens
+The presented password is invalid.: Het ingevoerde wachtwoord is ongeldig
+The presented password cannot be empty.: Het wachtwoord kan niet leeg gelaten worden.
+Sender name: Naam van de afzender
+Sender e-mail: E-mail van de afzender
+Title: Titel
+Body: Inhoud
+Send mailing: Stuur de nieuwsbrief
+Is delayed?: Met vertraging?
+Send date: Termijn voor verzending
+Recipients: Ontvangers
+Mailing to %count% recipients has been enqueued for sending: De %count% ontvangers voor verzending zijn in de postwachtrij geplaatst.
+No contacs selected, it need to be at least one contact to send mailing: Er zijn geen contacten geselecteerd. Minstens één is nodig om post te versturen.
